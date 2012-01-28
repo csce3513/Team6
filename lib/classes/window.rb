@@ -7,7 +7,7 @@ class Window < Gosu::Window
     @screenWidth = 800;
     @screenHeight = 600;
     super(@screenWidth, @screenHeight, false);
-    self.caption = "Gosu Tutorial Game";
+    self.caption = "Test";
     @background_image = Gosu::Image.new(self, "gfx/space-crown-nebula.jpg", true);
     @player = Player.new(self);
     @asteroids = Array.new(25);
