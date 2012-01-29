@@ -1,12 +1,11 @@
-require "chingu"
-
 class Player < Chingu::GameObject
-  has_traits :collision_detection
+  has_traits :collision_detection, :timer, :velocity
   attr_reader :player
   has_trait :bounding_box
   
-  def initialize(window)
-
+  def initialize( options = {} )
+    #super
+    
     #Settings for player movement
     @vel_max = 6  
     @acceleration = 0.5  
@@ -90,8 +89,10 @@ class Player < Chingu::GameObject
   
   def shoot
     @shooting = true
+    @cooling_down = true
     puts "#{@x}, #{@y}"
     Laser.create( :x => @x, :y => @y, :owner => self )
+    #after(500) { @cooling_down = false }
   end
   
   def x

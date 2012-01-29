@@ -18,7 +18,7 @@ class Laser < Chingu::GameObject
     @velocity_x *= @speed
     @velocity_y *= @speed
   
-    @anim = Chingu::Animation.new( :file => "gfx/laser.jpg", :size=>[2,8], :delay => 10).retrofy
+    @anim = Chingu::Animation.new( :file => "gfx/laser.jpg", :size=>[2,8]).retrofy
     @image = @anim.next
     self.factor = $window.object_factor
   
@@ -26,24 +26,15 @@ class Laser < Chingu::GameObject
   
   end
   
-  def on_collision(object = nil)
-    # Spawn 5 white sparks and 5 red sparks ... maybe we should just go with red?
-    # 5.times { Spark.create(:x => @x, :y => @y, :color => @@red.dup ) }
-    # 5.times { Spark.create(:x => @x, :y => @y, :color => @@white.dup ) }
-    # Sound["laser_hits_wall.wav"].play($settings['sound'])
-    puts "HIT"
-    destroy
-  end
-  
   def update    
     @bounding_box.x = @x
     @bounding_box.y = @y
     @image = @anim.next
-    # self.each_bounding_box_collision(Laser, Asteroid, Player) do |me, obj|
-    #   next if me == obj or me.owner == obj
-    #   on_collision(obj)
-    #   obj.on_collision(me) if obj.respond_to? :on_collision
-    # end
+    self.each_bounding_box_collision(Laser, Asteroid, Player) do |me, obj|
+      next if me == obj or me.owner == obj
+      on_collision(obj)
+      obj.on_collision(me) if obj.respond_to? :on_collision
+    end
     
     destroy if outside_window?
   end

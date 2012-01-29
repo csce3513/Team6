@@ -8,13 +8,15 @@ require_all  File.join(GAMEROOT,"classes")
 class Asteroids < Chingu::Window
   attr_accessor :music, :screenWith, :screenHeight, :window, :object_factor
 
-  def initialize
+  def initialize(width = 1024, height = 768, fullscreen = false, update_interval = 16.666666)
+    super
+    
     retrofy
     
     @screenWidth = 1024  
     @screenHeight = 768 
     @object_factor = 2.5 
-    super(@screenWidth, @screenHeight, false, 16.666666)  
+    #super(@screenWidth, @screenHeight, false, 16.666666)  
     self.caption = "Planetary Defense"  
     self.input = { :f1 => :debug, [:q, :escape] => :exit }
     @directions_to_xy = { :north => [0, -1], :east => [1, 0], :south => [0, 1], :west => [-1, 0] }
@@ -52,5 +54,5 @@ class Asteroids < Chingu::Window
   
 end
 
-g = Asteroids.new
+g = Asteroids.new(1024, 768, false)
 g.show

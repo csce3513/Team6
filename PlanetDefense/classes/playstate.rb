@@ -1,7 +1,7 @@
 class PlayState < Chingu::GameState
   attr_reader :player
 
-  def initialize
+  def initialize( options = {})
     super
     @player = Player.new(self)  
     @asteroids = 15.times.map { Asteroid.new(self) }
