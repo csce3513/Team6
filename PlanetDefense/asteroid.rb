@@ -1,7 +1,6 @@
-# To change this template, choose Tools | Templates
-# and open the template in the editor.
+require "chingu"
 
-class Asteroid
+class Asteroid < Chingu::GameObject
   def initialize(window)    
     #Getting window dimensions
     @screenWidth = window.width  

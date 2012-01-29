@@ -4,6 +4,7 @@ require 'rubygems'
 require 'gosu'
 require "player"
 require "asteroid"
+require "chingu"
 
 class Asteroids < Gosu::Window
 

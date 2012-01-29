@@ -1,4 +1,6 @@
-class Player
+require "chingu"
+
+class Player < Chingu::GameObject
   def initialize(window)
     #Settings for player movement
     @vel_max = 6;
