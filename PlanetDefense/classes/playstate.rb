@@ -37,7 +37,7 @@ class PlayState < Chingu::GameState
   end
   
   def update
-    $window.caption = "Planetary Defense v0.0.1 [FPS:#{$window.fps} - dt:#{$window.milliseconds_since_last_tick}]"
+    $window.caption = "Planet Defense v0.0.1 [FPS:#{$window.fps} - dt:#{$window.milliseconds_since_last_tick}]"
     if @running == true and @pause == false
       
       #Asteroid Movement
