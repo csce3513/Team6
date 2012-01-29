@@ -2,6 +2,7 @@ class PlayState < Chingu::GameState
   attr_reader :player
 
   def initialize
+    super
     @player = Player.new(self)  
     @asteroids = 15.times.map { Asteroid.new(self) }
     @background_image = Gosu::Image.new($window, "gfx/space-with-earth.jpg", true)

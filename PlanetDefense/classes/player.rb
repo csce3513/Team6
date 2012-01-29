@@ -12,10 +12,9 @@ class Player < Chingu::GameObject
     @acceleration = 0.5  
     @deceleration = 0.95  
     @vel_x = @vel_y = 0.0  
-    
-    
     @x = $window.width / 2  
-    @y = $window.height - 50  
+    @y = $window.height - 50
+      
     @shooting = false
     @image = Gosu::Image.new($window, "gfx/shipNormal.bmp")  
   end
@@ -43,11 +42,7 @@ class Player < Chingu::GameObject
       @vel_y += @acceleration  
     end
   end
-  
-  def fire
-    Laser.create( :x => @x, :y => @y)
-  end
-    
+
   def move
     #Position
     @x += @vel_x  
@@ -96,7 +91,7 @@ class Player < Chingu::GameObject
   def shoot
     @shooting = true
     puts "#{@x}, #{@y}"
-    Laser.create( :x => @x, :y => @y)
+    Laser.create( :x => @x, :y => @y, :owner => self )
   end
   
   def x
