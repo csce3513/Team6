@@ -2,13 +2,14 @@ require "chingu"
 
 class Asteroid < Chingu::GameObject
   def initialize(window)    
+    
     #Getting window dimensions
-    @screenWidth = window.width  
-    @screenHeight = window.height  
+    @screenWidth = $window.width  
+    @screenHeight = $window.height  
     
     #Give asteroid random image
     @imageNum = rand(3) + 1  
-    @image = Gosu::Image.new(window, "gfx/asteroid" + @imageNum.to_s() + ".bmp", false)  
+    @image = Gosu::Image.new($window, "gfx/asteroid" + @imageNum.to_s() + ".bmp", false)  
     
     #Asteroids start at top, with random x and angle
     @x = rand(@screenWidth * 1.5) - (@screenWidth * 0.25)  
