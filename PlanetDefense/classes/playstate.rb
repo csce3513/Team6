@@ -46,6 +46,8 @@ class PlayState < Chingu::GameState
       if @player.hit_by? @asteroids
         @health -= 10
         @hit = true
+        Sound["sounds/explosion.wav"].play(0.4)
+        @music.pause()
         stop_game
       end
       
@@ -92,6 +94,7 @@ class PlayState < Chingu::GameState
   def refresh_game
     @running = true
     @hit = false
+    @music.play()
     @asteroids.each {|asteroid| asteroid.reset unless asteroid == nil}
   end
   
