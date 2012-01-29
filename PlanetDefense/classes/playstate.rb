@@ -12,6 +12,7 @@ class PlayState < Chingu::GameState
     @running = true
     @score = 0
     @health = 100
+    @bullets = 5
 
     @music.play(looping = true) unless @pause == true
   end
@@ -30,13 +31,13 @@ class PlayState < Chingu::GameState
       @running = false
       close
     end
-    if $window.button_down? Gosu::Button::KbSpace
+    if $window.button_down? Gosu::Button::KbR
       refresh_game
     end
   end
   
   def update
-    $window.caption = "FPS:#{$window.fps} - dt:#{$window.milliseconds_since_last_tick}"
+    $window.caption = "Planetary Defense v0.0.1 [FPS:#{$window.fps} - dt:#{$window.milliseconds_since_last_tick}]"
     if @running == true and @pause == false
       
       #Asteroid Movement
@@ -81,7 +82,8 @@ class PlayState < Chingu::GameState
     
     # Notices on screen
     @font.draw_rel("The game is paused.", 500, 200, 10, 0.5, 0.5, 1, 1, Gosu::Color::WHITE) if @pause == true
-    @font.draw_rel("You got hit!", 500, 200, 10, 0.5, 0.5, 1, 1, Gosu::Color::RED) if @hit == true
+    @font.draw_rel("Asteroid Impact!", 500, 200, 10, 0.5, 0.5, 1, 1, Gosu::Color::RED) if @hit == true
+    @font.draw_rel("Hit R to restart.", 500, 300, 10, 0.5, 0.5, 1, 1, Gosu::Color::RED) if @hit == true
     
     #Asteroid Draw
     @asteroids.each{|asteroid| asteroid.draw unless asteroid == nil }

@@ -2,6 +2,8 @@ require "chingu"
 
 class Player < Chingu::GameObject
   has_traits :collision_detection
+  attr_reader :player
+  has_trait :bounding_box
   
   def initialize(window)
 
@@ -14,9 +16,8 @@ class Player < Chingu::GameObject
     
     @x = $window.width / 2  
     @y = $window.height - 50  
-    
+    @shooting = false
     @image = Gosu::Image.new($window, "gfx/shipNormal.bmp")  
-    
   end
   
   def move_left
@@ -43,6 +44,10 @@ class Player < Chingu::GameObject
     end
   end
   
+  def fire
+    Laser.create( :x => @x, :y => @y)
+  end
+    
   def move
     #Position
     @x += @vel_x  
@@ -71,6 +76,12 @@ class Player < Chingu::GameObject
     move_forward if $window.button_down?(Gosu::KbUp) or $window.button_down?(Gosu::GpUp)
     move_backward if $window.button_down?(Gosu::KbDown) or $window.button_down?(Gosu::GpDown)
     
+    if $window.button_down?(Gosu::KbSpace) or $window.button_down?(Gosu::GpButton0)
+      shoot
+    else
+      stop_shooting
+    end
+    
   end
   
   def hit_by?(asteroids)
@@ -80,6 +91,24 @@ class Player < Chingu::GameObject
   def on_collision(object = nil)
     puts "#{object.class} #{object.x}/#{object.y}"
     puts "#{self.class} #{self.x}/#{self.y}"
+  end
+  
+  def shoot
+    @shooting = true
+    puts "#{@x}, #{@y}"
+    Laser.create( :x => @x, :y => @y)
+  end
+  
+  def x
+   @x  
+  end
+
+  def y
+   @y
+  end
+   
+  def stop_shooting
+     @shooting = false
   end
   
   def draw
