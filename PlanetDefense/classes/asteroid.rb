@@ -28,6 +28,15 @@ class Asteroid < Chingu::GameObject
     end
   end
   
+  def on_collision(object = nil)
+    puts "#{object.class} #{object.x}/#{object.y}"
+    puts "#{self.class} #{self.x}/#{self.y}"
+  end
+  
+  def hit_by?(objects)
+    $window.game_objects.any? {|obj| Gosu::distance(@x, @y, obj.x, obj.y) <= 55 unless obj == nil }
+  end
+  
   def move
     @x += @vel_x  
     @y += @vel_y  
@@ -50,5 +59,6 @@ class Asteroid < Chingu::GameObject
     @y = 0
     @x = rand(@screenWidth)
   end
+  
   
 end

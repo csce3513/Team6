@@ -1,2 +1,3 @@
 source :rubygems
 gem "chingu"
+gem "ruby-debug19"

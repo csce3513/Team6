@@ -4,7 +4,6 @@ class Player < Chingu::GameObject
   has_trait :bounding_box
   
   def initialize( options = {} )
-    #super
     
     #Settings for player movement
     @vel_max = 6  
@@ -91,8 +90,8 @@ class Player < Chingu::GameObject
     @shooting = true
     @cooling_down = true
     puts "#{@x}, #{@y}"
-    Laser.create( :x => @x, :y => @y, :owner => self )
-    #after(500) { @cooling_down = false }
+    laser = Laser.create( :x => @x, :y => @y, :velocity => [-1,1], :owner => self )
+    laser.move
   end
   
   def x

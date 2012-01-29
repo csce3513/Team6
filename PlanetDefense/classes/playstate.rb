@@ -52,6 +52,12 @@ class PlayState < Chingu::GameState
         stop_game
       end
       
+      # @asteroids.each do |asteroid|
+      #       asteroid.hit_by? game_objects
+      #         puts 'hit!'
+      #       end
+      #     end
+      
       self.input = { :escape => :close }
       
       @player.move  
@@ -80,6 +86,7 @@ class PlayState < Chingu::GameState
   end
   
   def draw
+    super
     @background_image.draw(0,0,0)  
     @player.draw  
     
@@ -92,11 +99,17 @@ class PlayState < Chingu::GameState
     @asteroids.each{|asteroid| asteroid.draw unless asteroid == nil }
   end
   
+  def finalize
+    game_objects.each(&:destroy)
+  end
+  
   def refresh_game
     @running = true
     @hit = false
     @music.play()
     @asteroids.each {|asteroid| asteroid.reset unless asteroid == nil}
+    game_objects.methods
+    game_objects.each(&:destroy)
   end
   
   def stop_game
