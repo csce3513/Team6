@@ -5,7 +5,7 @@ include Gosu
 include Chingu
 require_all  File.join(GAMEROOT,"classes")
 
-class Asteroids < Chingu::Window
+class PlanetDefense < Chingu::Window
   attr_accessor :music, :screenWith, :screenHeight, :window, :object_factor
 
   def initialize(width = 1024, height = 768, fullscreen = false, update_interval = 16.666666)
@@ -53,5 +53,5 @@ class Asteroids < Chingu::Window
   
 end
 
-g = Asteroids.new(1024, 768, false)
+g = PlanetDefense.new(1024, 768, false)
 g.show
