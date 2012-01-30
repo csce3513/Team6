@@ -1,6 +1,11 @@
 GEM
   remote: http://rubygems.org/
   specs:
+    actionpool (0.2.3)
+      splib (~> 1.4)
+    actiontimer (0.2.1)
+      actionpool (~> 0.2.3)
+      splib (~> 1.4)
     archive-tar-minitar (0.5.2)
     chingu (0.8.1)
       crack
@@ -24,10 +29,12 @@ GEM
       ruby-debug-base19 (>= 0.11.19)
     ruby_core_source (0.1.5)
       archive-tar-minitar (>= 0.5.2)
+    splib (1.4.3)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  actiontimer
   chingu
   ruby-debug19
