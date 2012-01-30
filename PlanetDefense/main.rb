@@ -17,7 +17,6 @@ class Asteroids < Chingu::Window
     @screenHeight = 768 
     @object_factor = 2.5 
     #super(@screenWidth, @screenHeight, false, 16.666666)  
-    self.caption = "Planetary Defense"  
     self.input = { :f1 => :debug, [:q, :escape] => :exit }
     @directions_to_xy = { :north => [0, -1], :east => [1, 0], :south => [0, 1], :west => [-1, 0] }
     push_game_state( PlayState )
