@@ -1,3 +1,5 @@
+require 'actiontimer'
+
 class Player < Chingu::GameObject
   has_traits :collision_detection, :timer, :velocity
   attr_reader :player
@@ -12,7 +14,7 @@ class Player < Chingu::GameObject
     @vel_x = @vel_y = 0.0  
     @x = $window.width / 2  
     @y = $window.height - 50
-      
+    @timer = ActionTimer::Timer.new
     @shooting = false
     @image = Gosu::Image.new($window, "gfx/shipNormal.bmp")  
   end
@@ -87,11 +89,13 @@ class Player < Chingu::GameObject
   end
   
   def shoot
+    #return if @cooling_down
+    
     @shooting = true
     @cooling_down = true
-    puts "#{@x}, #{@y}"
-    laser = Laser.create( :x => @x, :y => @y, :velocity => [-1,1], :owner => self )
-    laser.move
+    Laser.create( :x => @x-20, :y => @y-15)
+    Laser.create( :x => @x+20, :y => @y-15)
+    #@timer.add(:period => 1){ @cooling_down = false  }
   end
   
   def x

@@ -28,9 +28,8 @@ class Asteroid < Chingu::GameObject
     end
   end
   
-  def on_collision(object = nil)
-    puts "#{object.class} #{object.x}/#{object.y}"
-    puts "#{self.class} #{self.x}/#{self.y}"
+  def on_collision(object = nil)    
+    destroy
   end
   
   def hit_by?(objects)

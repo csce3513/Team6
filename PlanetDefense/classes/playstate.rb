@@ -12,7 +12,7 @@ class PlayState < Chingu::GameState
     @pause = false
     @running = true
     @score = 0
-    @health = 100
+    @lives = 5
     @bullets = 5
 
     @music.play(looping = true) unless @pause == true
@@ -38,25 +38,24 @@ class PlayState < Chingu::GameState
   end
   
   def update
-    $window.caption = "Planet Defense v0.0.1 [FPS:#{$window.fps} - dt:#{$window.milliseconds_since_last_tick}]"
+    super
+    $window.caption = "Planet Defense v0.0.1 [FPS:#{$window.fps} - GameObjects: #{game_objects.size}"
     if @running == true and @pause == false
       
       #Asteroid Movement
       @asteroids.each{ |asteroid| asteroid.move unless asteroid == nil }
   
       if @player.hit_by? @asteroids
-        @health -= 10
+        @lives -= 1
+        if @lives == 0 
+          pop_game_state()
+          push_game_state( GameOver )
+        end
         @hit = true
         Sound["sounds/explosion.wav"].play(0.4)
         @music.pause()
         stop_game
       end
-      
-      # @asteroids.each do |asteroid|
-      #       asteroid.hit_by? game_objects
-      #         puts 'hit!'
-      #       end
-      #     end
       
       self.input = { :escape => :close }
       
@@ -93,7 +92,9 @@ class PlayState < Chingu::GameState
     # Notices on screen
     @font.draw_rel("The game is paused.", 500, 200, 10, 0.5, 0.5, 1, 1, Gosu::Color::WHITE) if @pause == true
     @font.draw_rel("Asteroid Impact!", 500, 200, 10, 0.5, 0.5, 1, 1, Gosu::Color::RED) if @hit == true
-    @font.draw_rel("Hit R to restart.", 500, 300, 10, 0.5, 0.5, 1, 1, Gosu::Color::RED) if @hit == true
+    @font.draw_rel("Press R to restart.", 500, 300, 10, 0.5, 0.5, 1, 1, Gosu::Color::RED) if @hit == true
+    @font.draw_rel("Lives: #{@lives}", 100, 50, 10, 0.5, 0.5, 1, 1, Gosu::Color::WHITE)
+    @font.draw_rel("Score: #{@score}", 900, 50, 10, 0.5, 0.5, 1, 1, Gosu::Color::WHITE)
     
     #Asteroid Draw
     @asteroids.each{|asteroid| asteroid.draw unless asteroid == nil }
@@ -115,4 +116,9 @@ class PlayState < Chingu::GameState
   def stop_game
     @running = false
   end
+  
+  def game_objects_size
+    game_objects.size
+  end
+  
 end
