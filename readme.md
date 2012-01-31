@@ -1,6 +1,6 @@
 Installation Instructions
 --------------
-  * Install Ruby 1.9.2
+  * Install Ruby **1.9.2**
     * Mac: install via RVM
     * Windows: RubyInstaller http://rubyinstaller.org/
   * Install RubyGems - http://rubygems.org/pages/download
