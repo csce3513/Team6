@@ -14,8 +14,8 @@ class Player < Chingu::GameObject
     @vel_x = @vel_y = 0.0  
     @x = $window.width / 2  
     @y = $window.height - 50
-    @timer = ActionTimer::Timer.new
-    @shooting = false
+    @lastShot = milliseconds()
+    @reloadTime = 100 #In milliseconds
     @image = Gosu::Image.new($window, "gfx/shipNormal.bmp")  
   end
   
@@ -71,12 +71,8 @@ class Player < Chingu::GameObject
     move_forward if $window.button_down?(Gosu::KbUp) or $window.button_down?(Gosu::GpUp)
     move_backward if $window.button_down?(Gosu::KbDown) or $window.button_down?(Gosu::GpDown)
     
-    if $window.button_down?(Gosu::KbSpace) or $window.button_down?(Gosu::GpButton0)
-      shoot
-    else
-      stop_shooting
-    end
-    
+    shoot if $window.button_down?(Gosu::KbSpace) or $window.button_down?(Gosu::GpButton0)
+     
   end
   
   def hit_by?(asteroids)
@@ -90,12 +86,11 @@ class Player < Chingu::GameObject
   
   def shoot
     #return if @cooling_down
-    
-    @shooting = true
-    @cooling_down = true
-    Laser.create( :x => @x-20, :y => @y-15)
-    Laser.create( :x => @x+20, :y => @y-15)
-    #@timer.add(:period => 1){ @cooling_down = false  }
+    if (milliseconds() - @reloadTime) > @lastShot
+      @lastShot = milliseconds()
+      Laser.create( :x => @x-20, :y => @y-15)
+      Laser.create( :x => @x+20, :y => @y-15)
+    end
   end
   
   def x
@@ -104,10 +99,6 @@ class Player < Chingu::GameObject
 
   def y
    @y
-  end
-   
-  def stop_shooting
-     @shooting = false
   end
   
   def draw
