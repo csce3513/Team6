@@ -1,9 +1,8 @@
-GAMEROOT = File.dirname(File.expand_path($0))
 require 'rubygems' unless RUBY_VERSION =~ /1\.9/
 require 'chingu'
 include Gosu
 include Chingu
-require_all  File.join(GAMEROOT,"classes")
+require_all  File.join("lib")
 
 class PlanetDefense < Chingu::Window
   attr_accessor :music, :screenWith, :screenHeight, :window, :object_factor

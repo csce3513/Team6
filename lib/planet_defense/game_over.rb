@@ -2,9 +2,9 @@ class GameOver < Chingu::GameState
   def initialize(options = {})
     super
     self.input = { :r => :replay }
-    @font = Gosu::Font.new($window, "fonts/MuseoSans_300.otf", 45)
-    @font2 = Gosu::Font.new($window, "fonts/MuseoSans_300.otf", 25)
-    Sound["sounds/game_over.wav"].play(0.5)
+    @font = Gosu::Font.new($window, "media/fonts/MuseoSans_300.otf", 45)
+    @font2 = Gosu::Font.new($window, "media/fonts/MuseoSans_300.otf", 25)
+    Sound["media/sounds/game_over.wav"].play(0.5)
   end
           
   def draw

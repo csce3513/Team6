@@ -16,7 +16,7 @@ class Player < Chingu::GameObject
     @y = $window.height - 50
     @lastShot = milliseconds()
     @reloadTime = 100 #In milliseconds
-    @image = Gosu::Image.new($window, "gfx/shipNormal.bmp")  
+    @image = Gosu::Image.new($window, "media/gfx/shipNormal.bmp")  
   end
   
   def move_left

@@ -13,7 +13,7 @@ CLOBBER.include("doc/**/*")
 Releasy::Project.new do
   name "PlanetDefense"
   version '0.0.1'
-  executable "main.rb"
+  executable "bin/planet_defense.rbw"
   files `git ls-files`.split("\n")
   files.exclude %w[.gitignore build/**/*.* spec/**/*.*]
   exclude_encoding
@@ -21,7 +21,6 @@ Releasy::Project.new do
   add_build :osx_app do
     wrapper "../releasy/wrappers/gosu-mac-wrapper-0.7.41.tar.gz"
     url "com.github.addamh.planetdefense"
-    icon "media/icon.icns"
     add_package :tar_gz
   end
 

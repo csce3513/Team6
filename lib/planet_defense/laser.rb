@@ -14,13 +14,13 @@ class Laser < Chingu::GameObject
     @y = options[:y]
     @bounding_box = Chingu::Rect.new([options[:x], options[:y]-40, 3,3])
     @length = 5
-    Sound["sounds/laser.wav"].play(0.2)
+    Sound["media/sounds/laser.wav"].play(0.2)
     
 
 
     @velocity_x *= @speed
     @velocity_y *= @speed
-    @anim = Chingu::Animation.new( :file => "gfx/laser.png", :size=>[2,8], :delay => 10).retrofy
+    @anim = Chingu::Animation.new( :file => "media/gfx/laser.png", :size=>[2,8], :delay => 10).retrofy
     @image = @anim.next
     self.factor = $window.object_factor
 

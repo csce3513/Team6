@@ -5,9 +5,9 @@ class PlayState < Chingu::GameState
     super
     @player = Player.new(self)  
     @asteroids = 15.times.map { Asteroid.new(self) }
-    @background_image = Gosu::Image.new($window, "gfx/space-with-earth.jpg", true)
-    @music = Gosu::Song.new($window, "sounds/background.wav")
-    @font = Gosu::Font.new($window, "fonts/MuseoSans_300.otf", 43)
+    @background_image = Gosu::Image.new($window, "media/gfx/space-with-earth.jpg", true)
+    @music = Gosu::Song.new($window, "media/sounds/background.wav")
+    @font = Gosu::Font.new($window, "media/fonts/MuseoSans_300.otf", 43)
     @count = 0  
     @pause = false
     @running = true
@@ -52,7 +52,7 @@ class PlayState < Chingu::GameState
           push_game_state( GameOver )
         end
         @hit = true
-        Sound["sounds/explosion.wav"].play(0.4)
+        Sound["media/sounds/explosion.wav"].play(0.4)
         @music.pause()
         stop_game
       end
