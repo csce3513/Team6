@@ -1,21 +1,12 @@
-AD_PATH.unshift(File.dirname(__FILE__))
-$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
-
-require 'rubygems'
 require 'rspec'
-require 'PlanetDefense/require_all'
-
+require 'rubygems'
+require 'gosu'
 require 'chingu'
 
-def media_path(file)
-    File.join($window.root, "..", "..", "classes", "fonts","gfx","sounds" file)
+RSpec.configure do |c|
+  c.mock_with :rspec
 end
 
-if defined?(Rcov)
-    # all_app_files = Dir.glob('lib/**/*.rb')
-  #   # all_app_files.each{|rb| require rb}
-  #   end
-  #
-end
-end
+Dir['./../lib/*.rb'].map {|f| require f}
+
 
