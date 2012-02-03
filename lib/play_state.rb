@@ -6,7 +6,7 @@ class PlayState < Chingu::GameState
     @player = Player.new(self)  
     @asteroids = 15.times.map { Asteroid.new(self) }
     @background_image = Gosu::Image.new($window, "gfx/space-with-earth.jpg", true)
-    @music = Gosu::Song.new($window, "sounds/background.mp3")
+    @music = Gosu::Song.new($window, "sounds/background.wav")
     @font = Gosu::Font.new($window, "fonts/MuseoSans_300.otf", 43)
     @count = 0  
     @pause = false
