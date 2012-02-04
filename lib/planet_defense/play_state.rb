@@ -14,6 +14,7 @@ module PlanetDefense
       @running = true
       @@score = 0
       @lives = 5
+      @music.volume = 0.3
       @music.play(looping = true) unless @pause == true
     end
 
