@@ -3,12 +3,14 @@ require 'spec_helper'
 require_relative '../../lib/planet_defense/player'
 require_relative '../../lib/planet_defense/play_state'
 require_relative '../../lib/planet_defense/main'
+require_relative '../../lib/planet_defense/version'
 
 module PlanetDefense
   describe GameWindow do
   
     before(:all) do
       @g = PlanetDefense::GameWindow.new
+      @g.caption = "Planet Defense #{PlanetDefense::VERSION} [FPS:#{$window.fps}]"
     end
 
     it { @g.should respond_to :close }
@@ -30,5 +32,10 @@ module PlanetDefense
       @g.width.should == 1024
       @g.height.should == 768
     end
+    
+    it 'Window should automatically have current version number in caption' do
+      @g.caption.should include(PlanetDefense::VERSION)
+    end
+    
   end
 end
