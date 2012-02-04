@@ -15,7 +15,7 @@ module PlanetDefense
       @@score = 0
       @lives = 5
       @music.volume = 0.3
-      @music.play(looping = true) unless @pause == true
+      @music.play(looping = true) unless @pause == true || defined? RSpec
     end
 
     def button_down(id)
