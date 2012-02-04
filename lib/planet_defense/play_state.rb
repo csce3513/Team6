@@ -16,6 +16,7 @@ module PlanetDefense
       @lives = 5
       @music.volume = 0.3
       @music.play(looping = true) unless @pause == true || defined? RSpec
+      $window.caption = "Planet Defense #{PlanetDefense::VERSION}"
     end
 
     def button_down(id)
@@ -39,7 +40,6 @@ module PlanetDefense
   
     def update
       super
-      $window.caption = "Planet Defense #{PlanetDefense::VERSION} [FPS:#{$window.fps}]"
       if @running == true and @pause == false
 
         #Asteroid Movement

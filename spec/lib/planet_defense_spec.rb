@@ -10,7 +10,10 @@ module PlanetDefense
   
     before(:all) do
       @g = PlanetDefense::GameWindow.new
-      @g.caption = "Planet Defense #{PlanetDefense::VERSION} [FPS:#{$window.fps}]"
+    end
+    
+    after(:all) do
+      @g.close
     end
 
     it { @g.should respond_to :close }
