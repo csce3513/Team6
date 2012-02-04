@@ -1,3 +1,1 @@
-module PlanetDefense
-  VERSION = "0.0.1alpha"
-end
+VERSION = "0.0.1alpha"

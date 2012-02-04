@@ -6,14 +6,17 @@ include Chingu
 require_all  File.join("lib")
 
 class PlanetDefense < Chingu::Window
-  attr_accessor :music, :screenWidth, :screenHeight, :window, :object_factor
+  attr_accessor :music, :screenWith, :screenHeight, :window, :object_factor
 
   def initialize(width = 1024, height = 768, fullscreen = false, update_interval = 16.666666)
     super
+    
     retrofy
+    
     @screenWidth = 1024  
     @screenHeight = 768 
     @object_factor = 2.5 
+    #super(@screenWidth, @screenHeight, false, 16.666666)  
     self.input = { :f1 => :debug, [:q, :escape] => :exit }
     @directions_to_xy = { :north => [0, -1], :east => [1, 0], :south => [0, 1], :west => [-1, 0] }
     push_game_state( PlayState )

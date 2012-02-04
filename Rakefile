@@ -16,7 +16,7 @@ Releasy::Project.new do
   version PlanetDefense::VERSION
   executable "bin/planet_defense.rbw"
   files `git ls-files`.split("\n")
-  files.exclude %w[.gitignore coverage/**/*.* pkg/**/*.* releasy/**/*.* build/**/*.* spec/**/*.*]
+  files.exclude %w[.gitignore coverage/**/*.* build/**/*.* spec/**/*.*]
   exclude_encoding
 
   add_build :osx_app do
