@@ -20,6 +20,10 @@ Installation Instructions
   * Run the game
     * ```ruby bin/planet_defense.rbw```
     
+Running Tests
+--------
+```rspec spec```
+
 Game Description
 -------
 *TODO - Create back story for game
