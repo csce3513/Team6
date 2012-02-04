@@ -1,10 +1,10 @@
 class PlayState < Chingu::GameState
-  attr_reader :player
+  attr_reader :player, :astroids
 
   def initialize( options = {})
     super
     @player = Player.new(self)  
-    @asteroids = 15.times.map { Asteroid.new(self) }
+    @asteroids = 15.times.map { Asteroid.create(self) }
     @background_image = Gosu::Image.new($window, "media/gfx/space-with-earth.jpg", true)
     @music = Gosu::Song.new($window, "media/sounds/background.wav")
     @font = Gosu::Font.new($window, "media/fonts/MuseoSans_300.otf", 43)
@@ -109,7 +109,6 @@ class PlayState < Chingu::GameState
     @hit = false
     @music.play()
     @asteroids.each {|asteroid| asteroid.reset unless asteroid == nil}
-    game_objects.methods
     game_objects.each(&:destroy)
   end
   

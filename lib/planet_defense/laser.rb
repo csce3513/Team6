@@ -28,7 +28,7 @@ class Laser < Chingu::GameObject
   end
   
   def on_collision(object = nil)    
-    #destroy
+    destroy
   end
   
   def x
@@ -46,6 +46,7 @@ class Laser < Chingu::GameObject
     @y += @velocity_y
     @y -= 10
     @image = @anim.next
+    
     self.each_bounding_box_collision(Laser, Asteroid, Player) do |me, obj|
       next if me == obj
       puts obj
@@ -53,6 +54,10 @@ class Laser < Chingu::GameObject
       obj.on_collision(me) if obj.respond_to? :on_collision
     end
     destroy if outside_window?
+  end
+  
+  def hit_by?(asteroids)
+   asteroids.any? {|asteroid| Gosu::distance(@x, @y, asteroid.x, asteroid.y) <= 55 unless asteroid == nil }
   end
    
 end

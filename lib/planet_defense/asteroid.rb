@@ -1,6 +1,7 @@
-require "chingu"
-
 class Asteroid < Chingu::GameObject
+  has_trait :collision_detection
+  has_traits :collision_detection, :velocity
+  
   def initialize(window)    
     
     #Getting window dimensions
@@ -33,13 +34,14 @@ class Asteroid < Chingu::GameObject
   end
   
   def hit_by?(objects)
-    $window.game_objects.any? {|obj| Gosu::distance(@x, @y, obj.x, obj.y) <= 55 unless obj == nil }
+    $window.game_objects.any? {|obj| puts obj }
   end
   
   def move
     @x += @vel_x  
     @y += @vel_y  
     @angle += @vel_angular  
+    
   end
   
   def draw

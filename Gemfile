@@ -1,5 +1,8 @@
 source :rubygems
 gem "chingu"
-gem "rspec"
-gem "rake"
-gem "releasy"
+
+group :development, :test do
+  gem "releasy"
+  gem "rspec"
+  gem "rake"
+end

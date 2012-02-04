@@ -29,19 +29,18 @@ Releasy::Project.new do
   end
 
   add_build :windows_folder do
-    executable_type :windows # Assuming you don't want it to run in a console window.
+    executable_type :console # Assuming you don't want it to run in a console window.
     add_package :exe
   end
 
   add_build :windows_installer do
-    start_menu_group "Spooner Games"
     readme "README.html"
     add_package :zip
   end
   
   add_build :windows_wrapped do
    wrapper "../releasy/wrappers/ruby-1.9.2-p290-i386-mingw32.7z" # Assuming this is where you downloaded this file.
-   executable_type :windows # Assuming you don't want it to run in a console window.
+   executable_type :console # Assuming you don't want it to run in a console window.
    exclude_tcl_tk
    add_package :zip
   end
