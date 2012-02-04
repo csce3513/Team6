@@ -1,3 +1,4 @@
+require 'bundler/setup'
 
 class Player < Chingu::GameObject
   has_traits :collision_detection, :timer, :velocity
