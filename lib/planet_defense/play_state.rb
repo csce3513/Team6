@@ -39,7 +39,7 @@ module PlanetDefense
   
     def update
       super
-      $window.caption = "Planet Defense v0.0.1 [FPS:#{$window.fps}"
+      $window.caption = "Planet Defense #{PlanetDefense::VERSION} [FPS:#{$window.fps}]"
       if @running == true and @pause == false
 
         #Asteroid Movement
