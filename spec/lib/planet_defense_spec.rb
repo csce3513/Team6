@@ -7,7 +7,7 @@ require_relative '../../lib/planet_defense/main'
 describe PlanetDefense do
   
   before(:all) do
-    @g = PlanetDefense.new
+    @g = PlanetDefense::GameWindow.new
   end
 
   it { @g.should respond_to :close }
@@ -22,7 +22,7 @@ describe PlanetDefense do
   it { @g.should respond_to :milliseconds_since_last_tick }
   
   it 'Window should be initialized' do
-    @g.should be_kind_of(PlanetDefense)
+    @g.should be_kind_of(PlanetDefense::GameWindow)
   end
   
   it 'Window should have correct dimensions' do
