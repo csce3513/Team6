@@ -1,4 +1,3 @@
-
                           ______  _                      _   ______        __                        
                           | ___ \| |                    | |  |  _  \      / _|                       
                           | |_/ /| |  __ _  _ __    ___ | |_ | | | | ___ | |_  ___  _ __   ___   ___ 
@@ -19,7 +18,7 @@ Installation Instructions
   * Install the game's gems 
     * ```bundle install```
   * Run the game
-    * ```ruby main.rb```
+    * ```ruby bin/planet_defense.rbw```
     
 Game Description
 -------
