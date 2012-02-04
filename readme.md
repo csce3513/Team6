@@ -22,7 +22,7 @@ Installation Instructions
     
 Running Tests
 --------
-```rspec spec```
+```bundle exec rspec spec```
 
 Game Description
 -------
