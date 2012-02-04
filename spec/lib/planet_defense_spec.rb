@@ -1,18 +1,13 @@
 require 'spec_helper'
 
-require_relative '../../lib/planet_defense/player'
-require_relative '../../lib/planet_defense/play_state'
-require_relative '../../lib/planet_defense/main'
-require_relative '../../lib/planet_defense/version'
-
 module PlanetDefense
   describe GameWindow do
   
-    before(:all) do
+    before :all do
       @g = PlanetDefense::GameWindow.new
     end
     
-    after(:all) do
+    after :all do
       @g.close
     end
 

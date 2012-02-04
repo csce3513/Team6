@@ -1,25 +1,19 @@
 require 'simplecov'
 SimpleCov.start
 
-require 'rspec'
-require 'rubygems'
+
+require 'rubygems' unless RUBY_VERSION =~ /1\.9/
+require 'bundler/setup'
 require 'gosu'
 require 'chingu'
+require 'rspec'
 
 RSpec.configure do |c|
-  c.mock_with :rspec
-  # Use color in STDOUT
   c.color_enabled = true
-
-  # Use color not only in STDOUT but also in pagers and files
   c.tty = true
-
-  # Use the specified formatter
-  c.formatter = :progress # :progress, :html, :textmate
+  c.formatter = :documentation
 end
 
-$: << './lib'
-
-Dir['./../lib/planet_defense/*.rb'].map {|f| require f}
+require_relative '../lib/planet_defense/main'
 
 
