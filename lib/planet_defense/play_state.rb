@@ -13,8 +13,6 @@ class PlayState < Chingu::GameState
     @running = true
     @score = 0
     @lives = 5
-    @bullets = 5
-
     @music.play(looping = true) unless @pause == true
   end
 

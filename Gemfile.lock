@@ -15,6 +15,7 @@ GEM
     json (1.6.2)
     libxml-ruby (2.2.2)
     mime-types (1.17.2)
+    multi_json (1.0.4)
     net-github-upload (0.0.8)
       faster_xml_simple
       httpclient
@@ -39,6 +40,10 @@ GEM
     rspec-expectations (2.7.0)
       diff-lcs (~> 1.1.2)
     rspec-mocks (2.7.0)
+    simplecov (0.5.4)
+      multi_json (~> 1.0.3)
+      simplecov-html (~> 0.5.3)
+    simplecov-html (0.5.3)
     thor (0.14.6)
 
 PLATFORMS
@@ -49,3 +54,4 @@ DEPENDENCIES
   rake
   releasy
   rspec
+  simplecov
