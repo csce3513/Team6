@@ -5,8 +5,17 @@ require 'chingu'
 
 RSpec.configure do |c|
   c.mock_with :rspec
-end
+  # Use color in STDOUT
+  c.color_enabled = true
 
-Dir['./../lib/*.rb'].map {|f| require f}
+  # Use color not only in STDOUT but also in pagers and files
+  c.tty = true
+
+  # Use the specified formatter
+  c.formatter = :progress # :progress, :html, :textmate
+end
+$: << './lib'
+
+Dir['./../lib/planet_defense/*.rb'].map {|f| require f}
 
 

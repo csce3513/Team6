@@ -52,5 +52,7 @@ class PlanetDefense < Chingu::Window
   
 end
 
-g = PlanetDefense.new(1024, 768, false)
-g.show
+unless defined? RSpec
+  g = PlanetDefense.new(1024, 768, false)
+  g.show
+end
