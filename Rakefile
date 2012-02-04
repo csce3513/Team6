@@ -5,6 +5,7 @@ require 'rake/clean'
 require 'rake/testtask'
 require 'releasy'
 
+require_relative "lib/planet_defense/version"
 
 CLEAN.include("*.log")
 CLOBBER.include("doc/**/*")
@@ -12,10 +13,10 @@ CLOBBER.include("doc/**/*")
 
 Releasy::Project.new do
   name "PlanetDefense"
-  version '0.0.1'
+  version PlanetDefense::VERSION
   executable "bin/planet_defense.rbw"
   files `git ls-files`.split("\n")
-  files.exclude %w[.gitignore build/**/*.* spec/**/*.*]
+  files.exclude %w[.gitignore coverage/**/*.* pkg/**/*.* releasy/**/*.* build/**/*.* spec/**/*.*]
   exclude_encoding
 
   add_build :osx_app do
