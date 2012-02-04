@@ -1,6 +1,0 @@
-rvm:
-  - 1.9.2
-script: "bundle exec rake spec"
-branches:
-  only:
-    - master
