@@ -1,5 +1,7 @@
-require 'simplecov'
-SimpleCov.start
+if ENV["COVERAGE"]
+  require 'simplecov'
+  SimpleCov.start
+end
 
 
 require 'rubygems' unless RUBY_VERSION =~ /1\.9/
