@@ -1,6 +1,4 @@
 class Asteroid < Chingu::GameObject
-  has_trait :collision_detection
-  has_traits :collision_detection, :velocity
   
   def initialize(window)    
     
@@ -29,12 +27,10 @@ class Asteroid < Chingu::GameObject
     end
   end
   
-  def on_collision(object = nil)    
-    destroy
-  end
-  
-  def hit_by?(objects)
-    $window.game_objects.any? {|obj| puts obj }
+  def on_collision   
+    puts "#{self.class} #{self.x}/#{self.y}"
+    PlayState.asteroids.delete self
+    PlayState.asteroids.push( Asteroid.new(self) )
   end
   
   def move

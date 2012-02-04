@@ -1,17 +1,17 @@
 class PlayState < Chingu::GameState
-  attr_reader :player, :astroids
+  attr_reader :player, :asteroids, :score
 
   def initialize( options = {})
     super
     @player = Player.new(self)  
-    @asteroids = 15.times.map { Asteroid.create(self) }
+    @@asteroids = 20.times.map { Asteroid.new(self) }
     @background_image = Gosu::Image.new($window, "media/gfx/space-with-earth.jpg", true)
     @music = Gosu::Song.new($window, "media/sounds/background.wav")
     @font = Gosu::Font.new($window, "media/fonts/MuseoSans_300.otf", 43)
     @count = 0  
     @pause = false
     @running = true
-    @score = 0
+    @@score = 0
     @lives = 5
     @music.play(looping = true) unless @pause == true
   end
@@ -39,11 +39,11 @@ class PlayState < Chingu::GameState
     super
     $window.caption = "Planet Defense v0.0.1 [FPS:#{$window.fps} - GameObjects: #{game_objects.size}]"
     if @running == true and @pause == false
-      
+
       #Asteroid Movement
-      @asteroids.each{ |asteroid| asteroid.move unless asteroid == nil }
+      @@asteroids.each{ |asteroid| asteroid.move unless asteroid == nil }
   
-      if @player.hit_by? @asteroids
+      if @player.hit_by? @@asteroids
         @lives -= 1
         if @lives == 0 
           pop_game_state()
@@ -63,18 +63,18 @@ class PlayState < Chingu::GameState
       @count = (@count + 1) % 25  
       if (@count == 0)
         #Add asteroid to first nil in array
-        @asteroids.length.times{|i|
-          if (@asteroids[i] == nil)
-             @asteroids[i] = Asteroid.new(self)  
+        @@asteroids.length.times{|i|
+          if (@@asteroids[i] == nil)
+             @@asteroids[i] 
              break  
           end
         }
         
         #Clean up asteroids off the screen
-        @asteroids.length.times{|i|
-        if (@asteroids[i] != nil)
-          if (@asteroids[i].y > $window.height)
-            @asteroids[i] = nil  
+        @@asteroids.length.times{|i|
+        if (@@asteroids[i] != nil)
+          if (@@asteroids[i].y > $window.height)
+            @@asteroids[i] = nil  
           end
         end
       }
@@ -92,10 +92,10 @@ class PlayState < Chingu::GameState
     @font.draw_rel("Asteroid Impact!", 500, 200, 10, 0.5, 0.5, 1, 1, Gosu::Color::RED) if @hit == true
     @font.draw_rel("Press R to restart.", 500, 300, 10, 0.5, 0.5, 1, 1, Gosu::Color::RED) if @hit == true
     @font.draw_rel("Lives: #{@lives}", 100, 50, 10, 0.5, 0.5, 1, 1, Gosu::Color::WHITE)
-    @font.draw_rel("Score: #{@score}", 900, 50, 10, 0.5, 0.5, 1, 1, Gosu::Color::WHITE)
+    @font.draw_rel("Score: #{@@score}", 900, 50, 10, 0.5, 0.5, 1, 1, Gosu::Color::WHITE)
     
     #Asteroid Draw
-    @asteroids.each{|asteroid| asteroid.draw unless asteroid == nil }
+    @@asteroids.each{|asteroid| asteroid.draw unless asteroid == nil }
   end
   
   def finalize
@@ -106,7 +106,7 @@ class PlayState < Chingu::GameState
     @running = true
     @hit = false
     @music.play()
-    @asteroids.each {|asteroid| asteroid.reset unless asteroid == nil}
+    @@asteroids.each {|asteroid| asteroid.reset unless asteroid == nil}
     game_objects.each(&:destroy)
   end
   
@@ -118,4 +118,12 @@ class PlayState < Chingu::GameState
     game_objects.size
   end
   
+  def self.asteroids
+    @@asteroids
+  end
+  
+  def self.up_score
+    @@score += 10
+  end
+   
 end

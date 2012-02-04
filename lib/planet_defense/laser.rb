@@ -47,6 +47,13 @@ class Laser < Chingu::GameObject
     @y -= 10
     @image = @anim.next
     
+    #PlayState.asteroids.each{|asteroid| puts asteroid.class unless asteroid == nil }
+    
+    if self.hit? PlayState.asteroids
+      PlayState.up_score
+      self.destroy
+    end
+    
     self.each_bounding_box_collision(Laser, Asteroid, Player) do |me, obj|
       next if me == obj
       puts obj
@@ -56,8 +63,14 @@ class Laser < Chingu::GameObject
     destroy if outside_window?
   end
   
-  def hit_by?(asteroids)
-   asteroids.any? {|asteroid| Gosu::distance(@x, @y, asteroid.x, asteroid.y) <= 55 unless asteroid == nil }
+  def hit?(asteroids)
+   asteroids.any? do |asteroid|
+     unless asteroid == nil
+       if Gosu::distance(@x, @y, asteroid.x, asteroid.y) <= 55
+        asteroid.on_collision
+       end
+    end  
+   end
   end
    
 end

@@ -17,6 +17,7 @@ RSpec.configure do |c|
   # Use the specified formatter
   c.formatter = :progress # :progress, :html, :textmate
 end
+
 $: << './lib'
 
 Dir['./../lib/planet_defense/*.rb'].map {|f| require f}
