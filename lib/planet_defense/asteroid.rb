@@ -29,8 +29,8 @@ class Asteroid < Chingu::GameObject
   
   def on_collision   
     puts "#{self.class} #{self.x}/#{self.y}"
-    PlayState.asteroids.delete self
-    PlayState.asteroids.push( Asteroid.new(self) )
+    #PlayState.asteroids.delete self
+    self.replace( Asteroid.new(self) )
   end
   
   def move
