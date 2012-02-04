@@ -37,7 +37,7 @@ class PlayState < Chingu::GameState
   
   def update
     super
-    $window.caption = "Planet Defense v0.0.1 [FPS:#{$window.fps} - GameObjects: #{game_objects.size}]"
+    $window.caption = "Planet Defense v0.0.1 [FPS:#{$window.fps}"
     if @running == true and @pause == false
 
       #Asteroid Movement
