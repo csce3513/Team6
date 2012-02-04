@@ -1,11 +1,12 @@
 require 'rubygems' unless RUBY_VERSION =~ /1\.9/
+require 'bundler/setup'
 require 'chingu'
 include Gosu
 include Chingu
 require_all  File.join("lib")
 
 class PlanetDefense < Chingu::Window
-  attr_accessor :music, :screenWith, :screenHeight, :window, :object_factor
+  attr_accessor :music, :screenWidth, :screenHeight, :window, :object_factor
 
   def initialize(width = 1024, height = 768, fullscreen = false, update_interval = 16.666666)
     super
