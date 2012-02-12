@@ -30,8 +30,9 @@ module PlanetDefense
   
     def on_collision   
       puts "#{self.class} #{self.x}/#{self.y}"
-      PlayState.asteroids.delete self
-      PlayState.asteroids.push( Asteroid.new($window) )
+      self.reset
+      # PlayState.asteroids.delete self
+      # PlayState.asteroids.push( Asteroid.new($window) )
     end
   
     def move
@@ -42,7 +43,7 @@ module PlanetDefense
     end
   
     def draw
-      @image.draw_rot(@x, @y, 1, @angle)  
+      @image.draw_rot(@x, @y, 1, @angle)
     end
   
     def x
