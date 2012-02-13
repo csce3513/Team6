@@ -42,9 +42,20 @@ module PlanetDefense
       super
       if @running == true and @pause == false
 
+        # Win game at 1000 points
+        if @@score > 500
+          pop_game_state()
+          push_game_state( GameWon )
+          @running = false
+          @music.pause()
+          stop_game
+        end
+
         #Asteroid Movement
         @@asteroids.each{ |asteroid| asteroid.move unless asteroid == nil }
   
+        puts "Asteroid Count: #{@@asteroids.length}"
+
         if @player.hit_by? @@asteroids
           @lives -= 1
           if @lives == 0 
@@ -67,7 +78,7 @@ module PlanetDefense
           #Add asteroid to first nil in array
           @@asteroids.length.times{|i|
             if (@@asteroids[i] == nil)
-               @@asteroids[i] 
+               @@asteroids[i] = Asteroid.new(self)  
                break  
             end
           }
