@@ -2,6 +2,7 @@ module PlanetDefense
   class Player < Chingu::GameObject
     has_traits :collision_detection, :timer, :velocity
     attr_reader :player
+    attr_accessor :vel_x, :vel_y
     has_trait :bounding_box
   
     def initialize( options = {} )
