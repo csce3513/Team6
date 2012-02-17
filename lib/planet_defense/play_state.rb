@@ -36,6 +36,7 @@ module PlanetDefense
       if $window.button_down? Gosu::Button::KbR
         refresh_game
       end
+
     end
   
     def update
@@ -67,9 +68,7 @@ module PlanetDefense
           @music.pause()
           stop_game
         end
-      
-        self.input = { :escape => :close }
-      
+
         @player.move  
     
         #Add an asteroid and check for clean up every 100 counts
@@ -138,6 +137,6 @@ module PlanetDefense
     def self.up_score
       @@score += 10
     end
-   
+
   end
 end
