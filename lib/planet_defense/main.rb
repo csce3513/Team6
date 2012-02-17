@@ -20,7 +20,7 @@ module PlanetDefense
       #super(@screenWidth, @screenHeight, false, 16.666666)  
       self.input = { :f1 => :debug, :q => :exit, :escape => :return_to_menu }
       @directions_to_xy = { :north => [0, -1], :east => [1, 0], :south => [0, 1], :west => [-1, 0] }
-      push_game_state( PlayState )
+      push_game_state( MenuState )
     end
   
     def debug   
