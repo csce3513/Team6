@@ -14,19 +14,10 @@ module PlanetDefense
       @vel_x = @vel_y = 0.0  
       @x = $window.width / 2  
       @y = $window.height - 50
-<<<<<<< HEAD
       @image = Gosu::Image.new($window, "media/gfx/shipNormal.bmp")  
       @font = Gosu::Font.new($window, "media/fonts/MuseoSans_300.otf", 43)
       @particles = Chingu::Animation.new(:file => "media/gfx/fireball.png", :size => [32,32])
       @weapon = Weapon.new(self)
-=======
-      @lastShot = milliseconds()
-      @reloadTime = 100 #In milliseconds
-      @laser_count = 0
-      @cooling_down = false
-      @image = Gosu::Image.new($window, "media/gfx/shipNormal.bmp")  
-      @font = Gosu::Font.new($window, "media/fonts/MuseoSans_300.otf", 43)
->>>>>>> Preliminary laser recharging
     end
 
     attr_accessor :weapon
@@ -131,7 +122,6 @@ module PlanetDefense
         Laser.create( :x => @x+20, :y => @y-15)
         @laser_count += 1
         if @laser_count == 20
-          puts "youve shot 20 lasers"
           @cooling_down = true
         end
       end
@@ -143,7 +133,7 @@ module PlanetDefense
         @laser_count = 0
       end
     end
->>>>>>> Preliminary laser recharging
+>>>>>>> Removing debugging puts
 
     def x
      @x  
@@ -154,15 +144,10 @@ module PlanetDefense
     end
   
     def draw
-<<<<<<< HEAD
       @weapon.update
       @image.draw_rot(@x, @y, 5, 0)  
 
       @font.draw_rel("LASERS OVERHEATING!", 500, 50, 10, 0.5, 0.5, 1, 1, Gosu::Color::RED) if (@weapon.heat >= 85)
-=======
-      @image.draw_rot(@x, @y, 1, 0)  
-      @font.draw_rel("LASERS ARE RECHARGING!", 500, 50, 10, 0.5, 0.5, 1, 1, Gosu::Color::RED) if @cooling_down
->>>>>>> Preliminary laser recharging
     end
   
     def reset
