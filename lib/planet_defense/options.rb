@@ -1,14 +1,15 @@
 module PlanetDefense
-  class MenuState < Chingu::GameState
+  class OptionsState < Chingu::GameState
     
     def initialize(options = {})
       super
 
-      @options = [ :start, :options, :credits, :quit ]
+      #@options = [ :start, :highscores, :credits, :options, :quit ]
+      @options = []
       @current = 0
       @selected = Color.new(150,220,69,82)
       @font = Gosu::Font.new($window, "media/fonts/MuseoSans_300.otf", 43)
-      @background_image = Gosu::Image.new($window, "media/gfx/space.jpg", true)
+      @background_image = Gosu::Image.new($window, "media/gfx/space-with-earth.jpg", true)
       @title_image = Gosu::Image.new($window, "media/gfx/title.png", true)
       self.input = { 
         :up => :move_up,
@@ -26,6 +27,10 @@ module PlanetDefense
     
     def setup
       @game_objects.destroy_all
+
+      # @bg_music = Song["sad robot.ogg"]
+      # @bg_music.volume = $settings['music']
+      # @bg_music.play(true)
     end
     
       
@@ -51,13 +56,6 @@ module PlanetDefense
       super
       #Asteroid Movement
       @@asteroids.each{ |asteroid| asteroid.move unless asteroid == nil }
-      @@asteroids.length.times{|i|
-          if (@@asteroids[i] != nil)
-            if (@@asteroids[i].y > $window.height)
-              @@asteroids[i].reset 
-            end
-          end
-        }
     end
     
     def draw
@@ -66,7 +64,7 @@ module PlanetDefense
       @@asteroids.each{|asteroid| asteroid.draw unless asteroid == nil }
       @background_image.draw(0,0,0)
 
-      @title_image.draw(($window.width/2)-@title_image.width/2,100,0)
+      @title_image.draw(($window.width/2)-@title_image.width/2,100,50)
 
       @options.each_with_index do |option, i|
         y = 380+(i*40)
@@ -86,17 +84,16 @@ module PlanetDefense
     end
     
     def on_quit
-      pop_game_state()
       self.close
     end
     
-    def on_credits
-      push_game_state( CreditsState )
-    end
+    # def on_credits
+    #   push_game_state( CreditState )
+    # end
     
-    def on_options
-      push_game_state( OptionsState)
-    end
+    # def on_options
+    #   push_game_state( OptionState)
+    # end
     
     # def on_highscores
     #   push_game_state( HighScoreState )
