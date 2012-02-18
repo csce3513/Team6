@@ -96,7 +96,6 @@ module PlanetDefense
         Laser.create( :x => @x+20, :y => @y-15)
         @laser_count += 1
         if @laser_count == 20
-          puts "youve shot 20 lasers"
           @cooling_down = true
         end
       end
