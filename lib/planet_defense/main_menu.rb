@@ -66,7 +66,7 @@ module PlanetDefense
       @@asteroids.each{|asteroid| asteroid.draw unless asteroid == nil }
       @background_image.draw(0,0,0)
 
-      @title_image.draw(($window.width/2)-@title_image.width/2,100,0)
+      @title_image.draw(($window.width/2)-@title_image.width/2,100,50)
 
       @options.each_with_index do |option, i|
         y = 380+(i*40)
