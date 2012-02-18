@@ -14,6 +14,7 @@ module PlanetDefense
       @running = true
       @@score = 0
       @lives = 5
+      @planet_health = 1000
       @music.volume = 0.3
       @music.play(looping = true) unless @pause == true || defined? RSpec
       $window.caption = "Planet Defense #{PlanetDefense::VERSION}"
@@ -36,7 +37,6 @@ module PlanetDefense
       if $window.button_down? Gosu::Button::KbR
         refresh_game
       end
-
     end
   
     def update
@@ -48,6 +48,13 @@ module PlanetDefense
           pop_game_state()
           push_game_state( GameWon )
           @running = false
+          @music.pause()
+          stop_game
+        end
+
+        if @planet_health <= 0
+          pop_game_state()
+          push_game_state( GameOver )
           @music.pause()
           stop_game
         end
@@ -84,8 +91,9 @@ module PlanetDefense
           #Clean up asteroids off the screen
           @@asteroids.length.times{|i|
           if (@@asteroids[i] != nil)
-            if (@@asteroids[i].y > $window.height)
-              @@asteroids[i] = nil  
+            if (@@asteroids[i].y > $window.height && @@asteroids[i].x < $window.width && @@asteroids[i].x > 0)
+              @@asteroids[i].reset
+              @planet_health -= 25
             end
           end
         }
@@ -104,6 +112,7 @@ module PlanetDefense
       @font.draw_rel("Press R to restart.", 500, 300, 10, 0.5, 0.5, 1, 1, Gosu::Color::RED) if @hit == true
       @font.draw_rel("Lives: #{@lives}", 100, 50, 10, 0.5, 0.5, 1, 1, Gosu::Color::WHITE)
       @font.draw_rel("Score: #{@@score}", 900, 50, 10, 0.5, 0.5, 1, 1, Gosu::Color::WHITE)
+      @font.draw_rel("Score: #{@planet_health}", 100, $window.height - 50, 10, 0.5, 0.5, 1, 1, Gosu::Color::WHITE)
     
       #Asteroid Draw
       @@asteroids.each{|asteroid| asteroid.draw unless asteroid == nil }
