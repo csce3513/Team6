@@ -58,19 +58,19 @@ module PlanetDefense
     
     def draw
       super
-      
-      
+      #Asteroid Draw
+      @@asteroids.each{|asteroid| asteroid.draw unless asteroid == nil }
       @background_image.draw(0,0,0)
 
-      @title_image.draw(($window.width/2)-@title_image.width/2,100,0)
+      @title_image.draw(($window.width/2)-@title_image.width/2,100,50)
 
       @options.each_with_index do |option, i|
         y = 380+(i*40)
         if i == @current
           #draw_quad(x1, y1, c1, x2, y2, c2, x3, y3, c3, x4, y4, c4, z = 0, mode = :default)
-          $window.draw_quad(0, y+10, @selected, $window.width, y+10, @selected, $window.width, y+40, @selected, 0, y+40, @selected )
+          $window.draw_quad(0, y+10, @selected, $window.width, y+10, @selected, $window.width, y+40, @selected, 0, y+40, @selected, 50 )
         end
-        @font.draw(option.to_s.capitalize, ($window.width/2)-@font.text_width(option.to_s.capitalize)/2, y,0)
+        @font.draw(option.to_s.capitalize, ($window.width/2)-@font.text_width(option.to_s.capitalize)/2, y,50)
       end
     end
     
