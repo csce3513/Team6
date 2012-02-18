@@ -57,6 +57,7 @@ module PlanetDefense
 
         if @player.hit_by? @@asteroids
           @lives -= 1
+          @@score >= 150 ? @@score -= 100 : @@score = 0
           if @lives == 0 
             pop_game_state()
             push_game_state( GameOver )
