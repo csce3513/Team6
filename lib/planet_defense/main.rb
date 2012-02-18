@@ -16,7 +16,7 @@ module PlanetDefense
       @screenWidth = 1024  
       @screenHeight = 768 
       @object_factor = 2.5 
-      self.input = { :f1 => :debug, :q => :exit}
+      self.input = { :f1 => :debug, :q => :exit, :escape => :return_to_menu }
       @directions_to_xy = { :north => [0, -1], :east => [1, 0], :south => [0, 1], :west => [-1, 0] }
       push_game_state( MenuState )
     end
@@ -38,6 +38,10 @@ module PlanetDefense
       close if current_scope == self
     end
 
+    def inside_window?(obj)
+      obj.x >= 0 && obj.x <= $window.width && obj.y >= 0 && obj.y <= $window.height
+    end
+   
     def inside_window?(obj)
       obj.x >= 0 && obj.x <= $window.width && obj.y >= 0 && obj.y <= $window.height
     end
