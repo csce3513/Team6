@@ -29,7 +29,7 @@ module PlanetDefense
     end
   
     def on_collision   
-      puts "#{self.class} #{self.x}/#{self.y}"
+      #puts "#{self.class} #{self.x}/#{self.y}"
       self.reset
       # PlayState.asteroids.delete self
       # PlayState.asteroids.push( Asteroid.new($window) )
