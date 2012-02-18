@@ -78,7 +78,7 @@ module PlanetDefense
       if @running == true and @pause == false
 
         # Win game at 1000 points
-        if @@score > 500
+        if @@score > 1000
           pop_game_state()
           push_game_state( GameWon )
           @running = false
