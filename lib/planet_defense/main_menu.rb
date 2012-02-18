@@ -22,6 +22,7 @@ module PlanetDefense
       @music.volume = 0.3
       @music.play(looping = true) unless @pause == true || defined? RSpec
       $window.caption = "Planet Defense #{PlanetDefense::VERSION}"
+      @@asteroids = 20.times.map { Asteroid.new(self) }
     end
     
     def setup
@@ -53,7 +54,14 @@ module PlanetDefense
 
     def update
       super
-      
+      #Asteroid Movement
+      @@asteroids.each{ |asteroid| asteroid.move unless asteroid == nil }
+      @@asteroids.length.times{|i|
+            if (@@asteroids[i].y > $window.height)
+              @@asteroids[i].reset 
+            end
+          end
+        }
     end
     
     def draw
