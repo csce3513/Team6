@@ -5,7 +5,7 @@ module PlanetDefense
       super
 
       #@options = [ :start, :highscores, :credits, :options, :quit ]
-      @options = [ :start, :quit ]
+      @options = [ :start, :options, :credits, :quit ]
       @current = 0
       @selected = Color.new(150,220,69,82)
       @font = Gosu::Font.new($window, "media/fonts/MuseoSans_300.otf", 43)
@@ -21,6 +21,7 @@ module PlanetDefense
       @music = Gosu::Song.new($window, "media/sounds/background.wav")
       @music.volume = 0.3
       @music.play(looping = true) unless @pause == true || defined? RSpec
+      $window.caption = "Planet Defense #{PlanetDefense::VERSION}"
     end
     
     def setup
