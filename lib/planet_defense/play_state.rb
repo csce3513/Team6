@@ -5,8 +5,8 @@ module PlanetDefense
 
     def initialize( options = {})
       super
-      @player = Player.new(self)
-      @@asteroids = 15.times.map { Asteroid.new(self) }
+      @player = Player.new(self)  
+      @@asteroids = 10.times.map { Asteroid.new(self) }
       @background_image = Gosu::Image.new($window, "media/gfx/space-with-earth.jpg", true)
       @life_image = Gosu::Image.new($window, "media/gfx/shipSmall.png", true)
       @music = Gosu::Song.new($window, "media/sounds/background.wav")
