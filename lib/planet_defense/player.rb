@@ -105,5 +105,10 @@ module PlanetDefense
       @image.draw_rot(@x, @y, 1, 0)  
     end
   
+    def reset
+      @x = $window.width / 2  
+      @y = $window.height - 50
+    end
+    
   end
 end
