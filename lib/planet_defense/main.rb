@@ -45,6 +45,10 @@ module PlanetDefense
     def inside_window?(obj)
       obj.x >= 0 && obj.x <= $window.width && obj.y >= 0 && obj.y <= $window.height
     end
+   
+    def inside_window?(obj)
+      obj.x >= 0 && obj.x <= $window.width && obj.y >= 0 && obj.y <= $window.height
+    end
 
     def outside_window?(obj)
       not inside_window?(obj)
