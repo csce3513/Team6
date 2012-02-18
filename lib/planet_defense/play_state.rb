@@ -69,9 +69,6 @@ module PlanetDefense
       if $window.button_down? Gosu::Button::KbR
         refresh_game
       end
-      if id == Gosu::Button::KbEscape
-        confirm_exit
-      end
     end
   
     def update
@@ -126,11 +123,9 @@ module PlanetDefense
           #Clean up asteroids off the screen
           @@asteroids.length.times{|i|
           if (@@asteroids[i] != nil)
-            if (@@asteroids[i].x > $window.width || @@asteroids[i].x < 0)
-              if (@@asteroids[i].y > $window.height)
-                @@asteroids[i].reset
-                @planet_health -= 25
-              end
+            if (@@asteroids[i].y > $window.height && @@asteroids[i].x < $window.width && @@asteroids[i].x > 0)
+              @@asteroids[i].reset
+              @planet_health -= 25
             end
           end
         }
