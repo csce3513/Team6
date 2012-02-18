@@ -21,7 +21,6 @@ module PlanetDefense
       @music.volume = 0.3
       @music.play(looping = true) unless @pause == true || defined? RSpec
       $window.caption = "Planet Defense #{PlanetDefense::VERSION}"
-      @@asteroids = 20.times.map { Asteroid.new(self) }
     end
     
     def setup
