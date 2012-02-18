@@ -54,8 +54,6 @@ module PlanetDefense
 
         #Asteroid Movement
         @@asteroids.each{ |asteroid| asteroid.move unless asteroid == nil }
-  
-        puts "Asteroid Count: #{@@asteroids.length}"
 
         if @player.hit_by? @@asteroids
           @lives -= 1
