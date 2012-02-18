@@ -196,5 +196,10 @@ module PlanetDefense
       @laser_gauge_color
     end
     
+    def reset
+      @x = $window.width / 2  
+      @y = $window.height - 50
+    end
+    
   end
 end
