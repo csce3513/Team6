@@ -57,6 +57,7 @@ module PlanetDefense
       #Asteroid Movement
       @@asteroids.each{ |asteroid| asteroid.move unless asteroid == nil }
       @@asteroids.length.times{|i|
+          if (@@asteroids[i] != nil)
             if (@@asteroids[i].y > $window.height)
               @@asteroids[i].reset 
             end
