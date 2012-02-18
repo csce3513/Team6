@@ -118,6 +118,7 @@ module PlanetDefense
       @running = true
       @hit = false
       @music.play()
+      @player.reset
       @@asteroids.each {|asteroid| asteroid.reset unless asteroid == nil}
       game_objects.each(&:destroy)
     end
