@@ -7,9 +7,10 @@ module PlanetDefense
       #@options = [ :start, :highscores, :credits, :options, :quit ]
       @options = [ :start, :quit ]
       @current = 0
-      @selected = Color.new(256,253,96,17)
+      @selected = Color.new(150,220,69,82)
       @font = Gosu::Font.new($window, "media/fonts/MuseoSans_300.otf", 43)
       @background_image = Gosu::Image.new($window, "media/gfx/space-with-earth.jpg", true)
+      @title_image = Gosu::Image.new($window, "media/gfx/title.png", true)
       self.input = { 
         :up => :move_up,
         :down => :move_down,
@@ -17,7 +18,9 @@ module PlanetDefense
         :enter => :go,
         :return => :go
       }
-          
+      @music = Gosu::Song.new($window, "media/sounds/background.wav")
+      @music.volume = 0.3
+      @music.play(looping = true) unless @pause == true || defined? RSpec
     end
     
     def setup
@@ -57,6 +60,8 @@ module PlanetDefense
       
       
       @background_image.draw(0,0,0)
+
+      @title_image.draw(($window.width/2)-@title_image.width/2,100,0)
 
       @options.each_with_index do |option, i|
         y = 380+(i*40)
