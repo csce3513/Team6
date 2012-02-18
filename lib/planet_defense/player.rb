@@ -16,7 +16,10 @@ module PlanetDefense
       @y = $window.height - 50
       @lastShot = milliseconds()
       @reloadTime = 100 #In milliseconds
+      @laser_count = 0
+      @cooling_down = false
       @image = Gosu::Image.new($window, "media/gfx/shipNormal.bmp")  
+      @font = Gosu::Font.new($window, "media/fonts/MuseoSans_300.otf", 43)
     end
   
     def move_left
@@ -85,14 +88,27 @@ module PlanetDefense
     end
   
     def shoot
-      #return if @cooling_down
-      if (milliseconds() - @reloadTime) > @lastShot
+      cooling_down?
+
+      if (milliseconds() - @reloadTime) > @lastShot && @cooling_down == false
         @lastShot = milliseconds()
         Laser.create( :x => @x-20, :y => @y-15)
         Laser.create( :x => @x+20, :y => @y-15)
+        @laser_count += 1
+        if @laser_count == 20
+          puts "youve shot 20 lasers"
+          @cooling_down = true
+        end
       end
     end
-  
+
+    def cooling_down?
+      if (milliseconds() - 1500) > @lastShot
+        @cooling_down = false
+        @laser_count = 0
+      end
+    end
+
     def x
      @x  
     end
@@ -103,6 +119,7 @@ module PlanetDefense
   
     def draw
       @image.draw_rot(@x, @y, 1, 0)  
+      @font.draw_rel("LASERS ARE RECHARGING!", 500, 50, 10, 0.5, 0.5, 1, 1, Gosu::Color::RED) if @cooling_down
     end
   
     def reset
