@@ -1,11 +1,11 @@
 module PlanetDefense
-  class MenuState < Chingu::GameState
+  class OptionsState < Chingu::GameState
     
     def initialize(options = {})
       super
 
       #@options = [ :start, :highscores, :credits, :options, :quit ]
-      @options = [ :start, :options, :credits, :quit ]
+      @options = []
       @current = 0
       @selected = Color.new(150,220,69,82)
       @font = Gosu::Font.new($window, "media/fonts/MuseoSans_300.otf", 43)
@@ -22,6 +22,7 @@ module PlanetDefense
       @music.volume = 0.3
       @music.play(looping = true) unless @pause == true || defined? RSpec
       $window.caption = "Planet Defense #{PlanetDefense::VERSION}"
+      @@asteroids = 20.times.map { Asteroid.new(self) }
     end
     
     def setup
@@ -53,24 +54,25 @@ module PlanetDefense
 
     def update
       super
-      
+      #Asteroid Movement
+      @@asteroids.each{ |asteroid| asteroid.move unless asteroid == nil }
     end
     
     def draw
       super
-      
-      
+      #Asteroid Draw
+      @@asteroids.each{|asteroid| asteroid.draw unless asteroid == nil }
       @background_image.draw(0,0,0)
 
-      @title_image.draw(($window.width/2)-@title_image.width/2,100,0)
+      @title_image.draw(($window.width/2)-@title_image.width/2,100,50)
 
       @options.each_with_index do |option, i|
         y = 380+(i*40)
         if i == @current
           #draw_quad(x1, y1, c1, x2, y2, c2, x3, y3, c3, x4, y4, c4, z = 0, mode = :default)
-          $window.draw_quad(0, y+10, @selected, $window.width, y+10, @selected, $window.width, y+40, @selected, 0, y+40, @selected )
+          $window.draw_quad(0, y+10, @selected, $window.width, y+10, @selected, $window.width, y+40, @selected, 0, y+40, @selected, 50 )
         end
-        @font.draw(option.to_s.capitalize, ($window.width/2)-@font.text_width(option.to_s.capitalize)/2, y,0)
+        @font.draw(option.to_s.capitalize, ($window.width/2)-@font.text_width(option.to_s.capitalize)/2, y,50)
       end
     end
     
@@ -85,13 +87,13 @@ module PlanetDefense
       self.close
     end
     
-    def on_credits
-      push_game_state( CreditsState )
-    end
+    # def on_credits
+    #   push_game_state( CreditState )
+    # end
     
-    def on_options
-      push_game_state( OptionsState)
-    end
+    # def on_options
+    #   push_game_state( OptionState)
+    # end
     
     # def on_highscores
     #   push_game_state( HighScoreState )
