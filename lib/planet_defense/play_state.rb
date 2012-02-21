@@ -1,11 +1,11 @@
 module PlanetDefense
   class PlayState < Chingu::GameState
-    attr_reader :player, :asteroids, :score
+    attr_reader :player, :asteroids, :score, :timer
 
     def initialize( options = {})
       super
       @player = Player.new(self)  
-      @@asteroids = 10.times.map { Asteroid.new(self) }
+      @@asteroids = 5.times.map { Asteroid.new(self) }
       @background_image = Gosu::Image.new($window, "media/gfx/space-with-earth.jpg", true)
       @music = Gosu::Song.new($window, "media/sounds/background.wav")
       @font = Gosu::Font.new($window, "media/fonts/MuseoSans_300.otf", 43)
@@ -44,7 +44,7 @@ module PlanetDefense
       if @running == true and @pause == false
 
         # Win game at 1000 points
-        if @@score > 1000
+        if @@score > 500
           pop_game_state()
           push_game_state( GameWon )
           @running = false
@@ -91,7 +91,7 @@ module PlanetDefense
           #Clean up asteroids off the screen
           @@asteroids.length.times{|i|
           if (@@asteroids[i] != nil)
-            if (@@asteroids[i].y > $window.height && @@asteroids[i].x < $window.width && @@asteroids[i].x > 0)
+            if (@@asteroids[i].y > $window.height)
               @@asteroids[i].reset
               @planet_health -= 25
             end
@@ -112,7 +112,7 @@ module PlanetDefense
       @font.draw_rel("Press R to restart.", 500, 300, 10, 0.5, 0.5, 1, 1, Gosu::Color::RED) if @hit == true
       @font.draw_rel("Lives: #{@lives}", 100, 50, 10, 0.5, 0.5, 1, 1, Gosu::Color::WHITE)
       @font.draw_rel("Score: #{@@score}", 900, 50, 10, 0.5, 0.5, 1, 1, Gosu::Color::WHITE)
-      @font.draw_rel("Score: #{@planet_health}", 100, $window.height - 50, 10, 0.5, 0.5, 1, 1, Gosu::Color::WHITE)
+      @font.draw_rel("Planet Health: #{@planet_health}", 175, $window.height - 50, 10, 0.5, 0.5, 1, 1, Gosu::Color::WHITE)
     
       #Asteroid Draw
       @@asteroids.each{|asteroid| asteroid.draw unless asteroid == nil }
