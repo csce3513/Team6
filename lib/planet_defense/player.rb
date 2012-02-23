@@ -2,7 +2,7 @@ module PlanetDefense
   class Player < Chingu::GameObject
     has_traits :collision_detection, :timer, :velocity
     attr_reader :player
-    attr_accessor :vel_x, :vel_y
+    attr_accessor :vel_x, :vel_y, :laser_heat, :cooldown_time, :last_cooldown, :lastShot
     has_trait :bounding_box
   
     def initialize( options = {} )
@@ -16,8 +16,10 @@ module PlanetDefense
       @y = $window.height - 50
       @lastShot = milliseconds()
       @reloadTime = 100 #In milliseconds
+      @cooldown_time = 15
+      @last_cooldown = milliseconds()
       @laser_count = 0
-      @cooling_down = false
+      @laser_heat = 0
       @image = Gosu::Image.new($window, "media/gfx/shipNormal.bmp")  
       @font = Gosu::Font.new($window, "media/fonts/MuseoSans_300.otf", 43)
     end
@@ -47,6 +49,13 @@ module PlanetDefense
     end
 
     def move
+
+      #If it's been @cooldown_time since last cooldown, cooldown again
+      if (@last_cooldown + @cooldown_time < milliseconds())
+        cool_down_laser
+        puts "Laser heat: #{@laser_heat}"
+      end
+
       #Position
       @x += @vel_x  
       @y += @vel_y  
@@ -88,23 +97,47 @@ module PlanetDefense
     end
   
     def shoot
-      cooling_down?
 
-      if (milliseconds() - @reloadTime) > @lastShot && @cooling_down == false
+      #Lasers have limited firing rate, and can't shoot above 75% heat
+      if ((milliseconds() - @reloadTime) > @lastShot) && !overheated?
         @lastShot = milliseconds()
         Laser.create( :x => @x-20, :y => @y-15)
         Laser.create( :x => @x+20, :y => @y-15)
-        @laser_count += 1
-        if @laser_count == 20
-          @cooling_down = true
-        end
+        heat_up_laser
+      else
+        false
+      end
+      
+    end
+
+
+    def overheated?
+      if (@laser_heat >= 100)
+        #Prevents shooting for .75 seconds if overheated
+        @lastShot = milliseconds() + 750
+        true
+      else 
+        false
+      end
+        
+  end
+
+
+    #Every shot heats up the laser (called in 'shoot')
+    def heat_up_laser
+      if (@laser_heat < 100)
+        @laser_heat += 10
       end
     end
 
-    def cooling_down?
-      if (milliseconds() - 1500) > @lastShot
-        @cooling_down = false
-        @laser_count = 0
+    #Laser cools down continuously (called in 'move', since it is continuously called)
+    #Might make more sense to put this in play_state under update, after @player.move
+    def cool_down_laser
+      @laser_heat -= 1
+      if (@laser_heat < 0)
+        @laser_heat = 0
+      else
+        @last_cooldown = milliseconds()
       end
     end
 
