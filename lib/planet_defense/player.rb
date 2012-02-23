@@ -53,7 +53,6 @@ module PlanetDefense
       #If it's been @cooldown_time since last cooldown, cooldown again
       if (@last_cooldown + @cooldown_time < milliseconds())
         cool_down_laser
-        puts "Laser heat: #{@laser_heat}"
       end
 
       #Position
@@ -97,8 +96,7 @@ module PlanetDefense
     end
   
     def shoot
-
-      #Lasers have limited firing rate, and can't shoot above 75% heat
+      #Laser only shoots if reloaded and not overheated
       if ((milliseconds() - @reloadTime) > @lastShot) && !overheated?
         @lastShot = milliseconds()
         Laser.create( :x => @x-20, :y => @y-15)
@@ -107,20 +105,18 @@ module PlanetDefense
       else
         false
       end
-      
     end
 
-
+    #Checks if the laser is overheated (condition for laser to fire)
     def overheated?
       if (@laser_heat >= 100)
-        #Prevents shooting for .75 seconds if overheated
-        @lastShot = milliseconds() + 750
+        #Prevents shooting for 1 second if overheated
+        @lastShot = milliseconds() + 1000
         true
       else 
         false
       end
-        
-  end
+    end
 
 
     #Every shot heats up the laser (called in 'shoot')
@@ -151,7 +147,7 @@ module PlanetDefense
   
     def draw
       @image.draw_rot(@x, @y, 1, 0)  
-      @font.draw_rel("LASERS ARE RECHARGING!", 500, 50, 10, 0.5, 0.5, 1, 1, Gosu::Color::RED) if @cooling_down
+      @font.draw_rel("LASERS OVERHEATING!", 500, 50, 10, 0.5, 0.5, 1, 1, Gosu::Color::RED) if (@laser_heat >= 85)
     end
   
     def reset
