@@ -24,9 +24,10 @@ module PlanetDefense
     context "when playing" do
       before :each do
         @g.update
-      end
+    end
 
 
+<<<<<<< HEAD
       #--------
       #MOVEMENT
       #--------
@@ -38,26 +39,40 @@ module PlanetDefense
           @player.move
         end
         @player.x.should <= 512
-      end
+=======
+    #--------
+    #MOVEMENT
+    #--------
 
-      it 'should move right across the screen on command' do
-        @player.x = 512
-        @player.vel_x = 0
-        20.times do
-          @player.move_right
-          @player.move
-        end
-        @player.x.should >= 512
+    it 'should move left across the screen on command' do
+      @player.x = $window.width / 2
+      20.times do
+        @player.move_left
+        @player.move
+>>>>>>> Cleaned up and commented player and player_spec a little
       end
+      @player.x.should <= 512
+    end
 
-      it 'should move up the screen on command' do
-        20.times do
-          @player.move_forward
-          @player.move
-        end
-        @player.y.should <= 718
+    it 'should move right across the screen on command' do
+      @player.x = 512
+      @player.vel_x = 0
+      20.times do
+        @player.move_right
+        @player.move
       end
+      @player.x.should >= 512
+    end
 
+    it 'should move up the screen on command' do
+      20.times do
+        @player.move_forward
+        @player.move
+      end
+      @player.y.should <= 718
+    end
+
+<<<<<<< HEAD
       it 'should move down the screen on command' do
         @player.y = 718
         @player.vel_y = 0
@@ -71,36 +86,68 @@ module PlanetDefense
       #----------
       #BOUNDARIES
       #----------
-
-      it 'should not exceed the left boundary' do
-        1000.times do
-          @player.move_left
-        end
-        @player.x.should > 0
+=======
+    it 'should move down the screen on command' do
+      @player.y = 718
+      @player.vel_y = 0
+      20.times do
+        @player.move_backward
+        @player.move
       end
+        @player.y.should >= 718
+    end 
+>>>>>>> Cleaned up and commented player and player_spec a little
 
-      it 'should not exceed the right boundary' do
-        1000.times do
-          @player.move_right
-        end
-        @player.x.should < 1024
+    #----------
+    #BOUNDARIES
+    #----------
+
+    it 'should not exceed the left boundary' do
+      1000.times do
+        @player.move_left
       end
+      @player.x.should > 0
+    end
 
+    it 'should not exceed the right boundary' do
+      1000.times do
+        @player.move_right
+      end
+      @player.x.should < 1024
+    end
+
+<<<<<<< HEAD
       it 'should not exceed the top boundary' do
         1000.times do
           @player.move_forward
         end
         @player.y.should > 0
+=======
+    it 'should not exceed the top boundary' do
+      1000.times do
+        @player.move_forward
+>>>>>>> Cleaned up and commented player and player_spec a little
       end
+      @player.x.should > 0
+    end
 
+<<<<<<< HEAD
       it 'should not exceed the bottom boundary' do
         1000.times do
           @player.move_backward
         end
         @player.y.should < 768
+=======
+    it 'should not exceed the bottom boundary' do
+      1000.times do
+        @player.move_backward
+>>>>>>> Cleaned up and commented player and player_spec a little
       end
+      @player.x.should < 768
+    end
 
 
+<<<<<<< HEAD
       #--------------
       #MAX VELOCITIES
       #--------------
@@ -108,6 +155,15 @@ module PlanetDefense
       it 'should not exceed player max velocities' do
         1000.times do
             @player.move_left
+=======
+    #--------------
+    #MAX VELOCITIES
+    #--------------
+
+    it 'should not exceed player max velocities' do
+      1000.times do
+          @player.move_left
+>>>>>>> Cleaned up and commented player and player_spec a little
         end
         @player.vel_x.should >= -7.5
         1000.times do
@@ -135,16 +191,22 @@ module PlanetDefense
         asteroids[0].x = @player.x
         asteroids[0].y = @player.y
         @player.hit_by?(asteroids).should == true
-      end
-
-    
 =======
+
+    #----------
+    #COLLISIONS
+    #----------
+
     it 'should collide with asteroids' do
       asteroids = 20.times.map { Asteroid.new(@g) }
       asteroids[0].x = @player.x
       asteroids[0].y = @player.y
       @player.hit_by?(asteroids).should == true
     end
+
+    #------
+    #LASERS
+    #------
 
     it 'should cooldown lasers over time down to 0 minimum' do
       @player.laser_heat = 100
@@ -154,8 +216,10 @@ module PlanetDefense
         if (@player.laser_heat > 0)
           @player.laser_heat.should < @lastHeat
         end
+>>>>>>> Cleaned up and commented player and player_spec a little
       end
-      @player.laser_heat.should >= 0
+
+    
     end
 
     it 'should heat up when shot to 100 maximum' do
@@ -181,7 +245,6 @@ module PlanetDefense
           @player.move
           @player.laser_heat.should < 100
         end
->>>>>>> Added laser heatup/cooldown, plus a penalty if fully heated
     end
 
     it 'should have a restricted firing rate' do
