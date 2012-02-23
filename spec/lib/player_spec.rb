@@ -136,17 +136,35 @@ module PlanetDefense
         @player.vel_y.should <= 7.5  
       end
     
+    it 'should collide with asteroids' do
+      asteroids = 20.times.map { Asteroid.new(@g) }
+      asteroids[0].x = @player.x
+      asteroids[0].y = @player.y
+      @player.hit_by?(asteroids).should == true
+    end
 
-      #----------
-      #COLLISIONS
-      #----------
-
-      it 'should collide with asteroids' do
-        asteroids = 20.times.map { Asteroid.new(@g) }
-        asteroids[0].x = @player.x
-        asteroids[0].y = @player.y
-        @player.hit_by?(asteroids).should == true
+    it 'should cooldown lasers over time down to 0 minimum' do
+      @player.laser_heat = 100
+      200.times do
+        @lastHeat = @player.laser_heat
+        @player.cool_down_laser
+        if (@player.laser_heat > 0)
+          @player.laser_heat.should < @lastHeat
+        end
       end
+      @player.laser_heat.should >= 0
+    end
+
+    it 'should heat up when shot to 100 maximum' do
+      @player.laser_heat = 0
+      10.times do
+        @lastHeat = @player.laser_heat
+        @player.lastShot = 0;
+        @player.heat_up_laser
+        @player.laser_heat.should > @lastHeat
+      end
+      @player.laser_heat.should <= 100
+    end
 
     
     end
@@ -159,7 +177,6 @@ module PlanetDefense
           @player.heat_up_laser
           @player.laser_heat.should > @lastHeat
         end
-        @player.laser_heat.should <= 100
       end
 
       it 'should overheat at 100 heat, and give a firing penalty' do
