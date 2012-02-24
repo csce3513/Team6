@@ -14,7 +14,7 @@ module PlanetDefense
       @pause = false
       @running = true
       @@score = 0
-      @lives = 5
+      @lives = 3
       @planet_health = 1000
       @music.volume = 0.3
       @music.play(looping = true) unless @pause == true || defined? RSpec
