@@ -1,10 +1,11 @@
 module PlanetDefense
   class PlayState < Chingu::GameState
     attr_reader :player, :asteroids, :score, :timer
+    attr_accessor :pause
 
     def initialize( options = {})
       super
-      @player = Player.new(self)  
+      @player = Player.new(self)
       @@asteroids = 5.times.map { Asteroid.new(self) }
       @background_image = Gosu::Image.new($window, "media/gfx/space-with-earth.jpg", true)
       @music = Gosu::Song.new($window, "media/sounds/background.wav")
@@ -18,6 +19,36 @@ module PlanetDefense
       @music.volume = 0.3
       @music.play(looping = true) unless @pause == true || defined? RSpec
       $window.caption = "Planet Defense #{PlanetDefense::VERSION}"
+      cursor = Gosu::Image.new($window, 'media/gfx/cursor.png', true)
+      icons  = Gosu::Image.load_tiles($window, 'media/gfx/icons.png', 16, 16, false)
+      @menu = RingMenu.new :radius => 400, :opaque => false, :modal => true, :icon_rotation => 2, 
+        :x_radius => 200, :y_radius => 100 do |m|
+        m.cursor cursor, :scale => 2.5
+        m.font 'Helvetica', 20
+        
+        m.item('QUIT TO MENU',   icons[0], :scale => 4) { end_game }
+        m.item('RETURN TO GAME',  icons[1], :scale => 4) { return_to_game }
+        m.item('OPTIONS',   icons[2], :scale => 4) { end_game }
+        m.item('HIGH SCORES',  icons[3], :scale => 4) { return_to_game }
+      end
+
+    end
+
+    def return_to_game
+      PlanetDefense::RingMenu::Icon.destroy_all
+      @pause = false
+      pop_game_state()
+    end
+   
+    def confirm_exit
+      @pause = true
+      push_game_state @menu
+    end
+
+    def end_game
+      @running = false
+      pop_game_state()
+      push_game_state( MenuState )
     end
 
     def button_down(id)
@@ -36,6 +67,9 @@ module PlanetDefense
       end
       if $window.button_down? Gosu::Button::KbR
         refresh_game
+      end
+      if id == Gosu::Button::KbEscape
+        confirm_exit
       end
     end
   
@@ -105,7 +139,7 @@ module PlanetDefense
       super
       @background_image.draw(0,0,0)  
       @player.draw  
-    
+
       # Notices on screen
       @font.draw_rel("The game is paused.", 500, 200, 10, 0.5, 0.5, 1, 1, Gosu::Color::WHITE) if @pause == true
       @font.draw_rel("Asteroid Impact!", 500, 200, 10, 0.5, 0.5, 1, 1, Gosu::Color::RED) if @hit == true
