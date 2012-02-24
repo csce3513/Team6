@@ -9,7 +9,7 @@ module PlanetDefense
       @current = 0
       @selected = Color.new(150,220,69,82)
       @font = Gosu::Font.new($window, "media/fonts/MuseoSans_300.otf", 43)
-      @background_image = Gosu::Image.new($window, "media/gfx/space-with-earth.jpg", true)
+      @background_image = Gosu::Image.new($window, "media/gfx/space.jpg", true)
       @title_image = Gosu::Image.new($window, "media/gfx/title.png", true)
       self.input = { 
         :up => :move_up,
