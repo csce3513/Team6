@@ -3,13 +3,15 @@ module PlanetDefense
     def initialize(options = {})
       super
       self.input = { :r => :replay }
-      @font = Gosu::Font.new($window, "media/fonts/MuseoSans_300.otf", 45)
-      @font2 = Gosu::Font.new($window, "media/fonts/MuseoSans_300.otf", 25)
+      @font = Gosu::Font.new($window, "media/fonts/MuseoSans_300.otf", 65)
+      @font2 = Gosu::Font.new($window, "media/fonts/MuseoSans_300.otf", 45)
+      @background_image = Gosu::Image.new($window, "media/gfx/gameover.jpg", true)
       Sound["media/sounds/game_over.wav"].play(0.5)
     end
           
     def draw
        super
+       @background_image.draw(0,0,0)
        @font.draw_rel("GAME OVER", $window.width / 2, $window.height / 2, 10, 0.5, 0.5, 1, 1, Gosu::Color::RED)
        @font2.draw_rel("- Press R to restart the game - ", $window.width / 2, ($window.height / 2) + 45, 10, 0.5, 0.5, 1, 1, Gosu::Color::RED)
     end
