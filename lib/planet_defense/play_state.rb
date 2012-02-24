@@ -26,10 +26,10 @@ module PlanetDefense
         m.cursor cursor, :scale => 2.5
         m.font 'Helvetica', 20
         
-        m.item('QUIT TO MENU',   icons[0], :scale => 4) { end_game }
-        m.item('RETURN TO GAME',  icons[1], :scale => 4) { return_to_game }
-        m.item('OPTIONS',   icons[2], :scale => 4) { end_game }
-        m.item('HIGH SCORES',  icons[3], :scale => 4) { return_to_game }
+        m.item('QUIT TO MENU',   icons[1], :scale => 2) { end_game }
+        m.item('RETURN TO GAME',  icons[3], :scale => 2) { return_to_game }
+        m.item('OPTIONS',   icons[2], :scale => 2) { push_game_state( OptionsState ) }
+        m.item('HIGH SCORES',  icons[0], :scale => 2) { push_game_state( HighScoresState ) }
       end
 
     end
