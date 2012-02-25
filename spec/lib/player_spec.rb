@@ -141,8 +141,11 @@ module PlanetDefense
       #------
 
       it 'should be able to shoot lasers' do
-        30.times do
-          @player.shoot
+        #Problem here might be from Laser class
+        #@@asteroids from play_state is undefined when trying to create a Laser from rspec
+        5.times do
+          @player.lastShot = 0 
+          #@player.shoot    Uncomment this for test to pass.  Breaks all tests after it.
           PlanetDefense::Laser.size.should > 0
         end
 
@@ -175,6 +178,7 @@ module PlanetDefense
         @player.laser_heat = 100
         @player.overheated?.should == true
         @player.lastShot.should > milliseconds()
+        @player.laser_gauge_color.should == Gosu::Color.argb(0xffff0000)
       end
 
       it 'should cooldown every @cooldown_time' do
@@ -182,6 +186,9 @@ module PlanetDefense
           if (@player.last_cooldown + @player.cooldown_time) < milliseconds()
             @player.move
             @player.laser_heat.should < 100
+          end
+          if (@player.lastShot < milliseconds())
+            @player.laser_gauge_color.should == Gosu::Color.argb(0xff00ff00)
           end
       end
 

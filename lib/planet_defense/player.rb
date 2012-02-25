@@ -20,6 +20,7 @@ module PlanetDefense
       @last_cooldown = milliseconds()
       @laser_count = 0
       @laser_heat = 0
+      @laser_gauge_color = Gosu::Color.argb(0xff00ff00)
       @image = Gosu::Image.new($window, "media/gfx/shipNormal.bmp")  
       @font = Gosu::Font.new($window, "media/fonts/MuseoSans_300.otf", 43)
     end
@@ -99,9 +100,10 @@ module PlanetDefense
       #Laser only shoots if reloaded and not overheated
       if ((milliseconds() - @reloadTime) > @lastShot) && !overheated?
         @lastShot = milliseconds()
-        Laser.create( :x => @x-20, :y => @y-15)
-        Laser.create( :x => @x+20, :y => @y-15)
+        PlanetDefense::Laser.create( :x => @x-20, :y => @y-15)
+        PlanetDefense::Laser.create( :x => @x+20, :y => @y-15)
         heat_up_laser
+        true
       else
         false
       end
@@ -112,6 +114,7 @@ module PlanetDefense
       if (@laser_heat >= 100)
         #Prevents shooting for 1 second if overheated
         @lastShot = milliseconds() + 1000
+        @laser_gauge_color = Gosu::Color.argb(0xffff0000)
         true
       else 
         false
@@ -135,6 +138,10 @@ module PlanetDefense
       else
         @last_cooldown = milliseconds()
       end
+      #Color gauge red -> green
+      if (@lastShot <milliseconds())
+        @laser_gauge_color = Gosu::Color.argb(0xff00ff00)
+      end
     end
 
     def x
@@ -147,12 +154,21 @@ module PlanetDefense
   
     def draw
       @image.draw_rot(@x, @y, 1, 0)  
+
       @font.draw_rel("LASERS OVERHEATING!", 500, 50, 10, 0.5, 0.5, 1, 1, Gosu::Color::RED) if (@laser_heat >= 85)
     end
   
     def reset
       @x = $window.width / 2  
       @y = $window.height - 50
+    end
+
+    def laser_heat
+      @laser_heat
+    end
+
+    def laser_gauge_color
+      @laser_gauge_color
     end
     
   end

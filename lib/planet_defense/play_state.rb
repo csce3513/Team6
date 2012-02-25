@@ -147,9 +147,26 @@ module PlanetDefense
       @font.draw_rel("Lives: #{@lives}", 100, 50, 10, 0.5, 0.5, 1, 1, Gosu::Color::WHITE)
       @font.draw_rel("Score: #{@@score}", 900, 50, 10, 0.5, 0.5, 1, 1, Gosu::Color::WHITE)
       @font.draw_rel("Planet Health: #{@planet_health}", 175, $window.height - 50, 10, 0.5, 0.5, 1, 1, Gosu::Color::WHITE)
-    
+    Gosu::Color.new(0xFF1D4DB5)
       #Asteroid Draw
       @@asteroids.each{|asteroid| asteroid.draw unless asteroid == nil }
+
+      #Laser's heat gauge
+      #Black background
+      black = Gosu::Color.new(0xFF000000)
+      $window.draw_quad(
+        $window.width - 230, $window.height - 45, @player.laser_gauge_color,
+        $window.width - 230 + (@player.laser_heat * 2), $window.height - 45, @player.laser_gauge_color,
+        $window.width - 230, $window.height - 15, @player.laser_gauge_color,
+        $window.width - 230 + (@player.laser_heat * 2), $window.height - 15, @player.laser_gauge_color,
+        1)
+        #Filled color
+      $window.draw_quad(
+        $window.width - 232, $window.height - 47, black,
+        $window.width - 12, $window.height - 47, black,
+        $window.width - 232, $window.height - 13, black,
+        $window.width - 12, $window.height - 13, black,
+        0)
     end
   
     def finalize
