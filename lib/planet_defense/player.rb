@@ -23,6 +23,7 @@ module PlanetDefense
       @laser_gauge_color = Gosu::Color::GREEN
       @image = Gosu::Image.new($window, "media/gfx/shipNormal.bmp")  
       @font = Gosu::Font.new($window, "media/fonts/MuseoSans_300.otf", 43)
+      @particles = Chingu::Animation.new(:file => "media/gfx/fireball.png", :size => [32,32])
     end
   
     def move_left
@@ -38,6 +39,7 @@ module PlanetDefense
     end
   
     def move_forward
+      Particle.each { |particle| particle.y += 3; particle.x += 2 - rand(4) }
       if (@vel_y.abs < @vel_max)
         @vel_y -= @acceleration  
       end
@@ -85,6 +87,17 @@ module PlanetDefense
     
       shoot if $window.button_down?(Gosu::KbSpace) or $window.button_down?(Gosu::GpButton0)
      
+      Chingu::Particle.create( :x => @x, 
+                  :y => @y+40, 
+                  :animation => @particles,
+                  :scale_rate => +0.02, 
+                  :fade_rate => -20, 
+                  :rotation_rate => +10,
+                  :mode => :default
+                )
+
+     
+      $window.game_objects.destroy_if { |object| object.outside_window? || object.color.alpha == 0 }
     end
   
     def hit_by?(asteroids)
@@ -153,7 +166,7 @@ module PlanetDefense
     end
   
     def draw
-      @image.draw_rot(@x, @y, 1, 0)  
+      @image.draw_rot(@x, @y, 5, 0)  
 
       @font.draw_rel("LASERS OVERHEATING!", 500, 50, 10, 0.5, 0.5, 1, 1, Gosu::Color::RED) if (@laser_heat >= 85)
     end
