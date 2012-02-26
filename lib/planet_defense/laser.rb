@@ -22,7 +22,6 @@ module PlanetDefense
       @anim = Chingu::Animation.new( :file => "media/gfx/laser.png", :size=>[2,8], :delay => 10).retrofy
       @image = @anim.next
       self.factor = $window.object_factor
-      puts @@size
       @angle = Gosu::angle(0,0,@velocity_x,@velocity_y)
     end
   
@@ -59,7 +58,6 @@ module PlanetDefense
     
       self.each_bounding_box_collision(Laser, Asteroid, Player) do |me, obj|
         next if me == obj
-        puts obj
         on_collision(obj)
         obj.on_collision(me) if obj.respond_to? :on_collision
       end

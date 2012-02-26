@@ -27,10 +27,6 @@ module PlanetDefense
     
     def setup
       @game_objects.destroy_all
-
-      # @bg_music = Song["sad robot.ogg"]
-      # @bg_music.volume = $settings['music']
-      # @bg_music.play(true)
     end
     
       
