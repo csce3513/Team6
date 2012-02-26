@@ -20,7 +20,7 @@ module PlanetDefense
       @last_cooldown = milliseconds()
       @laser_count = 0
       @laser_heat = 0
-      @laser_gauge_color = Gosu::Color.argb(0xff00ff00)
+      @laser_gauge_color = Gosu::Color::GREEN
       @image = Gosu::Image.new($window, "media/gfx/shipNormal.bmp")  
       @font = Gosu::Font.new($window, "media/fonts/MuseoSans_300.otf", 43)
     end
@@ -114,7 +114,7 @@ module PlanetDefense
       if (@laser_heat >= 100)
         #Prevents shooting for 1 second if overheated
         @lastShot = milliseconds() + 1000
-        @laser_gauge_color = Gosu::Color.argb(0xffff0000)
+        @laser_gauge_color = Gosu::Color::RED
         true
       else 
         false
@@ -140,7 +140,7 @@ module PlanetDefense
       end
       #Color gauge red -> green
       if (@lastShot <milliseconds())
-        @laser_gauge_color = Gosu::Color.argb(0xff00ff00)
+        @laser_gauge_color = Gosu::Color::GREEN
       end
     end
 
