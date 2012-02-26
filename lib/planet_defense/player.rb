@@ -26,19 +26,34 @@ module PlanetDefense
       @particles = Chingu::Animation.new(:file => "media/gfx/fireball.png", :size => [32,32])
     end
   
+    def create_particles
+      Chingu::Particle.create( :x => @x, 
+                              :y => @y+30, 
+                              :animation => @particles,
+                              :scale_rate => +0.02, 
+                              :fade_rate => -20, 
+                              :rotation_rate => +10,
+                              :mode => :default
+                              )
+    end
+
+
     def move_left
+      create_particles
       if (@vel_x.abs < @vel_max)
         @vel_x -= @acceleration  
       end
     end
   
     def move_right
+      create_particles
       if (@vel_x.abs < @vel_max)
         @vel_x += @acceleration  
       end
     end
   
     def move_forward
+      create_particles
       Particle.each { |particle| particle.y += 3; particle.x += 2 - rand(4) }
       if (@vel_y.abs < @vel_max)
         @vel_y -= @acceleration  
@@ -86,15 +101,7 @@ module PlanetDefense
       move_backward if $window.button_down?(Gosu::KbDown) or $window.button_down?(Gosu::GpDown)
     
       shoot if $window.button_down?(Gosu::KbSpace) or $window.button_down?(Gosu::GpButton0)
-     
-      Chingu::Particle.create( :x => @x, 
-                  :y => @y+40, 
-                  :animation => @particles,
-                  :scale_rate => +0.02, 
-                  :fade_rate => -20, 
-                  :rotation_rate => +10,
-                  :mode => :default
-                )
+  
 
      
       $window.game_objects.destroy_if { |object| object.outside_window? || object.color.alpha == 0 }
