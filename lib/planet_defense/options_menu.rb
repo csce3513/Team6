@@ -1,18 +1,24 @@
 module PlanetDefense
-  class MenuState < Chingu::GameState
+  class OptionsState < Chingu::GameState
     
     def initialize(options = {})
       super
 
-      #@options = [ :start, :highscores, :credits, :options, :quit ]
-      @options = [ :start, :options, :quit ]
+      @options = [:difficulty, :volume, :back]
+      @difficulties = [:easy, :medium, :hard]
       @current = 0
+      @currentDifficulty = 0
       @selected = Color.new(256,253,96,17)
+      @diffSelect = Color.new(256, 253, 96, 17)
       @font = Gosu::Font.new($window, "media/fonts/MuseoSans_300.otf", 43)
       @background_image = Gosu::Image.new($window, "media/gfx/space-with-earth.jpg", true)
+      #@title_image = Gosu::Image.new($window, "media/gfx/options.png", true)
+
       self.input = { 
         :up => :move_up,
         :down => :move_down,
+        :left => :move_left,
+        :right => :move_right,
         :space => :go,
         :enter => :go,
         :return => :go
@@ -23,28 +29,36 @@ module PlanetDefense
     def setup
       @game_objects.destroy_all
 
-      # @bg_music = Song["sad robot.ogg"]
-      # @bg_music.volume = $settings['music']
-      # @bg_music.play(true)
     end
     
       
     def move_up
       @current -= 1
       @current = @options.length-1 if @current < 0
-      # Sound["menu_change.wav"].play($settings['sound'])
     end
     
     def move_down
       @current += 1
       @current = 0 if @current >= @options.length
-      # Sound["menu_change.wav"].play($settings['sound'])
+    end
+
+    def move_left
+      if @current == 0
+        @currentDifficulty -= 1
+        @currentDifficulty = @difficulties.length-1 if @currentDifficulty < 0
+      end
+    end
+
+    def move_right
+      if @current == 0
+        @currentDifficulty += 1
+        @currentDifficulty = 0 if @currentDifficulty >= @difficulties.length
+      end
     end
 
     def go
       met = "on_" + @options[@current].to_s
       self.send(met)
-      # Sound["menu_select.wav"].play($settings['sound'])
     end
 
     def update
@@ -59,37 +73,39 @@ module PlanetDefense
       @background_image.draw(0,0,0)
 
       @options.each_with_index do |option, i|
-        y = 380+(i*40)
+        y = 280+(i*100)
         if i == @current
           #draw_quad(x1, y1, c1, x2, y2, c2, x3, y3, c3, x4, y4, c4, z = 0, mode = :default)
           $window.draw_quad(0, y+10, @selected, $window.width, y+10, @selected, $window.width, y+40, @selected, 0, y+40, @selected )
         end
         @font.draw(option.to_s.capitalize, ($window.width/2)-@font.text_width(option.to_s.capitalize)/2, y,0)
       end
+
+      @difficulties.each_with_index do |difficulty, j|
+        y = 320
+        x = 180 + ((j+1) * $window.width/7)
+
+        if j == @currentDifficulty
+          $window.draw_quad(x, y+10, @diffSelect, x+40, y+10, @diffSelect, x+40, y+40, @diffSelect, x, y+40, @diffSelect )
+        end
+        @font.draw(difficulty.to_s.capitalize, x, y, 0)
+      end
+
     end
     
     
     # Menu options callbacks:
     
-    def on_start
-      switch_game_state( PlayState )
+    def on_back
+      switch_game_state( MenuState )
     end
     
-    def on_quit
-      self.close
+    def on_difficulty
     end
     
-    # def on_credits
-    #   push_game_state( CreditState )
-    # end
-    
-    def on_options
-      switch_game_state( OptionsState )
+    def on_volume
     end
     
-    # def on_highscores
-    #   push_game_state( HighScoreState )
-    # end
     
   end
 
