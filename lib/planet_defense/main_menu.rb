@@ -5,7 +5,7 @@ module PlanetDefense
       super
 
       #@options = [ :start, :highscores, :credits, :options, :quit ]
-      @options = [ :start, :options, :quit ]
+      @options = [ :start, :quit ]
       @current = 0
       @selected = Color.new(256,253,96,17)
       @font = Gosu::Font.new($window, "media/fonts/MuseoSans_300.otf", 43)
@@ -83,9 +83,9 @@ module PlanetDefense
     #   push_game_state( CreditState )
     # end
     
-    def on_options
-      switch_game_state( OptionsState )
-    end
+    # def on_options
+    #   push_game_state( OptionState)
+    # end
     
     # def on_highscores
     #   push_game_state( HighScoreState )
