@@ -153,6 +153,23 @@ module PlanetDefense
       #Asteroid Draw
       @@asteroids.each{|asteroid| asteroid.draw unless asteroid == nil }
 
+      #Planet Health Bar BG
+      $window.draw_quad(
+        14, $window.height - 45, Gosu::Color::RED,
+        14 + (@planet_health / 5), $window.height - 45, Gosu::Color::RED,
+        14, $window.height - 15, Gosu::Color::RED,
+        14 + (@planet_health / 5), $window.height - 15, Gosu::Color::RED,
+      1)
+
+      #Planet Health Bar FG
+      $window.draw_quad(
+        217, $window.height - 47, Gosu::Color::BLACK,
+        12, $window.height - 47, Gosu::Color::BLACK,
+        217, $window.height - 13, Gosu::Color::BLACK,
+        12, $window.height - 13, Gosu::Color::BLACK,
+      0)
+
+
       #Laser's heat gauge
       #Filled color
       $window.draw_quad(
