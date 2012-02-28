@@ -1,6 +1,6 @@
 module PlanetDefense
   class CreditsState < Chingu::GameState
-    attr_reader :title_height 
+    attr_reader :title_height, :names_height, :title_image
     
     def initialize(options = {})
       super
@@ -12,7 +12,7 @@ module PlanetDefense
       @font = Gosu::Font.new($window, "media/fonts/MuseoSans_300.otf", 43)
       @background_image = Gosu::Image.new($window, "media/gfx/space.jpg", true)
       @title_image = Gosu::Image.new($window, "media/gfx/title.png", true)
-	  @credits_image = Gosu::Image.new($window, "media/gfx/credits.png", true)
+	   @credits_image = Gosu::Image.new($window, "media/gfx/credits.png", true)
       self.input = { 
         :up => :move_up,
         :down => :move_down,
@@ -20,9 +20,9 @@ module PlanetDefense
         :enter => :go,
         :return => :go
       }
-	  @title_height = 100
-	  @names_height = @title_height + @title_image.height + 20
-	  @names_width = $window.width/2
+	   @title_height = 100
+	   @names_height = @title_height + @title_image.height + 20
+	   @names_width = $window.width/2
       @music = Gosu::Song.new($window, "media/sounds/background.wav")
       @music.volume = 0.3
       @music.play(looping = true) unless @pause == true || defined? RSpec
@@ -69,18 +69,18 @@ module PlanetDefense
       @@asteroids.each{|asteroid| asteroid.draw unless asteroid == nil }
       @background_image.draw(0,0,0)
 	  
-	  @names_height > $window.height ? @names_height = @title_height + @title_image.height + 20 : @names_height += 1
+	   @names_height > $window.height ? reset : @names_height += 1
 
       @title_image.draw(($window.width/2)-@title_image.width/2, @title_height, 50)
-	  @credits_image.draw(($window.width/2)-@credits_image.width, $window.height/2, 50)
+	   @credits_image.draw(($window.width/2)-@credits_image.width, $window.height/2, 50)
 	  
-	  @offset = 50
+	   @offset = 50
 	  
-	  @font.draw("By: Addam Hardy", @names_width, @names_height, 0)
-	  @font.draw("Michael Gammon", @names_width, @names_height + @offset, 0)
-	  @font.draw("Bryan Glazer", @names_width, @names_height + @offset*2, 0)
-	  @font.draw("Denton Alford", @names_width, @names_height + @offset*3, 0)
-	  @font.draw("Denton Alford", @names_width, @names_height + @offset*4, 0)
+	   @font.draw("By: Addam Hardy", @names_width, @names_height, 0)
+	   @font.draw("Michael Gammon", @names_width, @names_height + @offset, 0)
+	   @font.draw("Bryan Glazer", @names_width, @names_height + @offset*2, 0)
+	   @font.draw("Denton Alford", @names_width, @names_height + @offset*3, 0)
+	   @font.draw("Denton Alford", @names_width, @names_height + @offset*4, 0)
     end
     
     
@@ -94,6 +94,10 @@ module PlanetDefense
       self.close
     end
     
+	 def reset
+		@names_height = @title_height + @title_image.height + 20
+	 end
+	 
     # def on_credits
     #   push_game_state( CreditState )
     # end
