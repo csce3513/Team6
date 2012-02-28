@@ -82,15 +82,31 @@ module PlanetDefense
         @font.draw(option.to_s.capitalize, ($window.width/2)-@font.text_width(option.to_s.capitalize)/2, y,0)
       end
 
-      @difficulties.each_with_index do |difficulty, j|
-        y = 320
-        x = 180 + ((j+1) * $window.width/7) 
+      y = 320
+      x = $window.width / 2 - (@font.text_width("Medium") / 2)
+      @font.draw("Easy", x - 150, y, 2) if @current == 0
+      @font.draw("Medium", x, y, 2) if @current == 0
+      @font.draw("Hard", x + 200 , y, 2) if @current == 0
 
-        if j == @currentDifficulty
-          $window.draw_quad(x-5, y+10, @diffSelect, x+@font.text_width(difficulty.to_s.capitalize)+5, y+10, @diffSelect, x+@font.text_width(difficulty.to_s.capitalize)+5, y+40, @diffSelect, x-5, y+40, @diffSelect ) if @current == 0
-        end
-        @font.draw(difficulty.to_s.capitalize, x, y, 2) if @current == 0
+      case @currentDifficulty
+        when 0
+          #Easy
+            new_x = (x-150)-5
+            $window.draw_quad(new_x, y+10, @diffSelect, new_x+@font.text_width("Easy")+10, y+10, @diffSelect, new_x, y+40, @diffSelect, new_x+@font.text_width("Easy")+10, y+40, @diffSelect ) if @current == 0
+        when 1
+          #Medium
+            $window.draw_quad(x-5, y+10, @diffSelect, x+@font.text_width("Medium")+5, y+10, @diffSelect, x-5, y+40, @diffSelect, x+@font.text_width("Medium")+5, y+40, @diffSelect ) if @current == 0
+        when 2
+          #Hard
+            new_x = (x+200)-5
+            $window.draw_quad(new_x, y+10, @diffSelect, new_x+@font.text_width("Hard")+10, y+10, @diffSelect, new_x, y+40, @diffSelect, new_x+@font.text_width("Hard")+10, y+40, @diffSelect ) if @current == 0
+        else
       end
+
+      # @difficulties.each_with_index do |difficulty, j|
+      #   
+        
+      # end
 
     end
     
