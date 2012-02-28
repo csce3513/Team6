@@ -18,7 +18,8 @@ module PlanetDefense
         :enter => :go,
         :return => :go
       }
-	  @credit_height = 400;
+	  @names_height = 0
+	  @names_width = 400
       @music = Gosu::Song.new($window, "media/sounds/background.wav")
       @music.volume = 0.3
       @music.play(looping = true) unless @pause == true || defined? RSpec
@@ -65,22 +66,19 @@ module PlanetDefense
       @@asteroids.each{|asteroid| asteroid.draw unless asteroid == nil }
       @background_image.draw(0,0,0)
 	  
-	  if(@credit_height > $window.height)
-		@credit_height = 400
-	  else
-		@credit_height += 1
-	  end
+	  @names_height > $window.height ? @names_height = 0 : @names_height += 1
 
       @title_image.draw(($window.width/2)-@title_image.width/2,100,50)
 
 	  @font.draw("CREDITS", ($window.width/2)-@font.text_width("CREDITS")/2, 300, 50)
 	  
-	  @offset = 50;
+	  @offset = 50
 	  
-	  @font.draw("By: Addam Hardy", ($window.width/2)-@font.text_width("CREDITS")/2, @credit_height, 50)
-	  @font.draw("Michael Gammon", ($window.width/2)-@font.text_width("CREDITS")/2, @credit_height + @offset*2, 50)
-	  @font.draw("Bryan Glazer", ($window.width/2)-@font.text_width("CREDITS")/2, @credit_height + @offset*3, 50)
-	  @font.draw("Denton Alford", ($window.width/2)-@font.text_width("CREDITS")/2, @credit_height + @offset*4, 50)
+	  @font.draw("By: Addam Hardy", @names_width, @names_height, 0)
+	  @font.draw("Michael Gammon", @names_width, @names_height + @offset, 0)
+	  @font.draw("Bryan Glazer", @names_width, @names_height + @offset*2, 0)
+	  @font.draw("Denton Alford", @names_width, @names_height + @offset*3, 0)
+	  @font.draw("Denton Alford", @names_width, @names_height + @offset*4, 0)
     end
     
     
