@@ -24,9 +24,11 @@ module PlanetDefense
       @image = Gosu::Image.new($window, "media/gfx/shipNormal.bmp")  
       @font = Gosu::Font.new($window, "media/fonts/MuseoSans_300.otf", 43)
       @particles = Chingu::Animation.new(:file => "media/gfx/fireball.png", :size => [32,32])
+
     end
   
     def create_particles
+
       Chingu::Particle.create( :x => @x, 
                               :y => @y+30, 
                               :animation => @particles,
@@ -39,14 +41,14 @@ module PlanetDefense
 
 
     def move_left
-      create_particles
+      #create_particles
       if (@vel_x.abs < @vel_max)
         @vel_x -= @acceleration  
       end
     end
   
     def move_right
-      create_particles
+      #create_particles
       if (@vel_x.abs < @vel_max)
         @vel_x += @acceleration  
       end
@@ -102,9 +104,12 @@ module PlanetDefense
     
       shoot if $window.button_down?(Gosu::KbSpace) or $window.button_down?(Gosu::GpButton0)
   
+      Particle.size
+      # Particle.each do |p|
+      #   puts "#{p.x} - #{p.y}"
+      #   p.destroy if p.outside_window?
+      # end
 
-     
-      $window.game_objects.destroy_if { |object| object.outside_window? || object.color.alpha == 0 }
     end
   
     def hit_by?(asteroids)

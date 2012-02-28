@@ -18,7 +18,7 @@ module PlanetDefense
       @planet_health = 1000
       @music.volume = 0.3
       @music.play(looping = true) unless @pause == true || defined? RSpec
-      $window.caption = "Planet Defense #{PlanetDefense::VERSION}"
+      $window.caption = "Planet Defense #{PlanetDefense::VERSION} Game Objects: #{game_objects}"
       cursor = Gosu::Image.new($window, 'media/gfx/cursor.png', true)
       icons  = Gosu::Image.load_tiles($window, 'media/gfx/icons.png', 16, 16, false)
       @menu = RingMenu.new :radius => 400, :opaque => false, :modal => true, :icon_rotation => 2, 
@@ -168,6 +168,8 @@ module PlanetDefense
         $window.width - 232, $window.height - 13, Gosu::Color::BLACK,
         $window.width - 12, $window.height - 13, Gosu::Color::BLACK,
         0)
+
+      $window.game_objects.destroy_if { |object| object.outside_window? || object.color.alpha == 0 }
     end
   
     def finalize
