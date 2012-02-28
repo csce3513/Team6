@@ -6,10 +6,12 @@ module PlanetDefense
     def initialize( options = {})
       super
       @player = Player.new(self)
-      @@asteroids = 5.times.map { Asteroid.new(self) }
+      @@asteroids = 15.times.map { Asteroid.new(self) }
       @background_image = Gosu::Image.new($window, "media/gfx/space-with-earth.jpg", true)
+      @life_image = Gosu::Image.new($window, "media/gfx/shipSmall.png", true)
       @music = Gosu::Song.new($window, "media/sounds/background.wav")
       @font = Gosu::Font.new($window, "media/fonts/MuseoSans_300.otf", 43)
+      @health_font = Gosu::Font.new($window, "media/fonts/MuseoSans_300.otf", 25)
       @count = 0  
       @pause = false
       @running = true
@@ -25,7 +27,6 @@ module PlanetDefense
         :x_radius => 200, :y_radius => 100 do |m|
         m.cursor cursor, :scale => 2.5
         m.font 'Helvetica', 20
-        
         m.item('QUIT TO MENU',   icons[1], :scale => 2) { end_game }
         m.item('RETURN TO GAME',  icons[3], :scale => 2) { return_to_game }
         m.item('OPTIONS',   icons[2], :scale => 2) { push_game_state( OptionsState ) }
@@ -125,9 +126,11 @@ module PlanetDefense
           #Clean up asteroids off the screen
           @@asteroids.length.times{|i|
           if (@@asteroids[i] != nil)
-            if (@@asteroids[i].y > $window.height)
-              @@asteroids[i].reset
-              @planet_health -= 25
+            if (@@asteroids[i].x > $window.width || @@asteroids[i].x < 0)
+              if (@@asteroids[i].y > $window.height)
+                @@asteroids[i].reset
+                @planet_health -= 25
+              end
             end
           end
         }
@@ -140,14 +143,23 @@ module PlanetDefense
       @background_image.draw(0,0,0)  
       @player.draw  
 
+      # 20, 50
+      @lives.times do |i|
+        puts i
+        @life_image.draw((40*i)+30,20,1)  
+      end
+
       # Notices on screen
       @font.draw_rel("The game is paused.", 500, 200, 10, 0.5, 0.5, 1, 1, Gosu::Color::WHITE) if @pause == true
       @font.draw_rel("Asteroid Impact!", 500, 200, 10, 0.5, 0.5, 1, 1, Gosu::Color::RED) if @hit == true
       @font.draw_rel("Press R to restart.", 500, 300, 10, 0.5, 0.5, 1, 1, Gosu::Color::RED) if @hit == true
-      @font.draw_rel("Lives: #{@lives}", 100, 50, 10, 0.5, 0.5, 1, 1, Gosu::Color::WHITE)
+      #@font.draw_rel("Lives: #{@lives}", 100, 50, 10, 0.5, 0.5, 1, 1, Gosu::Color::WHITE)
       @font.draw_rel("Score: #{@@score}", 900, 50, 10, 0.5, 0.5, 1, 1, Gosu::Color::WHITE)
       @health_font.draw_rel("Planet Health", (@health_font.text_width("Planet Health")/2)+18, $window.height - 30, 10, 0.5, 0.5, 1, 1, Gosu::Color::WHITE)
       @health_font.draw_rel("Laser Temp", (@health_font.text_width("Laser Temp")/2)+$window.width - 227, $window.height - 30, 10, 0.5, 0.5, 1, 1, Gosu::Color::WHITE)
+
+
+
 
       #Gosu::Color.new(0xFF1D4DB5)
       #Asteroid Draw
