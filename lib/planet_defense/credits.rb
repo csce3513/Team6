@@ -1,5 +1,6 @@
 module PlanetDefense
   class CreditsState < Chingu::GameState
+    attr_reader :title_height 
     
     def initialize(options = {})
       super

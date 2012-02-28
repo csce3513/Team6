@@ -5,19 +5,23 @@ module PlanetDefense
   
     before :all do
       @g = PlanetDefense::GameWindow.new
+      @cs = $window.current_game_state
     end
     
     after :all do
       @g.close
     end
     
-    it 'should be correct gamestate' do
-      $window.current_game_state.should be_kind_of(PlanetDefense::GameState)
+    it 'should be able to enter CreditsState from MenuState' do
+      @cs.move_down
+      @cs.move_down
+      @cs.go
+      $window.current_game_state.should be_kind_of(PlanetDefense::CreditsState)
     end
 	
 	context "when initialized" do
       it 'should appear below title' do
-        @g.title_height.should == 100
+        $window.current_game_state.title_height.should == 100
       end
     end
 
