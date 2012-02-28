@@ -17,7 +17,7 @@ module PlanetDefense
 	
 	context "when initialized" do
       it 'should appear below title' do
-        @g.title_height.should == 189990
+        @g.title_height.should == 100
       end
     end
 
