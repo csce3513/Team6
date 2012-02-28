@@ -10,6 +10,7 @@ module PlanetDefense
       @background_image = Gosu::Image.new($window, "media/gfx/space-with-earth.jpg", true)
       @music = Gosu::Song.new($window, "media/sounds/background.wav")
       @font = Gosu::Font.new($window, "media/fonts/MuseoSans_300.otf", 43)
+      @health_font = Gosu::Font.new($window, "media/fonts/MuseoSans_300.otf", 25)
       @count = 0  
       @pause = false
       @running = true
@@ -146,8 +147,10 @@ module PlanetDefense
       @font.draw_rel("Press R to restart.", 500, 300, 10, 0.5, 0.5, 1, 1, Gosu::Color::RED) if @hit == true
       @font.draw_rel("Lives: #{@lives}", 100, 50, 10, 0.5, 0.5, 1, 1, Gosu::Color::WHITE)
       @font.draw_rel("Score: #{@@score}", 900, 50, 10, 0.5, 0.5, 1, 1, Gosu::Color::WHITE)
-      @font.draw_rel("Planet Health: #{@planet_health}", 175, $window.height - 50, 10, 0.5, 0.5, 1, 1, Gosu::Color::WHITE)
     
+      @health_font.draw_rel("Planet Health", (@health_font.text_width("Planet Health")/2)+18, $window.height - 30, 10, 0.5, 0.5, 1, 1, Gosu::Color::WHITE)
+      @health_font.draw_rel("Laser Temp", (@health_font.text_width("Laser Temp")/2)+$window.width - 227, $window.height - 30, 10, 0.5, 0.5, 1, 1, Gosu::Color::WHITE)
+
       #Gosu::Color.new(0xFF1D4DB5)
       #Asteroid Draw
       @@asteroids.each{|asteroid| asteroid.draw unless asteroid == nil }
