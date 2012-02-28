@@ -65,14 +65,6 @@ module PlanetDefense
 
     def move
 
-<<<<<<< HEAD
-=======
-      #If it's been @cooldown_time since last cooldown, cooldown again
-      if (@last_cooldown + @cooldown_time < milliseconds())
-        cool_down_laser
-      end
-
->>>>>>> Cleaned up and commented player and player_spec a little
       #Position
       @x += @vel_x  
       @y += @vel_y  
@@ -118,51 +110,6 @@ module PlanetDefense
       puts "#{object.class} #{object.x}/#{object.y}"
       puts "#{self.class} #{self.x}/#{self.y}"
     end
-<<<<<<< HEAD
-=======
-  
-    def shoot
-      #Laser only shoots if reloaded and not overheated
-      if ((milliseconds() - @reloadTime) > @lastShot) && !overheated?
-        @lastShot = milliseconds()
-        Laser.create( :x => @x-20, :y => @y-15)
-        Laser.create( :x => @x+20, :y => @y-15)
-        heat_up_laser
-      else
-        false
-      end
-    end
-
-    #Checks if the laser is overheated (condition for laser to fire)
-    def overheated?
-      if (@laser_heat >= 100)
-        #Prevents shooting for 1 second if overheated
-        @lastShot = milliseconds() + 1000
-        true
-      else 
-        false
-      end
-    end
-
-
-    #Every shot heats up the laser (called in 'shoot')
-    def heat_up_laser
-      if (@laser_heat < 100)
-        @laser_heat += 10
-      end
-    end
-
-    #Laser cools down continuously (called in 'move', since it is continuously called)
-    #Might make more sense to put this in play_state under update, after @player.move
-    def cool_down_laser
-      @laser_heat -= 1
-      if (@laser_heat < 0)
-        @laser_heat = 0
-      else
-        @last_cooldown = milliseconds()
-      end
-    end
->>>>>>> Cleaned up and commented player and player_spec a little
 
     def x
      @x  
@@ -179,9 +126,10 @@ module PlanetDefense
 
       @font.draw_rel("LASERS OVERHEATING!", 500, 50, 10, 0.5, 0.5, 1, 1, Gosu::Color::RED) if (@weapon.heat >= 85)
 =======
-      @image.draw_rot(@x, @y, 1, 0)  
+      @image.draw_rot(@x, @y, 500, 0)  
+
       @font.draw_rel("LASERS OVERHEATING!", 500, 50, 10, 0.5, 0.5, 1, 1, Gosu::Color::RED) if (@laser_heat >= 85)
->>>>>>> Cleaned up and commented player and player_spec a little
+>>>>>>> Adding in health text to health bar
     end
   
     def reset
