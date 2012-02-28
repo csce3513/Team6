@@ -19,8 +19,9 @@ module PlanetDefense
         :enter => :go,
         :return => :go
       }
-	  @names_height = 0
-	  @names_width = 400
+	  @title_height = 100
+	  @names_height = @title_height + @title_image.height + 20
+	  @names_width = $window.width/2
       @music = Gosu::Song.new($window, "media/sounds/background.wav")
       @music.volume = 0.3
       @music.play(looping = true) unless @pause == true || defined? RSpec
@@ -67,12 +68,10 @@ module PlanetDefense
       @@asteroids.each{|asteroid| asteroid.draw unless asteroid == nil }
       @background_image.draw(0,0,0)
 	  
-	  @names_height > $window.height ? @names_height = 0 : @names_height += 1
+	  @names_height > $window.height ? @names_height = @title_height + @title_image.height + 20 : @names_height += 1
 
-      @title_image.draw(($window.width/2)-@title_image.width/2, 100, 50)
+      @title_image.draw(($window.width/2)-@title_image.width/2, @title_height, 50)
 	  @credits_image.draw(($window.width/2)-@credits_image.width, $window.height/2, 50)
-	  
-	  #@font.draw("CREDITS", ($window.width/2)-@font.text_width("CREDITS")/2, 300, 50)
 	  
 	  @offset = 50
 	  
