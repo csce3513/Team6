@@ -4,7 +4,6 @@ module PlanetDefense
     def initialize(options = {})
       super
 
-      #@options = [ :start, :highscores, :credits, :options, :quit ]
       @options = [ :start, :options, :credits, :quit ]
       @current = 0
       @selected = Color.new(150,220,69,82)

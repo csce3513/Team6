@@ -8,11 +8,11 @@ module PlanetDefense
       @difficulties = [:easy, :medium, :hard]
       @current = 0
       @currentDifficulty = 0
-      @selected = Color.new(256,253,96,17)
-      @diffSelect = Color.new(256, 253, 96, 17)
+      @selected = Color.new(150,220,69,82)
+      @diffSelect = Color.new(150,220,69,82)
       @font = Gosu::Font.new($window, "media/fonts/MuseoSans_300.otf", 43)
-      @background_image = Gosu::Image.new($window, "media/gfx/space-with-earth.jpg", true)
-      #@title_image = Gosu::Image.new($window, "media/gfx/options.png", true)
+      @background_image = Gosu::Image.new($window, "media/gfx/space.jpg", true)
+      @title_image = Gosu::Image.new($window, "media/gfx/title.png", true)
 
       self.input = { 
         :up => :move_up,
@@ -71,9 +71,10 @@ module PlanetDefense
       
       
       @background_image.draw(0,0,0)
+      @title_image.draw(($window.width/2)-@title_image.width/2,100,50)
 
       @options.each_with_index do |option, i|
-        y = 280+(i*100)
+        y = 380+(i*40)
         if i == @current
           #draw_quad(x1, y1, c1, x2, y2, c2, x3, y3, c3, x4, y4, c4, z = 0, mode = :default)
           $window.draw_quad(0, y+10, @selected, $window.width, y+10, @selected, $window.width, y+40, @selected, 0, y+40, @selected )
@@ -83,12 +84,12 @@ module PlanetDefense
 
       @difficulties.each_with_index do |difficulty, j|
         y = 320
-        x = 180 + ((j+1) * $window.width/7)
+        x = 180 + ((j+1) * $window.width/7) 
 
         if j == @currentDifficulty
-          $window.draw_quad(x, y+10, @diffSelect, x+40, y+10, @diffSelect, x+40, y+40, @diffSelect, x, y+40, @diffSelect )
+          $window.draw_quad(x-5, y+10, @diffSelect, x+@font.text_width(difficulty.to_s.capitalize)+5, y+10, @diffSelect, x+@font.text_width(difficulty.to_s.capitalize)+5, y+40, @diffSelect, x-5, y+40, @diffSelect ) if @current == 0
         end
-        @font.draw(difficulty.to_s.capitalize, x, y, 0)
+        @font.draw(difficulty.to_s.capitalize, x, y, 2) if @current == 0
       end
 
     end
