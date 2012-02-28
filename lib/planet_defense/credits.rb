@@ -1,5 +1,6 @@
 module PlanetDefense
   class CreditsState < Chingu::GameState
+    attr_reader :title_height, :names_height, :title_image
     
     def initialize(options = {})
       super
@@ -12,7 +13,7 @@ module PlanetDefense
 
       @background_image = Gosu::Image.new($window, "media/gfx/space.jpg", true)
       @title_image = Gosu::Image.new($window, "media/gfx/title.png", true)
-	  @credits_image = Gosu::Image.new($window, "media/gfx/credits.png", true)
+	   @credits_image = Gosu::Image.new($window, "media/gfx/credits.png", true)
       self.input = { 
         :up => :move_up,
         :down => :move_down,
@@ -71,12 +72,10 @@ module PlanetDefense
 	  
 	   @names_height > $window.height ? reset : @names_height += 1
 
-      @title_image.draw(($window.width/2)-@title_image.width/2, 100, 50)
-	  @credits_image.draw(($window.width/2)-@credits_image.width, $window.height/2, 50)
+      @title_image.draw(($window.width/2)-@title_image.width/2, @title_height, 50)
+	   @credits_image.draw(($window.width/2)-@credits_image.width, $window.height/2, 50)
 	  
-	  #@font.draw("CREDITS", ($window.width/2)-@font.text_width("CREDITS")/2, 300, 50)
-	  
-	  @offset = 50
+	   @offset = 50
 	  
 	   @font.draw("By: Addam Hardy", @names_width, @names_height, 0)
 	   @font.draw("Michael Gammon", @names_width, @names_height + @offset, 0)
