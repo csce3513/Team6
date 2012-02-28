@@ -187,6 +187,7 @@ module PlanetDefense
             @player.move
             @player.laser_heat.should < 100
           end
+			 
           if (@player.lastShot < milliseconds())
             @player.laser_gauge_color.should == Gosu::Color.argb(0xff00ff00)
           end

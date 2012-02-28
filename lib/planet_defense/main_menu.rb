@@ -94,9 +94,9 @@ module PlanetDefense
       push_game_state( CreditsState )
     end
     
-     def on_options
-       switch_game_state( OptionsState )
-     end
+    def on_options
+      switch_game_state( OptionsState )
+    end
     
     # def on_highscores
     #   push_game_state( HighScoreState )

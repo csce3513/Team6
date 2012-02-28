@@ -179,7 +179,6 @@ module PlanetDefense
   
     def draw
       @image.draw_rot(@x, @y, 5, 0)  
-
       @font.draw_rel("LASERS OVERHEATING!", 500, 50, 10, 0.5, 0.5, 1, 1, Gosu::Color::RED) if (@laser_heat >= 85)
     end
   
