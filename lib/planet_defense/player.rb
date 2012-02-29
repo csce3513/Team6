@@ -131,10 +131,5 @@ module PlanetDefense
       @y = $window.height - 50
     end
     
-    def reset
-      @x = $window.width / 2  
-      @y = $window.height - 50
-    end
-    
   end
 end
