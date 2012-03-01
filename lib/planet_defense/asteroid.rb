@@ -9,7 +9,7 @@ module PlanetDefense
     
       #Give asteroid random image
       @imageNum = rand(3) + 1  
-      @image = Gosu::Image.new($window, "media/gfx/asteroid" + @imageNum.to_s() + ".bmp", false)  
+      @image = Gosu::Image.new($window, "media/gfx/asteroid" + @imageNum.to_s() + ".bmp", false)
     
       #Asteroids start at top, with random x and angle
       @x = rand(@screenWidth * 1.5) - (@screenWidth * 0.25)  
@@ -31,6 +31,7 @@ module PlanetDefense
     def on_collision   
       #puts "#{self.class} #{self.x}/#{self.y}"
       self.reset
+		PlayState.explosions.push( Explosion.new($window) )
       # PlayState.asteroids.delete self
       # PlayState.asteroids.push( Asteroid.new($window) )
     end
@@ -58,7 +59,5 @@ module PlanetDefense
       @y = 0
       @x = rand(@screenWidth)
     end
-  
-  
   end
 end
