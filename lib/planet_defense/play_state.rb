@@ -34,7 +34,7 @@ module PlanetDefense
       end
 
     end
-
+	 
     def return_to_game
       PlanetDefense::RingMenu::Icon.destroy_all
       @pause = false
@@ -230,6 +230,6 @@ module PlanetDefense
     def self.up_score
       @@score += 10
     end
-
+	 
   end
 end
