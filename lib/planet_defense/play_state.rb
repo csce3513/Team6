@@ -7,7 +7,6 @@ module PlanetDefense
       super
       @player = Player.new(self)
       @@asteroids = 5.times.map { Asteroid.new(self) }
-		@@explosions = Explosion.new(self)
       @background_image = Gosu::Image.new($window, "media/gfx/space-with-earth.jpg", true)
       @music = Gosu::Song.new($window, "media/sounds/background.wav")
       @font = Gosu::Font.new($window, "media/fonts/MuseoSans_300.otf", 43)

@@ -1,17 +1,25 @@
 module PlanetDefense
 	class Explosion < Chingu::GameObject
 		
-		def initialize(window)
-			@screenWidth = $window.width
-			@screenHeight = $window.height
+		def initialize(options)
+			@x = options[:x]
+			@y = options[:y]
 			
-			@options = { :loop => false, :file => "media/gfx/explosion_strip.png", :width => 50, :height => 100 }
-			@explosion_anim = Chingu::Animation.new( @options )
+			@anim_options = { :loop => false, :file => "media/gfx/explosion_strip.png", :width => 50, :height => 100 }
+			@explosion_anim = Chingu::Animation.new( @anim_options )
+			@explosion_anim.next!
+			@image = @explosion_anim.image	
+			puts("initialize");
 		end
 		
-		def run(x, y)
+		def update
 			@explosion_anim.next!
-			@explosion_anim.image.draw(@x,@y)
+			@image = @explosion_anim.image
+			puts("update")
+		end
+		
+		def draw
+			puts("draw")
 		end
 	end
 end

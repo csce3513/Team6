@@ -31,7 +31,8 @@ module PlanetDefense
     def on_collision   
       #puts "#{self.class} #{self.x}/#{self.y}"
       self.reset
-		PlayState.explosions.push( Explosion.new($window) )
+		@expl_options = { :x => @x, :y => @y }
+		PlanetDefense::Explosion.create( @expl_options );
       # PlayState.asteroids.delete self
       # PlayState.asteroids.push( Asteroid.new($window) )
     end
