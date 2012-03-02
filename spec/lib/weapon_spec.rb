@@ -4,7 +4,7 @@ module PlanetDefense
   describe Weapon do
   
     before :all do
-      @weapon = Weapon.new()
+      @weapon = Weapon.new(Player.create(PlanetDefense::GameWindow.new))
     end
     
     context "when initialized" do
@@ -24,6 +24,8 @@ module PlanetDefense
 
     end
 
+
+
     context "when calling weapon update" do
       before :each do
         @weapon.reset
@@ -34,8 +36,20 @@ module PlanetDefense
         @weapon.heat = 100
         sleep(1)
         if @weapon.cooldown?
-          @weapon.heat.should == (100 - (milliseconds() - @weapon.last_cooldown) / @weapon.cooldown_rate) || 0
+          @weapon.heat.should == (100 - ((milliseconds() - @weapon.last_cooldown) / @weapon.cooldown_rate))
         end
+        
+        @weapon.last_cooldown = 0
+        @weapon.heat = 0
+        @weapon.cooldown?.should == false
+
+        @weapon.last_cooldown = 0
+        @weapon.heat = -1
+        @weapon.cooldown?.should == true
+
+        @weapon.last_cooldown = milliseconds() + 1000
+        @weapon.cooldown?.should == false
+
       end
 
       it 'should heat up according to heatup_amount' do
@@ -47,6 +61,22 @@ module PlanetDefense
         @weapon.heat = 100
         @weapon.heatup
         @weapon.heat.should <= 100
+      end
+
+      it 'should overheat at 100 heat, and stay overheated for overheat_penalty time' do
+        #100 heat, should be overheated
+        @weapon.heat = 100
+        @weapon.overheated?.should == true
+
+        
+        #Overheat penalty not met, should still be overheated
+        @weapon.heat = 50
+        @weapon.overheated?.should == true
+        
+        #Setting last overheat time to the past, should not be overheated
+        @weapon.last_overheat = -1
+        @weapon.overheated?.should == false
+
       end
 
       it 'should change the gauge color according to heat' do
@@ -76,6 +106,7 @@ module PlanetDefense
         @weapon.overheated = true
         @weapon.fireable?.should == false
       end
+
     end
   end
 end

@@ -29,24 +29,25 @@ module PlanetDefense
                   initialize()
             end
 
+            #Checks if it needs to be cooled down, and cools down by correct amount (passive, called in update)
             def cooldown?
-                  if (milliseconds() - @last_cooldown) <= @cooldown_rate
+                  if milliseconds() >= @cooldown_rate + @last_cooldown
                         if (@heat == 0)
                               @last_cooldown = milliseconds()
                               false
                         else
-                              @heat = (milliseconds() - @last_cooldown) / @cooldown_rate
+                              @heat = @heat - (milliseconds() - @last_cooldown) / @cooldown_rate
                               if (@heat < 0)
                                     @heat = 0
                               end
                               true
                         end
                   else
-                        puts "test"
-                        return false
+                        false
                   end
             end
 
+            #Heats up the weapon (called in shoot)
             def heatup
                   @heat += @heatup_amount
                   if @heat > 100
@@ -54,6 +55,7 @@ module PlanetDefense
                   end
             end
 
+            #Adjusts the gauge color based on heat (passive, called in update)
             def gauge_color?
                   if !@overheated
                         if @heat >= 0 && @heat <= 25
@@ -70,9 +72,11 @@ module PlanetDefense
                   end
             end
 
+            #Checks if the weapon is overheated (passive, called in update)
             def overheated?
                   #If the heat is over 100, it is overheated
                   if (@heat >= 100)
+                        @last_overheat = milliseconds()
                         @overheated = true
                   else
                         #If overheat penalty time is over, not overheated anymore
@@ -84,6 +88,7 @@ module PlanetDefense
                   end
             end
 
+            #Checks if the weapon is ready to fire (called in shoot)
             def fireable?
                   if (!@overheated && @last_shot + @fire_rate < milliseconds())
                         true
@@ -92,15 +97,17 @@ module PlanetDefense
                   end
             end
 
-
+            #Calls all passive weapon checks (cooldown, overheated, gauge color)
             def update
                   cooldown?
                   overheated?
                   gauge_color?
             end
 
+            #Checks if everything is ready to fire, and fires
             def shoot
                   if fireable?
+                        heatup
                         PlanetDefense::Laser.create( :x => @player.x-20, :y => @player.y-15)
                         PlanetDefense::Laser.create( :x => @player.x+20, :y => @player.y-15)
                   end
