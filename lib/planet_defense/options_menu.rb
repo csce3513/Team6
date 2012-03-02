@@ -114,7 +114,7 @@ module PlanetDefense
     # Menu options callbacks:
     
     def on_back
-      switch_game_state( MenuState )
+      pop_game_state()
     end
     
     def on_difficulty
