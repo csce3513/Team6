@@ -52,10 +52,7 @@ module PlanetDefense
       #Asteroid Movement
       @@asteroids.each{ |asteroid| asteroid.move unless asteroid == nil }
       @@asteroids.length.times{|i|
-<<<<<<< HEAD
           if (@@asteroids[i] != nil)
-=======
->>>>>>> Adding asteroids to main menu
             if (@@asteroids[i].y > $window.height)
               @@asteroids[i].reset 
             end
@@ -98,7 +95,11 @@ module PlanetDefense
     end
     
     def on_options
+<<<<<<< HEAD
       push_game_state( OptionsState)
+=======
+      push_game_state( OptionsState )
+>>>>>>> Adjustments
     end
     
     # def on_highscores
