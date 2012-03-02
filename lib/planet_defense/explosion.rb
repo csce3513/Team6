@@ -6,28 +6,27 @@ module PlanetDefense
       @x = options[:x]
       @y = options[:y]
 
-      @anim = Chingu::Animation.new( :file => "media/gfx/explosion_strip.png", :size=>[50,100], :delay => 10).retrofy
+      @anim = Chingu::Animation.new( :loop => false, :file => "media/gfx/explosion_strip.png", :size=>[29,62], :delay => 1).retrofy
       @image = @anim.next
       self.factor = $window.object_factor
     end
   
-    def x
+    def update    
+      @image = @anim.next
+    
+      destroy if outside_window?
+    end
+    
+	 def draw
+		@image.draw(@x,@y, 1)
+	 end
+	 
+	 def x
       @x  
     end
   
     def y
       @y
     end
-  
-    def update    
-      @image = @anim.next
-    
-      #PlayState.asteroids.each{|asteroid| puts asteroid.class unless asteroid == nil }
-      destroy if outside_window?
-    end
-    
-	 def draw
-		@image.draw(@x,@y)
-	 end
   end
 end
