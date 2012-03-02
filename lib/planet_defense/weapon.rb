@@ -15,6 +15,8 @@ module PlanetDefense
 			@last_shot = milliseconds()
                   #Time of last cooldown
                   @last_cooldown = milliseconds()
+                  #Time of last overheat
+                  @last_overheat = 0
 			#Current heat level
 			@heat = 0
 			#Boolean for if weapon is overheated
@@ -43,6 +45,46 @@ module PlanetDefense
                         puts "test"
                         return false
                   end
+            end
+
+            def heatup
+                  @heat += @heatup_amount
+                  if @heat > 100
+                        @heat = 100
+                  end
+            end
+
+            def gauge_color?
+                  if !@overheated
+                        if @heat >= 0 && @heat <= 33
+                              @gauge_color = Gosu::Color::GREEN
+                        elsif @heat > 33 && @heat < 66
+                              @gauge_color = Gosu::Color::ORANGE
+                        else @heat > 66
+                              @gauge_color = Gosu::Color::RED
+                        end
+                  else
+                        @gauge_color = Gosu::Color::GREY
+                  end
+            end
+
+            def overheated?
+                  #If the heat is over 100, it is overheated
+                  if (@heat >= 100)
+                        @overheated = true
+                  else
+                        #If overheat penalty time is over, not overheated anymore
+                        if @last_overheat + @overheat_penalty =< milliseconds()
+                              @overheated = false
+                        else
+                              @overheated = true
+                        end
+                  end
+            end
+
+            def update
+                  overheated?
+                  gauge_color?
             end
 
 	end
