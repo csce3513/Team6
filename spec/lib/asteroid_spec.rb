@@ -78,9 +78,21 @@ module PlanetDefense
 		#----------
 		
 		it 'should create an explosion on collision with laser' do
+		   #move to playstate
+		   $window.current_game_state.push_game_state( PlanetDefense::PlayState )
+			#create a laser
 		   @laser_options = { :velocity => 0, :x => $window.width/2, :y =>  $window.height/2 }
 			@laser = Laser.create( @laser_options )
+			asteroids = 20.times.map { Asteroid.new(@g) }
+			asteroids[0].x = $window.width/2
+			asteroids[0].y = $window.height/2
 			
+			#check if hit by asteroid, if it is call on_collision for the asteroid
+			@laser.hit?(asteroids)
+			
+			#this is super ghetto. It takes the game_objects of the current state, finds any explosions, converts that to a string,
+			#	and then checks that string for "PlanetDefense::Explosion"
+			$window.current_game_state.game_objects.of_class( PlanetDefense::Explosion ).to_s.should include("PlanetDefense::Explosion" )
 		end
 		
 		end
