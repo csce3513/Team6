@@ -34,7 +34,7 @@ module PlanetDefense
       #puts "#{self.class} #{self.x}/#{self.y}"
 
 		@expl_options = { :x => @x, :y => @y }
-		PlanetDefense::Explosion.create( @expl_options, @frags );
+		PlanetDefense::Explosion.create( @expl_options );
 		
 		self.reset
       # PlayState.asteroids.delete self
