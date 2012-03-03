@@ -73,6 +73,16 @@ module PlanetDefense
         @player.hit_by?(asteroids).should == true
       end
 		
+		#----------
+		#Explosions
+		#----------
+		
+		it 'should create an explosion on collision with laser' do
+		   @laser_options = { :velocity => 0, :x => $window.width/2, :y =>  $window.height/2 }
+			@laser = Laser.create( @laser_options )
+			
 		end
-  end
+		
+		end
+   end
 end
