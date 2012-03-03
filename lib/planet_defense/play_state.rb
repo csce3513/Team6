@@ -105,7 +105,9 @@ module PlanetDefense
             push_game_state( GameOver )
           end
           @hit = true
-          Sound["media/sounds/explosion.wav"].play(0.4)
+          Sound["media/sounds/explosion.wav"].play(0.4)       
+          @expl_options = { :x => @player.x, :y => @player.y }
+          PlanetDefense::Explosion.create( @expl_options );
           @music.pause()
           stop_game
         end
@@ -145,7 +147,6 @@ module PlanetDefense
 
       # 20, 50
       @lives.times do |i|
-        puts i
         @life_image.draw((40*i)+30,20,1)  
       end
 

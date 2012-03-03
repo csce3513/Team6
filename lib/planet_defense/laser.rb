@@ -2,8 +2,6 @@ module PlanetDefense
   class Laser < Chingu::GameObject
     has_traits :collision_detection, :velocity
     attr_reader :owner, :bounding_box
-    @@red = Gosu::Color.new(255, 255, 0, 0)
-    @@white = Gosu::Color.new(255, 255, 255, 255)
     has_trait :collision_detection
     @@size = 1
     def initialize( options )

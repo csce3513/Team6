@@ -110,9 +110,6 @@ module PlanetDefense
     def initialize(options)
       super
       
-      # @image = Image["menu_title.png"]
-      # @rotation_center = :center_center
-      # @mode = :additive unless options[:silent]
       @color = Color.new(255,255,255,255)
       after(250) { @mode = :default }
       @zorder = 400

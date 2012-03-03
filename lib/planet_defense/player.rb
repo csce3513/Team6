@@ -5,8 +5,8 @@ module PlanetDefense
     attr_accessor :vel_x, :vel_y, :laser_heat, :cooldown_time, :last_cooldown, :lastShot
     has_trait :bounding_box
   
-    def initialize( options = {} )
-    
+    def initialize( options )
+
       #Settings for player movement
       @vel_max = 7  
       @acceleration = 1  
@@ -103,8 +103,7 @@ module PlanetDefense
       move_backward if $window.button_down?(Gosu::KbDown) or $window.button_down?(Gosu::GpDown)
     
       shoot if $window.button_down?(Gosu::KbSpace) or $window.button_down?(Gosu::GpButton0)
-  
-      Particle.size
+
       # Particle.each do |p|
       #   puts "#{p.x} - #{p.y}"
       #   p.destroy if p.outside_window?
@@ -194,6 +193,10 @@ module PlanetDefense
 
     def laser_gauge_color
       @laser_gauge_color
+    end
+
+    def death
+      destroy
     end
     
   end
