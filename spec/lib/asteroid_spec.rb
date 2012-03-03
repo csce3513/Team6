@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module PlanetDefense
-  describe Player do
+  describe Asteroid do
   
     before :all do
       @g = PlanetDefense::GameWindow.new
@@ -13,13 +13,6 @@ module PlanetDefense
     end
 
     it { @g.should respond_to :draw }
-    
-    context "when initialized" do
-      it 'should be at bottom middle of screen' do
-        @asteroid.x.should == $window.width / 2  
-        @asteroid.y.should == $window.height - 50
-      end
-    end
 
     context "when playing" do
       before :each do
@@ -59,7 +52,7 @@ module PlanetDefense
       end
 
       it 'should move down the screen when @vel_y negative' do
-        @asteroid.x = $window.height / 2
+        @asteroid.y = $window.height / 2
 		  @asteroid.vel_y = -1
         20.times do
           @asteroid.move
@@ -73,10 +66,13 @@ module PlanetDefense
 
       it 'should collide with player' do
 		  @player = Player.create( )
-        asteroid.x = @player.x
-        asteroid.y = @player.y
+        
+		  asteroids = 20.times.map { Asteroid.new(@g) }
+        asteroids[0].x = @player.x
+        asteroids[0].y = @player.y
         @player.hit_by?(asteroids).should == true
       end
-
+		
+		end
   end
 end
