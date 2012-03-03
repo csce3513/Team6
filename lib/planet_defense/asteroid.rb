@@ -1,6 +1,6 @@
 module PlanetDefense
   class Asteroid < Chingu::GameObject
-  
+	 
     def initialize(window)    
     
       #Getting window dimensions
@@ -9,8 +9,9 @@ module PlanetDefense
     
       #Give asteroid random image
       @imageNum = rand(3) + 1  
-      @image = Gosu::Image.new($window, "media/gfx/asteroid" + @imageNum.to_s() + ".bmp", false)
-    
+      @image = Gosu::Image.new($window, "media/gfx/asteroid" + @imageNum.to_s + ".bmp", false)
+		@frags = 3.times{ |i| Gosu::Image.new($window, "media/gfx/asteroid"  + @imageNum.to_s + "_" + (i+1).to_s + ".png") }
+
       #Asteroids start at top, with random x and angle
       @x = rand(@screenWidth * 1.5) - (@screenWidth * 0.25)  
       @y = -50  
@@ -32,7 +33,7 @@ module PlanetDefense
       #puts "#{self.class} #{self.x}/#{self.y}"
 
 		@expl_options = { :x => @x, :y => @y }
-		PlanetDefense::Explosion.create( @expl_options );
+		PlanetDefense::Explosion.create( @expl_options, @frags );
 		
 		self.reset
       # PlayState.asteroids.delete self
