@@ -1,11 +1,10 @@
 module PlanetDefense
   class Explosion < Chingu::GameObject
     
-    def initialize( options, frags )
+    def initialize( options )
       super
       @x = options[:x]
       @y = options[:y]
-		@x_vel = rand(0,10)
 		
 		
       @anim = Chingu::Animation.new( :loop => false, :file => "media/gfx/explosion_strip.png", :size=>[29,62], :delay => 1).retrofy
