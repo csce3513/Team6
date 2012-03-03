@@ -1,5 +1,6 @@
 module PlanetDefense
   class Asteroid < Chingu::GameObject
+	 attr_accessor :vel_x, :vel_y
 	 
     def initialize(window)    
     
