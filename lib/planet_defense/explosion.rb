@@ -5,10 +5,13 @@ module PlanetDefense
       super
       @x = options[:x]
       @y = options[:y]
-		
-		
+		@frags = options[:frags]
       @anim = Chingu::Animation.new( :loop => false, :file => "media/gfx/explosion_strip.png", :size=>[29,62], :delay => 1).retrofy
       @image = @anim.next
+		
+		@rot = @vel_angular = rand(2) + 1
+		@vel_x = Array.new(3) { |vel| vel = rand(rand(9) + 1 )
+		@vel_y = Array.new(3) { |vel| vel = rand(rand(9) + 1 )
 		
       self.factor = $window.object_factor
     end
@@ -21,7 +24,7 @@ module PlanetDefense
     
 	 def draw
 		@image.draw(@x,@y, 1)
-		#3.times( @frags.draw(@x, @y
+		@frags.each{ |frag| frag.draw
 	 end
 	 
 	 def x
