@@ -23,7 +23,7 @@ module PlanetDefense
     end
     
     def update    
-      @image = @anim.next
+      @expl = @anim.next
 		
 		@angle += @vel_angular
 		3.times{ |i| @x[i] += @vel_x[i]}
