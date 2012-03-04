@@ -1,6 +1,6 @@
 module PlanetDefense
   class Asteroid < Chingu::GameObject
-	 attr_accessor :vel_x, :vel_y
+	 attr_accessor :vel_x, :vel_y, :frags
 	 
     def initialize(window)    
     
@@ -10,8 +10,8 @@ module PlanetDefense
     
       #Give asteroid random image
       @imageNum = rand(3) + 1  
-      @image = Gosu::Image.new($window, "media/gfx/asteroid" + @imageNum.to_s + ".bmp", false)
-		@frags = 3.times{ |i| Gosu::Image.new($window, "media/gfx/asteroid"  + @imageNum.to_s + "_" + (i+1).to_s + ".png") }
+      #@image = Gosu::Image.new($window, "media/gfx/asteroid" + @imageNum.to_s + ".bmp", false)
+		@frags = Array.new(3) { |i| Gosu::Image.new($window, "media/gfx/asteroid"  + @imageNum.to_s + "_" + (i+1).to_s + ".png") }
 
       #Asteroids start at top, with random x and angle
       @x = rand(@screenWidth * 1.5) - (@screenWidth * 0.25)  
@@ -33,7 +33,7 @@ module PlanetDefense
     def on_collision   
       #puts "#{self.class} #{self.x}/#{self.y}"
 
-		@expl_options = { :x => @x, :y => @y }
+		@expl_options = { :x => @x, :y => @y, :frags => @frags }
 		PlanetDefense::Explosion.create( @expl_options );
 		
 		self.reset
@@ -49,7 +49,7 @@ module PlanetDefense
     end
   
     def draw
-      @image.draw_rot(@x, @y, 1, @angle)
+      @frags.each{ |f| f.draw_rot(@x, @y, 1, @angle) }
     end
   
     def x
