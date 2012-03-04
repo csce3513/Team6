@@ -29,7 +29,7 @@ module PlanetDefense
 		3.times{ |i| @x[i] += @vel_x[i]}
 		3.times{ |i| @y[i] += @vel_y[i]}
 		
-		@steps++
+		@steps = @steps+1
 		
       destroy if @steps >= @life
     end
