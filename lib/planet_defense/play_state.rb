@@ -19,6 +19,7 @@ module PlanetDefense
       @lives = 3
       @planet_health = 1000
       @music.volume = 0.3
+		@hit = false
       @music.play(looping = true) unless @pause == true || defined? RSpec
       $window.caption = "Planet Defense #{PlanetDefense::VERSION} Game Objects: #{game_objects}"
       cursor = Gosu::Image.new($window, 'media/gfx/cursor.png', true)
