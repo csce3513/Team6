@@ -107,8 +107,6 @@ module PlanetDefense
           end
           @hit = true
           Sound["media/sounds/explosion.wav"].play(0.4)       
-          @expl_options = { :x => @player.x, :y => @player.y }
-          PlanetDefense::Explosion.create( @expl_options );
           @music.pause()
           stop_game
         end

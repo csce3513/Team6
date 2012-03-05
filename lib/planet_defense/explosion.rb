@@ -41,15 +41,35 @@ module PlanetDefense
 		|f| f.draw_rot(@x[@i], @y[@i], 1, @angle)
 		@i = @i + 1
 		end
-	 end
-	 
-	 def x
-      @x  
-	 end
-  
-	 def y
-      @y
-	 end
+
+		def update    
+			@expl = @anim.next
+
+			@angle += @vel_angular
+			3.times{ |i| @x[i] += @vel_x[i]}
+			3.times{ |i| @y[i] += @vel_y[i]}
+
+			@steps = @steps+1
+
+			destroy if @steps >= @life
+		end
+	    
+		def draw
+			@expl.draw(@@init_x,@@init_y, 5)
+			@i = 0
+			@frags.each do
+			|f| f.draw_rot(@x[@i], @y[@i], 1, @angle)
+			@i = @i + 1
+			end
+		end
+
+		def x
+		  @x  
+		end
+
+		def y
+		  @y
+		end
 	 
 	end
 end
