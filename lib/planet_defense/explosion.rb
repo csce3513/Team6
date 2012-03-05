@@ -8,14 +8,14 @@ module PlanetDefense
       @@init_x = options[:x]
       @@init_y = options[:y]
 		@frags = options[:frags]
-      @anim = Chingu::Animation.new( :loop => false, :file => "media/gfx/explosion_strip.png", :size=>[29,62], :delay => 1).retrofy
+      @anim = Chingu::Animation.new( :loop => false, :file => "media/gfx/explosion_strip.png", :size=>[100,100], :delay => 1).retrofy
       @expl = @anim.next
 		
 		@rot = @vel_angular = rand(2) + 1
 		@angle = @vel_angular
 		
-		@vel_x = Array.new(3) { |vel| vel = rand(rand(9) + 1 ) }
-		@vel_y = Array.new(3) { |vel| vel = rand(rand(9) + 1 ) }
+		@vel_x = Array.new(3) { |vel| vel = rand(rand(9) + 6 ) }
+		@vel_y = Array.new(3) { |vel| vel = rand(rand(9) + 6 ) }
 		@x = Array.new(3) { @@init_x }
 		@y = Array.new(3) { @@init_y }
 		
