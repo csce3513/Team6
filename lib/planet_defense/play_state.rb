@@ -152,7 +152,7 @@ module PlanetDefense
       #Asteroid Draw
       @@asteroids.each{|asteroid| asteroid.draw unless asteroid == nil }
 
-      #Laser's heat gauge
+      #Weapon's heat gauge
       #Filled color
       $window.draw_quad(
         $window.width - 230, $window.height - 45, @player.weapon.gauge_color,

@@ -38,7 +38,6 @@ module PlanetDefense
         cooldown_time = milliseconds()
         sleep(1)
         if @weapon.cooldown?
-          puts "SHOULD HAVE VALUES:  #{@weapon.last_cooldown} #{@weapon.cooldown_rate}"
           @weapon.heat.should == 100 - (milliseconds() - cooldown_time) / @weapon.cooldown_rate
         end
         
