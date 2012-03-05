@@ -155,10 +155,10 @@ module PlanetDefense
       #Laser's heat gauge
       #Filled color
       $window.draw_quad(
-        $window.width - 230, $window.height - 45, @player.laser_gauge_color,
-        $window.width - 230 + (@player.laser_heat * 2), $window.height - 45, @player.laser_gauge_color,
-        $window.width - 230, $window.height - 15, @player.laser_gauge_color,
-        $window.width - 230 + (@player.laser_heat * 2), $window.height - 15, @player.laser_gauge_color,
+        $window.width - 230, $window.height - 45, @player.weapon.gauge_color,
+        $window.width - 230 + (@player.weapon.heat * 2), $window.height - 45, @player.weapon.gauge_color,
+        $window.width - 230, $window.height - 15, @player.weapon.gauge_color,
+        $window.width - 230 + (@player.weapon.heat * 2), $window.height - 15, @player.weapon.gauge_color,
         1)
 
       #Black background

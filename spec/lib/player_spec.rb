@@ -136,74 +136,7 @@ module PlanetDefense
         @player.hit_by?(asteroids).should == true
       end
 
-      #------
-      #LASERS
-      #------
-
-      it 'should be able to shoot lasers' do
-        #Problem here might be from Laser class
-        #@@asteroids from play_state is undefined when trying to create a Laser from rspec
-        5.times do
-          @player.lastShot = 0 
-          #@player.shoot    Uncomment this for test to pass.  Breaks all tests after it.
-          PlanetDefense::Laser.size.should > 0
-        end
-
-      end
-      
-      it 'should cooldown lasers over time down to 0 minimum' do
-        @player.laser_heat = 100
-        200.times do
-          @lastHeat = @player.laser_heat
-          @player.cool_down_laser
-          if (@player.laser_heat > 0)
-            @player.laser_heat.should < @lastHeat
-          end
-        end
-        @player.laser_heat.should >= 0
-      end
-
-      it 'should heat up when shot to 100 maximum' do
-        @player.laser_heat = 0
-        10.times do
-          @lastHeat = @player.laser_heat
-          @player.lastShot = 0;
-          @player.heat_up_laser
-          @player.laser_heat.should > @lastHeat
-        end
-        @player.laser_heat.should <= 100
-      end
-
-      it 'should overheat at 100 heat, and give a firing penalty' do
-        @player.laser_heat = 100
-        @player.overheated?.should == true
-        @player.lastShot.should > milliseconds()
-        @player.laser_gauge_color.should == Gosu::Color.argb(0xffff0000)
-      end
-
-      it 'should cooldown every @cooldown_time' do
-          @player.laser_heat = 100
-          if (@player.last_cooldown + @player.cooldown_time) < milliseconds()
-            @player.move
-            @player.laser_heat.should < 100
-          end
-          if (@player.lastShot < milliseconds())
-            @player.laser_gauge_color.should == Gosu::Color.argb(0xff00ff00)
-          end
-      end
-
-      it 'should have a restricted firing rate' do
-        @no_shot = 0
-        10.times do
-          if (!@player.shoot)
-            @no_shot += 1
-          end
-        end
-          @no_shot.should > 0
-      end
+    
     end
-
-
-
   end
 end

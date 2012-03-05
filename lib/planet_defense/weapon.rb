@@ -2,13 +2,14 @@ module PlanetDefense
       attr_reader :weapon
       class Weapon
 
-		def initialize(options = {})
+		def initialize(player)
+                  @player = player
 			#How often (in ms) the weapon cools down by 1 (Rate of cooldown)
-			@cooldown_rate = 100
+			@cooldown_rate = 25
 			#Amount of heat generated each shot
-			@heatup_amount = 5
+			@heatup_amount = 7
 			#Minimum time (in ms) between shots (firing rate)
-			@fire_rate = 250
+			@fire_rate = 100
 			#Length of time weapon is disabled if overheated
 			@overheat_penalty = 1000
 			#Time of last shot
@@ -26,7 +27,7 @@ module PlanetDefense
             attr_accessor :cooldown_rate, :heatup_amount, :fire_rate, :overheat_penalty, :last_shot, :last_cooldown, :last_overheat, :heat, :overheated, :gauge_color 
       
             def reset
-                  initialize()
+                  initialize(@player)
             end
 
             #Checks if it needs to be cooled down, and cools down by correct amount (passive, called in update)
@@ -40,6 +41,7 @@ module PlanetDefense
                               if (@heat < 0)
                                     @heat = 0
                               end
+                              @last_cooldown = milliseconds()
                               true
                         end
                   else
@@ -50,9 +52,6 @@ module PlanetDefense
             #Heats up the weapon (called in shoot)
             def heatup
                   @heat += @heatup_amount
-                  if @heat > 100
-                        @heat = 100
-                  end
             end
 
             #Adjusts the gauge color based on heat (passive, called in update)
@@ -110,7 +109,9 @@ module PlanetDefense
                         heatup
                         PlanetDefense::Laser.create( :x => @player.x-20, :y => @player.y-15)
                         PlanetDefense::Laser.create( :x => @player.x+20, :y => @player.y-15)
+                        @last_shot = milliseconds()
                   end
+                  update
             end
 
 	end

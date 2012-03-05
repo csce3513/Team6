@@ -14,18 +14,13 @@ module PlanetDefense
       @vel_x = @vel_y = 0.0  
       @x = $window.width / 2  
       @y = $window.height - 50
-      @lastShot = milliseconds()
-      @reloadTime = 100 #In milliseconds
-      @cooldown_time = 15
-      @last_cooldown = milliseconds()
-      @laser_count = 0
-      @laser_heat = 0
-      @laser_gauge_color = Gosu::Color::GREEN
       @image = Gosu::Image.new($window, "media/gfx/shipNormal.bmp")  
       @font = Gosu::Font.new($window, "media/fonts/MuseoSans_300.otf", 43)
       @particles = Chingu::Animation.new(:file => "media/gfx/fireball.png", :size => [32,32])
-
+      @weapon = Weapon.new(self)
     end
+
+    attr_accessor :weapon
   
     def create_particles
 
@@ -70,11 +65,6 @@ module PlanetDefense
 
     def move
 
-      #If it's been @cooldown_time since last cooldown, cooldown again
-      if (@last_cooldown + @cooldown_time < milliseconds())
-        cool_down_laser
-      end
-
       #Position
       @x += @vel_x  
       @y += @vel_y  
@@ -102,7 +92,7 @@ module PlanetDefense
       move_forward if $window.button_down?(Gosu::KbUp) or $window.button_down?(Gosu::GpUp)
       move_backward if $window.button_down?(Gosu::KbDown) or $window.button_down?(Gosu::GpDown)
     
-      shoot if $window.button_down?(Gosu::KbSpace) or $window.button_down?(Gosu::GpButton0)
+      @weapon.shoot if $window.button_down?(Gosu::KbSpace) or $window.button_down?(Gosu::GpButton0)
   
       Particle.size
       # Particle.each do |p|
@@ -120,54 +110,6 @@ module PlanetDefense
       puts "#{object.class} #{object.x}/#{object.y}"
       puts "#{self.class} #{self.x}/#{self.y}"
     end
-  
-    def shoot
-      #Laser only shoots if reloaded and not overheated
-      if ((milliseconds() - @reloadTime) > @lastShot) && !overheated?
-        @lastShot = milliseconds()
-        PlanetDefense::Laser.create( :x => @x-20, :y => @y-15)
-        PlanetDefense::Laser.create( :x => @x+20, :y => @y-15)
-        heat_up_laser
-        true
-      else
-        false
-      end
-    end
-
-    #Checks if the laser is overheated (condition for laser to fire)
-    def overheated?
-      if (@laser_heat >= 100)
-        #Prevents shooting for 1 second if overheated
-        @lastShot = milliseconds() + 1000
-        @laser_gauge_color = Gosu::Color::RED
-        true
-      else 
-        false
-      end
-    end
-
-
-    #Every shot heats up the laser (called in 'shoot')
-    def heat_up_laser
-      if (@laser_heat < 100)
-        @laser_heat += 10
-      end
-    end
-
-    #Laser cools down continuously (called in 'move', since it is continuously called)
-    #Might make more sense to put this in play_state under update, after @player.move
-    def cool_down_laser
-      @laser_heat -= 1
-      if (@laser_heat < 0)
-        @laser_heat = 0
-      else
-        @last_cooldown = milliseconds()
-      end
-      #Color gauge red -> green
-      if (@lastShot <milliseconds())
-        @laser_gauge_color = Gosu::Color::GREEN
-      end
-    end
 
     def x
      @x  
@@ -178,22 +120,15 @@ module PlanetDefense
     end
   
     def draw
+      @weapon.update
       @image.draw_rot(@x, @y, 5, 0)  
 
-      @font.draw_rel("LASERS OVERHEATING!", 500, 50, 10, 0.5, 0.5, 1, 1, Gosu::Color::RED) if (@laser_heat >= 85)
+      @font.draw_rel("LASERS OVERHEATING!", 500, 50, 10, 0.5, 0.5, 1, 1, Gosu::Color::RED) if (@weapon.heat >= 85)
     end
   
     def reset
       @x = $window.width / 2  
       @y = $window.height - 50
-    end
-
-    def laser_heat
-      @laser_heat
-    end
-
-    def laser_gauge_color
-      @laser_gauge_color
     end
     
   end

@@ -34,9 +34,12 @@ module PlanetDefense
       it 'should cooldown according to cooldown_rate' do
         #Set heat to 100, then wait 1 second so it cools down
         @weapon.heat = 100
+        @weapon.last_cooldown = milliseconds()
+        cooldown_time = milliseconds()
         sleep(1)
         if @weapon.cooldown?
-          @weapon.heat.should == (100 - ((milliseconds() - @weapon.last_cooldown) / @weapon.cooldown_rate))
+          puts "SHOULD HAVE VALUES:  #{@weapon.last_cooldown} #{@weapon.cooldown_rate}"
+          @weapon.heat.should == 100 - (milliseconds() - cooldown_time) / @weapon.cooldown_rate
         end
         
         @weapon.last_cooldown = 0
@@ -60,7 +63,7 @@ module PlanetDefense
 
         @weapon.heat = 100
         @weapon.heatup
-        @weapon.heat.should <= 100
+        @weapon.heat.should >= 100
       end
 
       it 'should overheat at 100 heat, and stay overheated for overheat_penalty time' do
