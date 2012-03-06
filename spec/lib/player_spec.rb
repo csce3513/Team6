@@ -65,16 +65,17 @@ module PlanetDefense
         @player.move_backward
         @player.move
       end
+    end
 
-      it 'should move down the screen on command' do
-        @player.y = 718
-        @player.vel_y = 0
-        20.times do
-          @player.move_backward
-          @player.move
-        end
-          @player.y.should >= 718
-      end 
+    it 'should move down the screen on command' do
+      @player.y = 718
+      @player.vel_y = 0
+      20.times do
+        @player.move_backward
+        @player.move
+      end
+        @player.y.should >= 718
+    end 
 
     #----------
     #BOUNDARIES
@@ -211,6 +212,5 @@ module PlanetDefense
     end
 
 
-
   end
-end
+  end
