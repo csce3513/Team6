@@ -2,32 +2,32 @@ module PlanetDefense
   attr_reader :weapon
   class Weapon
 
+    attr_accessor :cooldown_rate, :heatup_amount, :fire_rate, :overheat_penalty
+    attr_accessor :last_shot, :last_cooldown, :last_overheat, :heat, :overheated, :gauge_color 
+
     def initialize(player)
       @player = player
-	#How often (in ms) the weapon cools down by 1 (Rate of cooldown)
-	@cooldown_rate = 25
-	#Amount of heat generated each shot
-	@heatup_amount = 7
-	#Minimum time (in ms) between shots (firing rate)
-	@fire_rate = 100
-	#Length of time weapon is disabled if overheated
-	@overheat_penalty = 1000
-	#Time of last shot
-	@last_shot = 0
+      #How often (in ms) the weapon cools down by 1 (Rate of cooldown)
+      @cooldown_rate = 25
+      #Amount of heat generated each shot
+      @heatup_amount = 7
+      #Minimum time (in ms) between shots (firing rate)
+      @fire_rate = 100
+      #Length of time weapon is disabled if overheated
+      @overheat_penalty = 1000
+      #Time of last shot
+      @last_shot = 0
       #Time of last cooldown
       @last_cooldown = milliseconds()
       #Time of last overheat
       @last_overheat = 0
-	#Current heat level
-	@heat = 0
-	#Boolean for if weapon is overheated
-	@overheated = false
+      #Current heat level
+      @heat = 0
+      #Boolean for if weapon is overheated
+      @overheated = false
       @gauge_color = Gosu::Color::GREEN
     end
-
-    attr_accessor :cooldown_rate, :heatup_amount, :fire_rate, :overheat_penalty
-    attr_accessor :last_shot, :last_cooldown, :last_overheat, :heat, :overheated, :gauge_color 
-  
+    
     def reset
       initialize(@player)
     end

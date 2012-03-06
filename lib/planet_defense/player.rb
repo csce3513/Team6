@@ -93,8 +93,7 @@ module PlanetDefense
       move_backward if $window.button_down?(Gosu::KbDown) or $window.button_down?(Gosu::GpDown)
     
       @weapon.shoot if $window.button_down?(Gosu::KbSpace) or $window.button_down?(Gosu::GpButton0)
-  
-      Particle.size
+
       # Particle.each do |p|
       #   puts "#{p.x} - #{p.y}"
       #   p.destroy if p.outside_window?
