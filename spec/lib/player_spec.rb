@@ -118,19 +118,19 @@ module PlanetDefense
         1000.times do
             @player.move_left
         end
-        @player.vel_x.should >= -7.5
+        @player.vel_x.should >= -8
         1000.times do
           @player.move_right
         end
-        @player.vel_x.should <= 7.5
+        @player.vel_x.should <= 8
         1000.times do
           @player.move_forward
         end
-        @player.vel_y.should >= -7.5
+        @player.vel_y.should >= -8
         1000.times do
           @player.move_backward
         end
-        @player.vel_y.should <= 7.5  
+        @player.vel_y.should <= 8  
       end
     
 
@@ -143,71 +143,6 @@ module PlanetDefense
         asteroids[0].x = @player.x
         asteroids[0].y = @player.y
         @player.hit_by?(asteroids).should == true
-      end
-
-      #------
-      #LASERS
-      #------
-
-      it 'should be able to shoot lasers' do
-        30.times do
-          @player.shoot
-          PlanetDefense::Laser.size.should > 0
-        end
-
-      end
-      
-      it 'should cooldown lasers over time down to 0 minimum' do
-        @player.laser_heat = 100
-        200.times do
-          @lastHeat = @player.laser_heat
-          @player.cool_down_laser
-          if (@player.laser_heat > 0)
-            @player.laser_heat.should < @lastHeat
-          end
-        end
-        @player.laser_heat.should >= 0
-      end
-
-      it 'should heat up when shot to 100 maximum' do
-        @player.laser_heat = 0
-        10.times do
-          @lastHeat = @player.laser_heat
-          @player.lastShot = 0;
-          @player.heat_up_laser
-          @player.laser_heat.should > @lastHeat
-        end
-        @player.laser_heat.should <= 100
-      end
-
-      it 'should overheat at 100 heat, and give a firing penalty' do
-        @player.laser_heat = 100
-        @player.overheated?.should == true
-        @player.lastShot.should > milliseconds()
-      end
-
-      it 'should overheat at 100 heat, and give a firing penalty' do
-        @player.laser_heat = 100
-        @player.overheated?.should == true
-        @player.lastShot.should > milliseconds()
-      end
-
-      it 'should cooldown every @cooldown_time' do
-          @player.laser_heat = 100
-          if (@player.last_cooldown + @player.cooldown_time) < milliseconds()
-            @player.move
-            @player.laser_heat.should < 100
-          end
-      end
-
-      it 'should have a restricted firing rate' do
-        @no_shot = 0
-        10.times do
-          if (!@player.shoot)
-            @no_shot += 1
-          end
-        end
-          @no_shot.should > 0
       end
     end
 
