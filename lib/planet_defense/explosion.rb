@@ -8,7 +8,7 @@ module PlanetDefense
 			@@init_x = options[:x]
 			@@init_y = options[:y]
 			@frags = options[:frags]
-			@anim = Chingu::Animation.new( :loop => false, :file => "media/gfx/explosion.png", :size=>[50,50], :delay => 15)
+			@anim = options[:explosion_anim].new_from_frames(0..45)
 			@expl = @anim.next
 
 			@rot = @vel_angular = rand(2) + 1
@@ -23,7 +23,7 @@ module PlanetDefense
     end
     
     def update    
-			@expl = @anim.next
+			@anim.next
 
 			@angle += @vel_angular
 			3.times{ |i| @x[i] += @vel_x[i]}
@@ -35,7 +35,7 @@ module PlanetDefense
     end
     
 		def draw
-			@expl.draw(@@init_x,@@init_y, 5)
+			@anim.image.draw(@@init_x,@@init_y, 5)
 			@i = 0
 			@frags.each do |f| 
 				f.draw_rot(@x[@i], @y[@i], 1, @angle)

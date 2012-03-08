@@ -11,7 +11,9 @@ module PlanetDefense
 
     def initialize(width = 1024, height = 768, fullscreen = false, update_interval = 16.666666)
       super
-    
+      
+      @media_loader = MediaLoader.new
+
       retrofy
       @screenWidth = 1024  
       @screenHeight = 768 
@@ -20,6 +22,8 @@ module PlanetDefense
       @directions_to_xy = { :north => [0, -1], :east => [1, 0], :south => [0, 1], :west => [-1, 0] }
       push_game_state( MenuState )
     end
+
+    attr_accessor :media_loader
   
     def debug   
        push_game_state(Chingu::GameStates::Debug.new)
