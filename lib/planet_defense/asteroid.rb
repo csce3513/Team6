@@ -11,8 +11,8 @@ module PlanetDefense
       #Give asteroid random image
       @imageNum = rand(3) + 1  
       #@image = Gosu::Image.new($window, "media/gfx/asteroid" + @imageNum.to_s + ".bmp", false)
-		@frags = Array.new(3) { |i| Gosu::Image.new($window, "media/gfx/asteroid"  + @imageNum.to_s + "_" + (i+1).to_s + ".png") }
-
+		  @frags = Array.new(3) { |i| $window.media_loader.asteroid[:asteroid + @imageNum.to_s + "_" + (i+1).to_s] }
+  
       #Asteroids start at top, with random x and angle
       @x = rand(@screenWidth * 1.5) - (@screenWidth * 0.25)  
       @y = -50  
