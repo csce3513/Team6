@@ -23,8 +23,15 @@ module PlanetDefense
     				:delay => 15
 				)
 				),
-    		:y => 
-    			1, 
+    		:asteroid1_1 => Gosu::Image.new($window, "media/gfx/asteroid1_1.png"),
+    		:asteroid1_2 => Gosu::Image.new($window, "media/gfx/asteroid1_2.png"),
+    		:asteroid1_3 => Gosu::Image.new($window, "media/gfx/asteroid1_3.png"),
+    		:asteroid2_1 => Gosu::Image.new($window, "media/gfx/asteroid2_1.png"),
+    		:asteroid2_2 => Gosu::Image.new($window, "media/gfx/asteroid2_2.png"),
+    		:asteroid2_3 => Gosu::Image.new($window, "media/gfx/asteroid2_3.png"),
+    		:asteroid3_1 => Gosu::Image.new($window, "media/gfx/asteroid3_1.png"),
+    		:asteroid3_2 => Gosu::Image.new($window, "media/gfx/asteroid3_2.png"),
+    		:asteroid3_3 => Gosu::Image.new($window, "media/gfx/asteroid3_3.png")
     	}
  
     	true
