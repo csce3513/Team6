@@ -19,7 +19,7 @@ module PlanetDefense
       @@size = @@size + 1
       @velocity_x *= @speed
       @velocity_y *= @speed
-      @anim = Chingu::Animation.new( :file => "media/gfx/laser.png", :size=>[2,8], :delay => 10).retrofy
+      @anim = $window.media_loader.weapon[:laser].new_from_frames(0..3)
       @image = @anim.next
       self.factor = $window.object_factor
       @angle = Gosu::angle(0,0,@velocity_x,@velocity_y)

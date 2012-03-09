@@ -4,11 +4,11 @@ module PlanetDefense
   attr_reader :medialoader
   class MediaLoader
 
-    attr_accessor :asteroid
+    attr_accessor :asteroid, :weapon
 
     def initialize()
       load_asteroid
-      load_laser
+      load_weapon
       load_ship
       load_game
     end
@@ -37,7 +37,11 @@ module PlanetDefense
     	true
     end
 
-    def load_laser
+    def load_weapon
+    	@weapon = {
+    		:laser => 
+    			(Chingu::Animation.new( :file => "media/gfx/laser.png", :size=>[2,8], :delay => 10).retrofy)
+    	}
     end
 
     def load_ship
