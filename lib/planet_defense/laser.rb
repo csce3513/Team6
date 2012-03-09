@@ -15,11 +15,11 @@ module PlanetDefense
       @y = options[:y]
       @bounding_box = Chingu::Rect.new([options[:x], options[:y]-40, 3,3])
       @length = 5
-      Sound["media/sounds/laser.wav"].play(0.1)
+      #Sound["media/sounds/laser.wav"].play(0.1)
       @@size = @@size + 1
       @velocity_x *= @speed
       @velocity_y *= @speed
-      @anim = $window.media_loader.weapon[:laser].new_from_frames(0..3)
+      @anim = $window.media_loader.weapon[:laser_anim].new_from_frames(0..3)
       @image = @anim.next
       self.factor = $window.object_factor
       @angle = Gosu::angle(0,0,@velocity_x,@velocity_y)
