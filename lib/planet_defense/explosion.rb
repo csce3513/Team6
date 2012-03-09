@@ -3,12 +3,12 @@ module PlanetDefense
     
     def initialize( options )
 			super
-			@life = 20
+			@life = 45
 			@steps = 0
-			@@init_x = options[:x]
-			@@init_y = options[:y]
+			@init_x = options[:x]
+			@init_y = options[:y]
 			@frags = options[:frags]
-			@anim = options[:explosion_anim].new_from_frames(0..45)
+			@anim = options[:explosion_anim]
 			@expl = @anim.next
 
 			@rot = @vel_angular = rand(2) + 1
@@ -16,14 +16,14 @@ module PlanetDefense
 
 			@vel_x = Array.new(3) { |vel| vel = rand(rand(9) + 1 ) }
 			@vel_y = Array.new(3) { |vel| vel = rand(rand(9) + 1 ) }
-			@x = Array.new(3) { @@init_x }
-			@y = Array.new(3) { @@init_y }
+			@x = Array.new(3) { @init_x }
+			@y = Array.new(3) { @init_y }
 
 			self.factor = $window.object_factor
     end
     
     def update    
-			@anim.next
+			@expl = @anim.next
 
 			@angle += @vel_angular
 			3.times{ |i| @x[i] += @vel_x[i]}
@@ -35,11 +35,14 @@ module PlanetDefense
     end
     
 		def draw
-			@anim.image.draw(@@init_x,@@init_y, 5)
+			@expl.draw(@init_x,@init_y, 5)
 			@i = 0
-			@frags.each do |f| 
-				f.draw_rot(@x[@i], @y[@i], 1, @angle)
-				@i = @i + 1
+
+			if (@steps < 25)
+				@frags.each do |f| 
+					f.draw_rot(@x[@i], @y[@i], 1, @angle)
+					@i = @i + 1
+				end
 			end
 		end
 

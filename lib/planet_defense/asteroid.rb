@@ -32,7 +32,7 @@ module PlanetDefense
     def on_collision   
       #puts "#{self.class} #{self.x}/#{self.y}"
 
-		@expl_options = { :x => @x, :y => @y, :frags => @frags, :explosion_anim => $window.media_loader.asteroid[:explosion_anim] }
+		@expl_options = { :x => @x, :y => @y, :frags => @frags, :explosion_anim => $window.media_loader.asteroid[:explosion_anim].new_from_frames(0..45) }
 		PlanetDefense::Explosion.create( @expl_options );
 		
 		self.reset
