@@ -15,7 +15,7 @@ module PlanetDefense
       @y = options[:y]
       @bounding_box = Chingu::Rect.new([options[:x], options[:y]-40, 3,3])
       @length = 5
-      #Sound["media/sounds/laser.wav"].play(0.1)
+      Sound["media/sounds/laser.wav"].play(0.1)
       @@size = @@size + 1
       @velocity_x *= @speed
       @velocity_y *= @speed

@@ -10,9 +10,9 @@ module PlanetDefense
       #How often (in ms) the weapon cools down by 1 (Rate of cooldown)
       @cooldown_rate = 25
       #Amount of heat generated each shot
-      @heatup_amount = 0
+      @heatup_amount = 0 #CHANGE BACK TO ~7
       #Minimum time (in ms) between shots (firing rate)
-      @fire_rate = 5
+      @fire_rate = 35 #CHANGE BACK TO 100
       #Length of time weapon is disabled if overheated
       @overheat_penalty = 1000
       #Time of last shot

@@ -6,7 +6,7 @@ module PlanetDefense
     def initialize( options = {})
       super
       @player = Player.new(self)
-      @@asteroids = 20.times.map { Asteroid.new(self) }
+      @@asteroids = 50.times.map { Asteroid.new(self) } #change back to 8.times.map
       @background_image = Gosu::Image.new($window, "media/gfx/space-with-earth.jpg", true)
       @life_image = Gosu::Image.new($window, "media/gfx/shipSmall.png", true)
       @music = Gosu::Song.new($window, "media/sounds/background.wav")
@@ -80,7 +80,7 @@ module PlanetDefense
       if @running == true and @pause == false
 
         # Win game at 1000 points
-        if @@score > 500
+        if @@score < 0  #CHANGE BACK TO >= 500
           pop_game_state()
           push_game_state( GameWon )
           @running = false
@@ -88,7 +88,7 @@ module PlanetDefense
           stop_game
         end
 
-        if @planet_health <= 0
+        if @planet_health > 10000  #CHANGE BACK TO <= 0
           pop_game_state()
           push_game_state( GameOver )
           @music.pause()

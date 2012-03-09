@@ -1,4 +1,7 @@
 #Used to load images and sound once, then use the object instead of reloading every time.
+#Instantiated in main as media_loader, so in most classes, so examples to access items in media_loader:
+#  $window.media_loader.asteroid[:explosion_anim]
+#  @window.media_loader.weapon[:laser_anim]
 
 module PlanetDefense
   attr_reader :medialoader
