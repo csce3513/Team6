@@ -8,11 +8,11 @@ module PlanetDefense
     def initialize(player)
       @player = player
       #How often (in ms) the weapon cools down by 1 (Rate of cooldown)
-      @cooldown_rate = 25
+      @cooldown_rate = 20
       #Amount of heat generated each shot
-      @heatup_amount = 0 #CHANGE BACK TO ~7
+      @heatup_amount = 7
       #Minimum time (in ms) between shots (firing rate)
-      @fire_rate = 5 #CHANGE BACK TO 100
+      @fire_rate = 85
       #Length of time weapon is disabled if overheated
       @overheat_penalty = 1000
       #Time of last shot
