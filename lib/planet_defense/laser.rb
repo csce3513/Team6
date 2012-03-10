@@ -56,11 +56,12 @@ module PlanetDefense
         self.destroy
       end
     
-      self.each_bounding_box_collision(Laser, Asteroid, Player) do |me, obj|
-        next if me == obj
-        on_collision(obj)
-        obj.on_collision(me) if obj.respond_to? :on_collision
-      end
+      #self.each_bounding_box_collision(Laser, Asteroid, Player) do |me, obj|
+      #  next if me == obj
+      #  on_collision(obj)
+      #  obj.on_collision(me) if obj.respond_to? :on_collision
+      #end
+      
       destroy if outside_window?
     end
   
@@ -69,6 +70,7 @@ module PlanetDefense
        unless asteroid == nil
          if Gosu::distance(@x, @y, asteroid.x, asteroid.y) <= 55
           asteroid.on_collision
+          return true
          end
       end  
      end
