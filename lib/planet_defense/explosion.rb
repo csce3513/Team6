@@ -7,8 +7,9 @@ module PlanetDefense
 			@steps = 0
 			@init_x = options[:x]
 			@init_y = options[:y]
-			@frags = options[:frags]
-			@anim = options[:explosion_anim]
+			@frags = Array.new(3) { |i| $window.media_loader.asteroid["asteroid" + options[:imageNum].to_s + "_" + (i+1).to_s] }
+
+			@anim = $window.media_loader.asteroid[:explosion_anim].new_from_frames(0..45)
 			@expl = @anim.next
 
 			@rot = @vel_angular = rand(2) + 1

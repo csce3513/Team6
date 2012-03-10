@@ -9,9 +9,9 @@ module PlanetDefense
       @screenHeight = $window.height  
     
       #Give asteroid random image
-      @imageNum = rand(3) + 1  
-		  @frags = Array.new(3) { |i| $window.media_loader.asteroid["asteroid" + @imageNum.to_s + "_" + (i+1).to_s] }
-  
+      @imageNum = rand(3) + 1
+      @image = $window.media_loader.asteroid["asteroid" + @imageNum.to_s]
+
       #Asteroids start at top, with random x and angle
       @x = rand(@screenWidth * 1.5) - (@screenWidth * 0.25)  
       @y = -50  
@@ -32,7 +32,7 @@ module PlanetDefense
     def on_collision   
       #puts "#{self.class} #{self.x}/#{self.y}"
 
-		@expl_options = { :x => @x, :y => @y, :frags => @frags, :explosion_anim => $window.media_loader.asteroid[:explosion_anim].new_from_frames(0..45) }
+		@expl_options = { :x => @x, :y => @y, :imageNum => @imageNum }
 		PlanetDefense::Explosion.create( @expl_options );
 		
 		self.reset
@@ -48,7 +48,7 @@ module PlanetDefense
     end
   
     def draw
-      @frags.each{ |f| f.draw_rot(@x, @y, 1, @angle) }
+      @image.draw_rot(@x, @y, 1, @angle)
     end
   
     def x

@@ -11,8 +11,8 @@ module PlanetDefense
 
     def initialize(width = 1024, height = 768, fullscreen = false, update_interval = 16.666666)
       super
-      
-      @media_loader = MediaLoader.new
+      @counter = 0
+      @media_loader = MediaLoader.new(self)
 
       retrofy
       @screenWidth = 1024  
@@ -40,6 +40,13 @@ module PlanetDefense
     def update
       super
       close if current_scope == self
+
+      #Testing performance
+      #Print out framerate every 30 updates
+      @counter = (@counter + 1) % 30
+      if (@counter == 0)
+        puts $window.framerate
+      end
     end
 
     def inside_window?(obj)

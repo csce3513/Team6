@@ -4,12 +4,13 @@
 #  @window.media_loader.weapon[:laser_anim]
 
 module PlanetDefense
-  attr_reader :medialoader
+  attr_reader :media_loader
   class MediaLoader
 
     attr_accessor :asteroid, :weapon
 
-    def initialize()
+    def initialize(window)
+    	@window = window
       load_asteroid
       load_weapon
       load_ship
@@ -26,15 +27,18 @@ module PlanetDefense
     				:delay => 15
 				)
 				),
-    		"asteroid1_1" => Gosu::Image.new($window, "media/gfx/asteroid1_1.png"),
-    		"asteroid1_2" => Gosu::Image.new($window, "media/gfx/asteroid1_2.png"),
-    		"asteroid1_3" => Gosu::Image.new($window, "media/gfx/asteroid1_3.png"),
-    		"asteroid2_1" => Gosu::Image.new($window, "media/gfx/asteroid2_1.png"),
-    		"asteroid2_2" => Gosu::Image.new($window, "media/gfx/asteroid2_2.png"),
-    		"asteroid2_3" => Gosu::Image.new($window, "media/gfx/asteroid2_3.png"),
-    		"asteroid3_1" => Gosu::Image.new($window, "media/gfx/asteroid3_1.png"),
-    		"asteroid3_2" => Gosu::Image.new($window, "media/gfx/asteroid3_2.png"),
-    		"asteroid3_3" => Gosu::Image.new($window, "media/gfx/asteroid3_3.png")
+    		"asteroid1_1" => Gosu::Image.new(@window, "media/gfx/asteroid1_1.bmp"),
+    		"asteroid1_2" => Gosu::Image.new(@window, "media/gfx/asteroid1_2.bmp"),
+    		"asteroid1_3" => Gosu::Image.new(@window, "media/gfx/asteroid1_3.bmp"),
+    		"asteroid2_1" => Gosu::Image.new(@window, "media/gfx/asteroid2_1.bmp"),
+    		"asteroid2_2" => Gosu::Image.new(@window, "media/gfx/asteroid2_2.bmp"),
+    		"asteroid2_3" => Gosu::Image.new(@window, "media/gfx/asteroid2_3.bmp"),
+    		"asteroid3_1" => Gosu::Image.new(@window, "media/gfx/asteroid3_1.bmp"),
+    		"asteroid3_2" => Gosu::Image.new(@window, "media/gfx/asteroid3_2.bmp"),
+    		"asteroid3_3" => Gosu::Image.new(@window, "media/gfx/asteroid3_3.bmp"),
+            "asteroid1" => Gosu::Image.new(@window, "media/gfx/asteroid1.bmp"),
+            "asteroid2" => Gosu::Image.new(@window, "media/gfx/asteroid2.bmp"),
+            "asteroid3" => Gosu::Image.new(@window, "media/gfx/asteroid3.bmp"),
     	}
  
     	true
