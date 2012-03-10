@@ -10,9 +10,9 @@ module PlanetDefense
       #How often (in ms) the weapon cools down by 1 (Rate of cooldown)
       @cooldown_rate = 25
       #Amount of heat generated each shot
-      @heatup_amount = 0 #CHANGE BACK TO ~7
+      @heatup_amount = 7 #CHANGE BACK TO ~7
       #Minimum time (in ms) between shots (firing rate)
-      @fire_rate = 35 #CHANGE BACK TO 100
+      @fire_rate = 100 #CHANGE BACK TO 100
       #Length of time weapon is disabled if overheated
       @overheat_penalty = 1000
       #Time of last shot
@@ -108,10 +108,11 @@ module PlanetDefense
     #Checks if everything is ready to fire, and fires
     def shoot
       if fireable?
+        @last_shot = milliseconds()
         heatup
         PlanetDefense::Laser.create( :x => @player.x-20, :y => @player.y-15)
         PlanetDefense::Laser.create( :x => @player.x+20, :y => @player.y-15)
-        @last_shot = milliseconds()
+        
       end
       update
     end
