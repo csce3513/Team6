@@ -56,12 +56,14 @@ module PlanetDefense
         self.destroy
       end
     
+      #Wasn't sure what this did.  I commented it out and the game seems to be working the same
+      #Let me know if this needs to stay or not.
       #self.each_bounding_box_collision(Laser, Asteroid, Player) do |me, obj|
       #  next if me == obj
       #  on_collision(obj)
       #  obj.on_collision(me) if obj.respond_to? :on_collision
       #end
-      
+
       destroy if outside_window?
     end
   
@@ -70,7 +72,7 @@ module PlanetDefense
        unless asteroid == nil
          if Gosu::distance(@x, @y, asteroid.x, asteroid.y) <= 55
           asteroid.on_collision
-          return true
+          return true #Laser can only hit 1 asteroid, so leave loop after a collision
          end
       end  
      end
