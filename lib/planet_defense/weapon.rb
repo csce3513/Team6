@@ -14,7 +14,7 @@ module PlanetDefense
       #Minimum time (in ms) between shots (firing rate)
       @fire_rate = 85
       #Length of time weapon is disabled if overheated
-      @overheat_penalty = 1000
+      @overheat_penalty = 800
       #Time of last shot
       @last_shot = 0
       #Time of last cooldown
