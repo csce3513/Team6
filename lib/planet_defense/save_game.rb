@@ -2,7 +2,7 @@ require 'yaml'
 
 module PlanetDefense
 	class SaveGame < Chingu::GameState
-		def initialize( :options )
+		def initialize( options = {})
 			super
 		end
 		
@@ -12,7 +12,7 @@ module PlanetDefense
 		def draw
 		end
 		
-		def save
+		def self.save
 			YAML::dump($window.game_objects)
 		end
 	end
