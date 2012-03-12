@@ -13,7 +13,8 @@ module PlanetDefense
 		
 		context "when saving the game" do
 			it 'should serialize game objects' do
-				
+				$window.current_game_state.push_game_state( PlanetDefense::SaveGame )
+				PlanetDefense::SaveGame.save
 			end
 		end	
 	end
