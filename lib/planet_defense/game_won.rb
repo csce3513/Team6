@@ -15,7 +15,7 @@ module PlanetDefense
        super
        @background_image.draw(0,0,0)
        @font.draw_rel("YOU BEAT THE LEVEL", $window.width / 2, $window.height / 2, 10, 0.5, 0.5, 1, 1, Gosu::Color::GREEN)
-       @font2.draw_rel("- Press R to restart the game - ", $window.width / 2, ($window.height / 2) + 45, 10, 0.5, 0.5, 1, 1, Gosu::Color::GREEN)
+       @font2.draw_rel("- Press R to start next level - ", $window.width / 2, ($window.height / 2) + 45, 10, 0.5, 0.5, 1, 1, Gosu::Color::GREEN)
     end
    
     def replay
