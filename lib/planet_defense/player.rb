@@ -14,7 +14,8 @@ module PlanetDefense
       @vel_x = @vel_y = 0.0  
       @x = $window.width / 2  
       @y = $window.height - 50
-      @image = Gosu::Image.new($window, "media/gfx/shipNormal.bmp")  
+      @image = Gosu::Image.new($window, "media/gfx/shipNormal.bmp")
+      #@image = Gosu::Image.new($window, "media/gfx/enterprise.png")  
       @font = Gosu::Font.new($window, "media/fonts/MuseoSans_300.otf", 43)
       @particles = Chingu::Animation.new(:file => "media/gfx/fireball.png", :size => [32,32])
       @weapon = Weapon.new(self)
