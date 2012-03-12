@@ -3,6 +3,8 @@ module PlanetDefense
     def initialize(options = {})
       super
       self.input = { :r => :replay }
+      @previous_level = options[:previous_level]
+      @score = options[:score]
       @font = Gosu::Font.new($window, "media/fonts/MuseoSans_300.otf", 65)
       @font2 = Gosu::Font.new($window, "media/fonts/MuseoSans_300.otf", 45)
       @background_image = Gosu::Image.new($window, "media/gfx/space.jpg", true)
@@ -17,8 +19,9 @@ module PlanetDefense
     end
    
     def replay
-      pop_game_state()
-      push_game_state( PlayState )
+
+      @next_level = @previous_level+1
+      push_game_state(PlayState.new(:level => @next_level, :score => @score))
       # if $window.scores.position_by_score($last_score)
       #   push_game_state( EnterNameState )
       # else

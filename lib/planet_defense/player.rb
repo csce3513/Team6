@@ -91,9 +91,10 @@ module PlanetDefense
       move_right if $window.button_down?(Gosu::KbRight) or $window.button_down?(Gosu::GpRight)
       move_forward if $window.button_down?(Gosu::KbUp) or $window.button_down?(Gosu::GpUp)
       move_backward if $window.button_down?(Gosu::KbDown) or $window.button_down?(Gosu::GpDown)
-    
+
       @weapon.shoot if $window.button_down?(Gosu::KbSpace) or $window.button_down?(Gosu::GpButton0)
 
+     
       # Particle.each do |p|
       #   puts "#{p.x} - #{p.y}"
       #   p.destroy if p.outside_window?
@@ -118,6 +119,11 @@ module PlanetDefense
      @y
     end
   
+    def make_stream
+      create_particles
+      Particle.each { |particle| particle.y += 3; particle.x += 2 - rand(4) }
+    end
+
     def draw
       @weapon.update
       @image.draw_rot(@x, @y, 5, 0)  

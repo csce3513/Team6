@@ -1,27 +1,34 @@
 module PlanetDefense
   class PlayState < Chingu::GameState
-    attr_reader :player, :asteroids, :score, :timer
+    attr_reader :player, :asteroids, :score, :timer, :level
     attr_accessor :pause
 
-    def initialize( options = {})
+    def initialize( options = {:level => 0, :score => 0})
       super
       @player = Player.new(self)
+      puts "Requesting LEVEL: #{options[:level]}"
+      @level = PlanetDefense::Levels.return_level(options[:level])
+      puts "Running LEVEL: #{@level[:number]}"
+
+      if @level[:scroll] 
+        @parallax = Chingu::Parallax.create(:x => 0, :y => 0, :rotation_center => :top_left)
+        @parallax << { :image => "media/gfx/stars.jpg", :repeat_x => false, :zorder => 1, :repeat_y => true}
+      end
+
+      # Level Settings
+      @background_image = @level[:background_image]
+      @music = @level[:background_music]
+
+      # Option Settings
       @@asteroids = 10.times.map { Asteroid.new(self) } #change back to 8.times.map
-      @background_image = Gosu::Image.new($window, "media/gfx/space-with-earth.jpg", true)
-      @life_image = Gosu::Image.new($window, "media/gfx/shipSmall.png", true)
-      @music = Gosu::Song.new($window, "media/sounds/background.wav")
-      @font = Gosu::Font.new($window, "media/fonts/MuseoSans_300.otf", 43)
-      @health_font = Gosu::Font.new($window, "media/fonts/MuseoSans_300.otf", 25)
-      @count = 0  
-      @pause = false
-      @running = true
-      @@score = 0
-      @lives = 3
       @planet_health = 1000
       @music.volume = 0.3
-		@hit = false
-      @music.play(looping = true) unless @pause == true || defined? RSpec
-      $window.caption = "Planet Defense #{PlanetDefense::VERSION} Game Objects: #{game_objects}"
+      @lives = 3
+
+      # View Items
+      @life_image = Gosu::Image.new($window, "media/gfx/shipSmall.png", true)
+      @font = Gosu::Font.new($window, "media/fonts/MuseoSans_300.otf", 43)
+      @health_font = Gosu::Font.new($window, "media/fonts/MuseoSans_300.otf", 25)
       cursor = Gosu::Image.new($window, 'media/gfx/cursor.png', true)
       icons  = Gosu::Image.load_tiles($window, 'media/gfx/icons.png', 16, 16, false)
       @menu = RingMenu.new :radius => 400, :opaque => false, :modal => true, :icon_rotation => 2, 
@@ -32,10 +39,22 @@ module PlanetDefense
         m.item('RETURN TO GAME',  icons[3], :scale => 2) { return_to_game }
         m.item('OPTIONS',   icons[2], :scale => 2) { push_game_state( OptionsState ) }
         m.item('HIGH SCORES',  icons[0], :scale => 2) { push_game_state( HighScoresState ) }
+
+      # Defaults
+      @count = 0  
+      @pause = false
+      @running = true
+      @win = false
+      @@score = options[:score]
+		  @hit = false
+      @game_start = milliseconds()
+      @time_allowed = @level[:time]
+      @music.play(looping = true) unless @pause == true || defined? RSpec
+
       end
 
     end
-	 
+
     def return_to_game
       PlanetDefense::RingMenu::Icon.destroy_all
       @pause = false
@@ -77,15 +96,20 @@ module PlanetDefense
   
     def update
       super
+      @remaining_time = (@game_start + @time_allowed) - milliseconds()
+      $window.caption = "Planet Defense #{PlanetDefense::VERSION} - Framerate: #{$window.framerate} - Time Left: #{(@remaining_time / 1000)+1} secs"
+      
+      camera_up if @level[:scroll]
+      @player.make_stream if @level[:scroll]
+
       if @running == true and @pause == false
 
-        # Win game at 1000 points
-        if @@score >= 500
-          pop_game_state()
-          push_game_state( GameWon )
+        # Win at 45 seconds
+        if milliseconds() >= @game_start + @time_allowed
           @running = false
           @music.pause()
           stop_game
+          push_game_state( GameWon.new(:previous_level => @level[:number], :score => @@score) )
         end
 
         if @planet_health <= 0
@@ -130,7 +154,8 @@ module PlanetDefense
             if (@@asteroids[i].x > $window.width || @@asteroids[i].x < 0)
               if (@@asteroids[i].y > $window.height)
                 @@asteroids[i].reset
-                @planet_health -= 25
+                @planet_health -= 25 unless @level[:scroll]
+                @@score -= 1 unless @level[:scroll] && @@score != 0
               end
             end
           end
@@ -139,6 +164,11 @@ module PlanetDefense
     end
     end
   
+    def camera_up
+      # This is essentially the same as @parallax.y += 2
+      @parallax.camera_y -= 10
+    end
+
     def draw
       super
       @background_image.draw(0,0,0)  
@@ -155,7 +185,7 @@ module PlanetDefense
       @font.draw_rel("Press R to restart.", 500, 300, 10, 0.5, 0.5, 1, 1, Gosu::Color::RED) if @hit == true
       #@font.draw_rel("Lives: #{@lives}", 100, 50, 10, 0.5, 0.5, 1, 1, Gosu::Color::WHITE)
       @font.draw_rel("Score: #{@@score}", 900, 50, 10, 0.5, 0.5, 1, 1, Gosu::Color::WHITE)
-      @health_font.draw_rel("Planet Health", (@health_font.text_width("Planet Health")/2)+18, $window.height - 30, 10, 0.5, 0.5, 1, 1, Gosu::Color::WHITE)
+      @health_font.draw_rel("Planet Health", (@health_font.text_width("Planet Health")/2)+18, $window.height - 30, 10, 0.5, 0.5, 1, 1, Gosu::Color::WHITE) unless @level[:scroll]
       @health_font.draw_rel("Laser Temp", (@health_font.text_width("Laser Temp")/2)+$window.width - 227, $window.height - 30, 10, 0.5, 0.5, 1, 1, Gosu::Color::WHITE)
 
 
@@ -171,7 +201,7 @@ module PlanetDefense
         14 + (@planet_health / 5), $window.height - 45, Gosu::Color::RED,
         14, $window.height - 15, Gosu::Color::RED,
         14 + (@planet_health / 5), $window.height - 15, Gosu::Color::RED,
-      1)
+      1) unless @level[:scroll]
 
       #Planet Health Bar FG
       $window.draw_quad(
@@ -179,7 +209,7 @@ module PlanetDefense
         12, $window.height - 47, Gosu::Color::BLACK,
         217, $window.height - 13, Gosu::Color::BLACK,
         12, $window.height - 13, Gosu::Color::BLACK,
-      0)
+      0) unless @level[:scroll]
 
       #Weapon's heat gauge
       #Filled color
@@ -208,10 +238,14 @@ module PlanetDefense
     def refresh_game
       @running = true
       @hit = false
+      game_objects.each(&:destroy)
       @music.play()
       @player.reset
       @@asteroids.each {|asteroid| asteroid.reset unless asteroid == nil}
-      game_objects.each(&:destroy)
+      if @level[:scroll] 
+        @parallax = Chingu::Parallax.create(:x => 0, :y => 0, :rotation_center => :top_left)
+        @parallax << { :image => "media/gfx/stars.jpg", :repeat_x => false, :zorder => 1, :repeat_y => true}
+      end
     end
   
     def stop_game

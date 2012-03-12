@@ -45,7 +45,7 @@ module PlanetDefense
       #Print out framerate every 30 updates
       @counter = (@counter + 1) % 30
       if (@counter == 0)
-        puts "Framerate: #{$window.framerate}"
+        #puts "Framerate: #{$window.framerate}"
       end
     end
 
