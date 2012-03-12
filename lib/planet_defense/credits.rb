@@ -12,6 +12,8 @@ module PlanetDefense
       @font = Gosu::Font.new($window, "media/fonts/MuseoSans_300.otf", 43)
       @background_image = Gosu::Image.new($window, "media/gfx/space.jpg", true)
       @title_image = Gosu::Image.new($window, "media/gfx/title.png", true)
+      @gosu_image = Gosu::Image.new($window, "media/gfx/gosu.png", true)
+      @ruby_image = Gosu::Image.new($window, "media/gfx/ruby.png", true)
       @credits_image = Gosu::Image.new($window, "media/gfx/credits.png", true)
       self.input = { 
         :escape => :back
@@ -34,6 +36,9 @@ module PlanetDefense
       super
       #Asteroid Draw
       @background_image.draw(0,0,0)
+      @gosu_image.draw(50,250,2)
+      @ruby_image.draw(50,450,2)
+      
 
       @names_height > $window.height ? reset : @names_height += 1
 
