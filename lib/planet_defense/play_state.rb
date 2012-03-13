@@ -39,6 +39,7 @@ module PlanetDefense
         m.item('RETURN TO GAME',  icons[3], :scale => 2) { return_to_game }
         m.item('OPTIONS',   icons[2], :scale => 2) { push_game_state( OptionsState ) }
         m.item('HIGH SCORES',  icons[0], :scale => 2) { push_game_state( HighScoresState ) }
+		m.item('SAVE GAME', icons[4], :scale => 2) { push_game_state( SaveGame ) }
 
       # Defaults
       @count = 0  
