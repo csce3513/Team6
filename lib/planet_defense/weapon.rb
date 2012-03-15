@@ -10,7 +10,7 @@ module PlanetDefense
       #How often (in ms) the weapon cools down by 1 (Rate of cooldown)
       @cooldown_rate = 20
       #Amount of heat generated each shot
-      @heatup_amount = 7
+      @heatup_amount = $window.options.weapon_heatup_amount
       #Minimum time (in ms) between shots (firing rate)
       @fire_rate = 85
       #Length of time weapon is disabled if overheated
