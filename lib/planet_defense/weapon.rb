@@ -2,7 +2,7 @@ module PlanetDefense
   attr_reader :weapon
   class Weapon
 
-    attr_accessor :cooldown_rate, :heatup_amount, :fire_rate, :overheat_penalty
+    attr_accessor :cooldown_rate, :heatup_amount, :fire_rate, :overheat_penalty, :last_alt_shot
     attr_accessor :last_shot, :last_cooldown, :last_overheat, :heat, :overheated, :gauge_color 
 
     def initialize(player)
@@ -17,6 +17,7 @@ module PlanetDefense
       @overheat_penalty = 800
       #Time of last shot
       @last_shot = 0
+      @last_alt_shot = 0
       #Time of last cooldown
       @last_cooldown = milliseconds()
       #Time of last overheat
@@ -112,9 +113,18 @@ module PlanetDefense
         heatup
         PlanetDefense::Laser.create( :x => @player.x-20, :y => @player.y-15)
         PlanetDefense::Laser.create( :x => @player.x+20, :y => @player.y-15)
-        
       end
       update
+    end
+
+    def alt_shoot
+      if (@last_alt_shot + 5000 < milliseconds())
+        puts "Alt shot"
+        @last_alt_shot = milliseconds()
+        PlayState.asteroids.each{ |asteroid| asteroid.on_collision } 
+        return true
+      end
+      return false
     end
 
   end
