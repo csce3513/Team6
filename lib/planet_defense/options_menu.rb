@@ -91,13 +91,16 @@ module PlanetDefense
       case @currentDifficulty
         when 0
           #Easy
+          $window.options.easy
             new_x = (x-150)-5
             $window.draw_quad(new_x, y+10, @diffSelect, new_x+@font.text_width("Easy")+10, y+10, @diffSelect, new_x, y+40, @diffSelect, new_x+@font.text_width("Easy")+10, y+40, @diffSelect ) if @current == 0
         when 1
           #Medium
+          $window.options.medium
             $window.draw_quad(x-5, y+10, @diffSelect, x+@font.text_width("Medium")+5, y+10, @diffSelect, x-5, y+40, @diffSelect, x+@font.text_width("Medium")+5, y+40, @diffSelect ) if @current == 0
         when 2
           #Hard
+          $window.options.hard
             new_x = (x+200)-5
             $window.draw_quad(new_x, y+10, @diffSelect, new_x+@font.text_width("Hard")+10, y+10, @diffSelect, new_x, y+40, @diffSelect, new_x+@font.text_width("Hard")+10, y+40, @diffSelect ) if @current == 0
         else

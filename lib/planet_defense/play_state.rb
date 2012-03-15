@@ -20,10 +20,10 @@ module PlanetDefense
       @music = @level[:background_music]
 
       # Option Settings
-      @@asteroids = 10.times.map { Asteroid.new(self) } #change back to 8.times.map
+      @@asteroids = $window.options.asteroid_number.times.map { Asteroid.new(self) } #change back to 8.times.map
       @planet_health = 1000
       @music.volume = 0.3
-      @lives = 3
+      @lives = $window.options.lives
 
       # View Items
       @life_image = Gosu::Image.new($window, "media/gfx/shipSmall.png", true)

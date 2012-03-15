@@ -13,7 +13,7 @@ module PlanetDefense
       super
       @counter = 0
       @media_loader = MediaLoader.new(self)
-
+      @options = Options.new
       retrofy
       @screenWidth = 1024  
       @screenHeight = 768 
@@ -23,7 +23,7 @@ module PlanetDefense
       push_game_state( MenuState )
     end
 
-    attr_accessor :media_loader
+    attr_accessor :media_loader, :options
   
     def debug   
        push_game_state(Chingu::GameStates::Debug.new)

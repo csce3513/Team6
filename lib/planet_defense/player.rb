@@ -8,7 +8,7 @@ module PlanetDefense
     def initialize( options = {} )
     
       #Settings for player movement
-      @vel_max = 7  
+      @vel_max = 9
       @acceleration = 1  
       @deceleration = 0.95  
       @vel_x = @vel_y = 0.0  

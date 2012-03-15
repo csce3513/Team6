@@ -18,7 +18,7 @@ module PlanetDefense
       @angle = rand(360)  
       @vel_angular = rand(2) + 1  
       #vel_y can be positive (down only)
-      @vel_x = @vel_y = rand(9) + 1  
+      @vel_x = @vel_y = rand($window.options.asteroid_max_velocity - 1) + 1  
       #vel_x can be positive or negative (left or right)
       if (rand(2) == 1)
         @vel_x *= -0.15  
