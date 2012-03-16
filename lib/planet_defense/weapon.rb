@@ -123,9 +123,7 @@ module PlanetDefense
 
     #Fires 3 rounds of twenty lasers spread out over the width of the screen
     def check_alt_shoot
-      #Check if alt_shoot is currently running
       if (@alt_shot_step > -1 && @alt_shot_step < 3)
-        #Check if its ready for the next round of lasers (3 rounds / alt_fire shot)
         if (@last_alt_shot + 100 < milliseconds())
           @alt_shot_step += 1
           @last_alt_shot = milliseconds()

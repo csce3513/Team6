@@ -47,10 +47,20 @@ module PlanetDefense
       @bounding_box.x = @x
       @bounding_box.y = @y
 
+      #if @function == "sin"
+       # @x += (Math.sin(@updates) * 20 * @coefficient)
+       # puts "Updated: #{@coefficient} * #{@function}"
+      #elsif @function == "cos"
+      #  @x -= (Math.sin(@updates) * 20 * @coefficient)
+      #  puts "Updated: #{@coefficient} * #{@function}"
+      #end
+
       @x += 1 / @updates * @x_coeff
 
       @y -= @vel_y * (0.5 + @y_coeff)
       @image = @anim.next
+    
+      #PlayState.asteroids.each{|asteroid| puts asteroid.class unless asteroid == nil }
     
       if self.hit? PlayState.asteroids
         PlayState.up_score
