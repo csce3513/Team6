@@ -47,7 +47,9 @@ module PlanetDefense
     def load_weapon
     	@weapon = {
     		:laser_anim => 
-    			(Chingu::Animation.new( :file => "media/gfx/laser.png", :size=>[2,8], :delay => 10).retrofy)
+    			(Chingu::Animation.new( :file => "media/gfx/laser.png", :size=>[2,8], :delay => 10).retrofy),
+            :alt_laser_anim => 
+                (Chingu::Animation.new( :file => "media/gfx/alt_laser.bmp", :size=>[2,8], :delay => 10).retrofy)    
     	}
     end
 
