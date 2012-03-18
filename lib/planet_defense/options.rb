@@ -2,7 +2,7 @@ module PlanetDefense
   attr_reader :media_loader
   class Options
 
-    attr_accessor :lives, :asteroid_number, :asteroid_max_velocity, :weapon_heatup_amount, :musicVolume, :sfxVolume, :alt_shot_cooldown
+    attr_accessor :lives, :asteroid_number, :asteroid_max_velocity, :weapon_heatup_amount, :alt_shot_cooldown
 
     def initialize
     	medium
