@@ -24,5 +24,9 @@ module PlanetDefense
 			$window.fill_rect(@rect, @color, 55)
 			@font.draw(@text.text, @x, @y, 55, 1)
 		end
+		
+		def to_s
+			@text.text
+		end
 	end
 end

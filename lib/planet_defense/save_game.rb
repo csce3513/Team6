@@ -22,7 +22,7 @@ module PlanetDefense
 				:down => :move_down,
 				:left => :move_left,
 				:right => :move_right,
-				:enter => :save
+				:return => :go
 			}
 		end
 		
@@ -73,8 +73,18 @@ module PlanetDefense
 			end
 		end
 		
-		def self.save
-			
+		def save
+			output = File.new(@text_input.to_s + '.yml', 'w')
+			output.puts YAML.dump(
 		end
+		
+		def go
+			if(@current == 0)
+				save
+			else
+				pop_game_state
+			end
+		end
+		
 	end
 end
