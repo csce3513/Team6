@@ -20,7 +20,7 @@ module PlanetDefense
       @object_factor = 2.5 
       self.input = { :f1 => :debug, :q => :exit}
       @directions_to_xy = { :north => [0, -1], :east => [1, 0], :south => [0, 1], :west => [-1, 0] }
-      push_game_state( SaveGame )
+      push_game_state( MenuState )
     end
 
     attr_accessor :media_loader

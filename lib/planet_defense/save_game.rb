@@ -7,7 +7,7 @@ module PlanetDefense
 			super
 			@font = Gosu::Font.new($window, "media/fonts/MuseoSans_300.otf", 24)
 			@text_input = PlanetDefense::TextInput.create(:x => $window.width/2-100, :y => $window.height/2, 
-														:width => 200, :height => @font.height*2, :font => @font)			
+														  :width => 200, :height => @font.height*2, :font => @font)			
 			@background_image = Gosu::Image.new($window, "media/gfx/space.jpg", true)
 			@title_image = Gosu::Image.new($window, "media/gfx/title.png", true)
 			
@@ -75,7 +75,7 @@ module PlanetDefense
 		
 		def save
 			output = File.new(@text_input.to_s + '.yml', 'w')
-			output.puts YAML.dump(
+			#output.puts YAML.dump(
 		end
 		
 		def go
