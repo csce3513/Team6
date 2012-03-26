@@ -1,7 +1,7 @@
 require 'yaml'
 
 module PlanetDefense
-	class SaveGame < Chingu::GameState
+	class LoadGame < Chingu::GameState
 	
 		def initialize( options = {})
 			super
@@ -74,9 +74,9 @@ module PlanetDefense
 		end
 		
 		def load
-			output = File.new(@text_input.to_s + '.yml', 'w')
-			playstate = game_states.last
-			output.puts YAML.dump(playstate)
+			input = YAML.load(File.read(@text_input.to_s + '.yml'))
+			puts input
+			#switch_game_state(playstate)
 		end
 		
 		def go
