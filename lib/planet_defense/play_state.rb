@@ -1,6 +1,6 @@
 module PlanetDefense
   class PlayState < Chingu::GameState
-    attr_reader :player, :asteroids, :score, :timer, :level
+    attr_accessor :player, :asteroids, :score, :timer, :level
     attr_accessor :pause
 
     def initialize( options = {:level => 0, :score => 0})
@@ -264,6 +264,9 @@ module PlanetDefense
     def self.up_score
       @@score += 10
     end
-	 
+	
+	def attributes
+	  @attributes = [@player, @asteroids, @score, @timer, @level]
+	end
   end
 end
