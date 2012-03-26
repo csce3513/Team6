@@ -41,7 +41,7 @@ module PlanetDefense
         m.item('HIGH SCORES',  icons[0], :scale => 2) { push_game_state( HighScoresState ) }
 
       # Defaults
-      @count = 0  
+      @count = 0
       @pause = false
       @running = true
       @win = false
@@ -49,6 +49,7 @@ module PlanetDefense
 		  @hit = false
       @game_start = milliseconds()
       @time_allowed = @level[:time]
+	  @timer = 0
       @music.play(looping = true) unless @pause == true || defined? RSpec
 
       end
@@ -105,12 +106,14 @@ module PlanetDefense
       if @running == true and @pause == false
 
         # Win at 45 seconds
-        if milliseconds() >= @game_start + @time_allowed
+        if @timer > @time_allowed
           @running = false
           @music.pause()
           stop_game
           push_game_state( GameWon.new(:previous_level => @level[:number], :score => @@score) )
         end
+		
+		@timer = @timer + 1
 
         if @planet_health <= 0
           pop_game_state()
