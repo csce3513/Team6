@@ -86,7 +86,7 @@ module PlanetDefense
     end
     
     def on_quit
-      pop_game_state()
+      clear_game_states
       self.close
     end
     
