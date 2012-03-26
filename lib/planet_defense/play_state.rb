@@ -266,7 +266,7 @@ module PlanetDefense
     end
 	
 	def attributes
-	  @attributes = [@player, @asteroids, @score, @timer, @level]
+	  @attributes = [@@score, @timer, @level]
 	end
   end
 end
