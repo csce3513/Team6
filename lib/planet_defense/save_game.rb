@@ -75,7 +75,8 @@ module PlanetDefense
 		
 		def save
 			output = File.new(@text_input.to_s + '.yml', 'w')
-			#output.puts YAML.dump(
+			playstate = game_states.last
+			output.puts YAML.dump(playstate)
 		end
 		
 		def go
