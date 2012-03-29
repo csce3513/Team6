@@ -8,6 +8,7 @@ module PlanetDefense
       @difficulties = [:easy, :medium, :hard]
       @current = 0
       @currentDifficulty = 0
+      @volume = 10
       @selected = Color.new(150,220,69,82)
       @diffSelect = Color.new(150,220,69,82)
       @font = Gosu::Font.new($window, "media/fonts/MuseoSans_300.otf", 43)
@@ -47,12 +48,22 @@ module PlanetDefense
         @currentDifficulty -= 1
         @currentDifficulty = @difficulties.length-1 if @currentDifficulty < 0
       end
+
+      if @current == 1
+        @volume -= 1
+        @volume == 0 if @volume < 0
+      end
     end
 
     def move_right
       if @current == 0
         @currentDifficulty += 1
         @currentDifficulty = 0 if @currentDifficulty >= @difficulties.length
+      end
+
+      if @current == 1
+        @volume += 1
+        @volume = 10 if @volume > 10
       end
     end
 
@@ -87,6 +98,16 @@ module PlanetDefense
       @font.draw("Easy", x - 150, y, 2) if @current == 0
       @font.draw("Medium", x, y, 2) if @current == 0
       @font.draw("Hard", x + 200 , y, 2) if @current == 0
+
+      #Draw Volume bar when "Volume" is selected
+      j = 0
+      x_volume = $window.width/2 - 180
+      if @current == 1
+        while j <= @volume do
+          $window.draw_quad(x_volume + 30*j, (y+10)+(3*(10-j)), @selected, x_volume + 30*j + 30, (y+10)+(3*(10-j)), @selected, x_volume + 30*j, y+40, @selected, x_volume + 30*j + 30, y+40, @selected, z = 0, mode = :default)
+          j += 1
+        end
+      end
 
       case @currentDifficulty
         when 0
