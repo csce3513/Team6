@@ -41,17 +41,18 @@ module PlanetDefense
         m.item('HIGH SCORES',  icons[0], :scale => 2) { push_game_state( HighScoresState ) }
 
       # Defaults
-      @count = 0
+      @count = 0  
       @pause = false
       @running = true
       @win = false
       @@score = options[:score]
 		  @hit = false
       @game_start = milliseconds()
+      @pause_start = 0
+      @last_time_paused = 0
       @time_allowed = @level[:time]
-	  @timer = 0
       @music.play(looping = true) unless @pause == true || defined? RSpec
-
+      @time_pause_elapsed = 0
       end
 
     end
@@ -76,6 +77,7 @@ module PlanetDefense
     def button_down(id)
       if id == Gosu::Button::KbP
         if @pause == false
+          @pause_start = milliseconds()
           @pause = true
           @music.pause()
         else
@@ -98,22 +100,26 @@ module PlanetDefense
     def update
       super
       @remaining_time = (@game_start + @time_allowed) - milliseconds()
-      $window.caption = "Planet Defense #{PlanetDefense::VERSION} - Framerate: #{$window.framerate} - Time Left: #{(@remaining_time / 1000)+1} secs"
+      $window.caption = "Planet Defense #{PlanetDefense::VERSION} - Framerate: #{$window.framerate}"
+      # - Time Left: #{(@remaining_time / 1000)+1} secs
       
       camera_up if @level[:scroll]
       @player.make_stream if @level[:scroll]
 
+      if @pause == true
+        @last_time_paused = milliseconds()
+      end
+
       if @running == true and @pause == false
 
+        @time_pause_elapsed = @last_time_paused - @pause_start
         # Win at 45 seconds
-        if @timer > @time_allowed
+        if milliseconds() >= @game_start + @time_allowed + @time_pause_elapsed
           @running = false
           @music.pause()
           stop_game
           push_game_state( GameWon.new(:previous_level => @level[:number], :score => @@score) )
         end
-		
-		@timer = @timer + 1
 
         if @planet_health <= 0
           pop_game_state()
@@ -158,7 +164,7 @@ module PlanetDefense
               if (@@asteroids[i].y > $window.height)
                 @@asteroids[i].reset
                 @planet_health -= 25 unless @level[:scroll]
-                @@score -= 1 unless @level[:scroll] && @@score != 0
+                @@score -= 1 unless (@level[:scroll] || @@score == 0)
               end
             end
           end
