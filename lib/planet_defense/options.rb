@@ -31,5 +31,9 @@ module PlanetDefense
     	@weapon_heatup_amount = 9
     end
 
+    def volume(value)
+        @volume = value
+    end
+
   end
 end
