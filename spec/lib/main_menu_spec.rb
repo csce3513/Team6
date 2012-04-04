@@ -21,23 +21,5 @@ module PlanetDefense
       @cs.go
       $window.current_game_state.should be_kind_of(PlanetDefense::OptionsState)
     end
-
-   it 'should return to main menu when "Back" is selected' do
-      @cs.move_down
-		@cs.go
-		@cs = $window.current_game_state
-      @cs.move_down
-      @cs.move_down
-      @cs.go
-		@cs = $window.current_game_state
-      @cs.should be_kind_of(PlanetDefense::MenuState)
-    end
-
-    it 'should go to other menu options' do
-      @cs.move_down
-      @cs.go
-      $window.current_game_state.should be_kind_of(PlanetDefense::OptionsState)
-    end
-
   end
 end

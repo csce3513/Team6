@@ -1,14 +1,18 @@
 module PlanetDefense
   class OptionsState < Chingu::GameState
+
+    attr_accessor :OptionsState, :current, :currentDifficulty, :musicVolume, :sfxVolume
+
     
     def initialize(options = {})
       super
 
-      @options = [:difficulty, :volume, :back]
+      @options = [:difficulty, :music, :sfx, :back]
       @difficulties = [:easy, :medium, :hard]
       @current = 0
       @currentDifficulty = 0
-      @volume = 10
+      @musicVolume = 0.9
+      @sfxVolume = 0.9
       @selected = Color.new(150,220,69,82)
       @diffSelect = Color.new(150,220,69,82)
       @font = Gosu::Font.new($window, "media/fonts/MuseoSans_300.otf", 43)
@@ -29,7 +33,6 @@ module PlanetDefense
     
     def setup
       @game_objects.destroy_all
-
     end
     
       
@@ -50,8 +53,13 @@ module PlanetDefense
       end
 
       if @current == 1
-        @volume -= 1
-        @volume == 0 if @volume < 0
+        @musicVolume -= 0.1
+        @musicVolume == 0 if @musicVolume < 0
+      end
+
+      if @current == 2
+        @sfxVolume -= 0.1
+        @sfxVolume == 0 if @sfxVolume < 0
       end
     end
 
@@ -62,8 +70,13 @@ module PlanetDefense
       end
 
       if @current == 1
-        @volume += 1
-        @volume = 10 if @volume > 10
+        @musicVolume += 0.1
+        @musicVolume = 1 if @musicVolume > 1
+      end
+
+      if @current == 2
+        @sfxVolume += 0.1
+        @sfxVolume = 1 if @sfxVolume > 1
       end
     end
 
@@ -102,13 +115,23 @@ module PlanetDefense
       #Draw Volume bar when "Volume" is selected
       j = 0
       x_volume = $window.width/2 - 180
+
       if @current == 1
-        while j <= @volume do
+        while j <= (@musicVolume * 10) do
           $window.draw_quad(x_volume + 30*j, (y+10)+(3*(10-j)), @selected, x_volume + 30*j + 30, (y+10)+(3*(10-j)), @selected, x_volume + 30*j, y+40, @selected, x_volume + 30*j + 30, y+40, @selected, z = 0, mode = :default)
           j += 1
         end
       end
 
+      j = 0
+      if @current == 2
+        while j <= (@sfxVolume * 10) do
+          $window.draw_quad(x_volume + 30*j, (y+10)+(3*(10-j)), @selected, x_volume + 30*j + 30, (y+10)+(3*(10-j)), @selected, x_volume + 30*j, y+40, @selected, x_volume + 30*j + 30, y+40, @selected, z = 0, mode = :default)
+          j += 1
+        end
+      end      
+
+      #Highlight selected difficulty.
       case @currentDifficulty
         when 0
           #Easy
@@ -128,8 +151,6 @@ module PlanetDefense
       end
 
       # @difficulties.each_with_index do |difficulty, j|
-      #   
-        
       # end
 
     end
