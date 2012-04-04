@@ -106,6 +106,7 @@ module PlanetDefense
         while j <= @volume do
           $window.draw_quad(x_volume + 30*j, (y+10)+(3*(10-j)), @selected, x_volume + 30*j + 30, (y+10)+(3*(10-j)), @selected, x_volume + 30*j, y+40, @selected, x_volume + 30*j + 30, y+40, @selected, z = 0, mode = :default)
           j += 1
+          $window.options.volume(j/10)
         end
       end
 
