@@ -34,5 +34,9 @@ module PlanetDefense
         self.alt_shot_cooldown = 15000
     end
 
+    def volume(value)
+        @volume = value
+    end
+
   end
 end
