@@ -2,7 +2,7 @@ module PlanetDefense
   attr_reader :media_loader
   class Options
 
-    attr_accessor :lives, :asteroid_number, :asteroid_max_velocity, :weapon_heatup_amount
+    attr_accessor :lives, :asteroid_number, :asteroid_max_velocity, :weapon_heatup_amount, :musicVolume
 
     def initialize
     	medium
@@ -31,8 +31,8 @@ module PlanetDefense
     	@weapon_heatup_amount = 9
     end
 
-    def volume(value)
-        @volume = value
+    def volume(value = 0.5)
+        @musicVolume = value
     end
 
   end
