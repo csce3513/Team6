@@ -11,8 +11,8 @@ module PlanetDefense
       @difficulties = [:easy, :medium, :hard]
       @current = 0
       @currentDifficulty = 0
-      @musicVolume = 0.9
-      @sfxVolume = 0.9
+      # @musicVolume = 0.9
+      # @sfxVolume = 0.9
       @selected = Color.new(150,220,69,82)
       @diffSelect = Color.new(150,220,69,82)
       @font = Gosu::Font.new($window, "media/fonts/MuseoSans_300.otf", 43)
@@ -53,15 +53,16 @@ module PlanetDefense
       end
 
       if @current == 1
-        @musicVolume -= 0.1
-        @musicVolume == 0 if @musicVolume < 0
-        $window.options.volume(@musicVolume)        
+        $window.musicVolume -= 0.1
+        $window.musicVolume == 0 if $window.musicVolume < 0
+        $window.options.music_volume($window.musicVolume)        
       end
 
-      if @current == 2
-        @sfxVolume -= 0.1
-        @sfxVolume == 0 if @sfxVolume < 0
-      end
+      # if @current == 2
+      #   @sfxVolume -= 0.1
+      #   @sfxVolume == 0 if @sfxVolume < 0
+      #   $window.options.sfxVolume(@sfxVolume)
+      # end
     end
 
     def move_right
@@ -71,15 +72,17 @@ module PlanetDefense
       end
 
       if @current == 1
-        @musicVolume += 0.1
-        @musicVolume = 1 if @musicVolume > 1
-        $window.options.volume(@musicVolume)        
+        $window.musicVolume += 0.1
+        $window.musicVolume = 1 if $window.musicVolume > 1
+        $window.options.music_volume($window.musicVolume)        
       end
 
-      if @current == 2
-        @sfxVolume += 0.1
-        @sfxVolume = 1 if @sfxVolume > 1
-      end
+      # if @current == 2
+      #   @sfxVolume += 0.1
+      #   @sfxVolume = 1 if @sfxVolume > 1
+      #   $window.options.sfxVolume(@sfxVolume)        
+
+      # end
     end
 
     def go
@@ -119,19 +122,19 @@ module PlanetDefense
       x_volume = $window.width/2 - 180
 
       if @current == 1
-        while j <= (@musicVolume * 10) do
+        while j <= ($window.musicVolume * 10) do
           $window.draw_quad(x_volume + 30*j, (y+10)+(3*(10-j)), @selected, x_volume + 30*j + 30, (y+10)+(3*(10-j)), @selected, x_volume + 30*j, y+40, @selected, x_volume + 30*j + 30, y+40, @selected, z = 0, mode = :default)
           j += 1
         end
       end
 
-      j = 0
-      if @current == 2
-        while j <= (@sfxVolume * 10) do
-          $window.draw_quad(x_volume + 30*j, (y+10)+(3*(10-j)), @selected, x_volume + 30*j + 30, (y+10)+(3*(10-j)), @selected, x_volume + 30*j, y+40, @selected, x_volume + 30*j + 30, y+40, @selected, z = 0, mode = :default)
-          j += 1
-        end
-      end      
+      # j = 0
+      # if @current == 2
+      #   while j <= (@sfxVolume * 10) do
+      #     $window.draw_quad(x_volume + 30*j, (y+10)+(3*(10-j)), @selected, x_volume + 30*j + 30, (y+10)+(3*(10-j)), @selected, x_volume + 30*j, y+40, @selected, x_volume + 30*j + 30, y+40, @selected, z = 0, mode = :default)
+      #     j += 1
+      #   end
+      # end      
 
       #Highlight selected difficulty.
       case @currentDifficulty
