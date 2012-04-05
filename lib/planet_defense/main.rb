@@ -7,7 +7,7 @@ require_all  File.join("lib")
 
 module PlanetDefense
   class GameWindow < Chingu::Window
-    attr_accessor :music, :screenWith, :screenHeight, :window, :object_factor
+    attr_accessor :music, :screenWith, :screenHeight, :window, :object_factor, :musicVolume, :sfxVolume
 
     def initialize(width = 1024, height = 768, fullscreen = false, update_interval = 16.666666)
       super
@@ -18,6 +18,8 @@ module PlanetDefense
       @screenWidth = 1024  
       @screenHeight = 768 
       @object_factor = 2.5 
+      @musicVolume = 0.9
+      @sfxVolume = 0.9
       self.input = { :f1 => :debug, :q => :exit}
       @directions_to_xy = { :north => [0, -1], :east => [1, 0], :south => [0, 1], :west => [-1, 0] }
       push_game_state( MenuState )

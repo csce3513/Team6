@@ -2,7 +2,7 @@ module PlanetDefense
   attr_reader :media_loader
   class Options
 
-    attr_accessor :lives, :asteroid_number, :asteroid_max_velocity, :weapon_heatup_amount, :musicVolume, :alt_shot_cooldown
+    attr_accessor :lives, :asteroid_number, :asteroid_max_velocity, :weapon_heatup_amount, :musicVolume, :sfxVolume, :alt_shot_cooldown
 
     def initialize
     	medium
@@ -34,9 +34,13 @@ module PlanetDefense
         self.alt_shot_cooldown = 15000
     end
 
-    def volume(value = 0.5)
-        @musicVolume = value
+    def music_volume(music = 0.5)
+        @musicVolume = music
     end
 
+    def sfx_volume(sfx = 0.5)
+        @sfxVolume = sfx
+    end
+    
   end
 end
