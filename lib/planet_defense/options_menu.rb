@@ -58,11 +58,11 @@ module PlanetDefense
         $window.options.music_volume($window.musicVolume)        
       end
 
-      # if @current == 2
-      #   @sfxVolume -= 0.1
-      #   @sfxVolume == 0 if @sfxVolume < 0
-      #   $window.options.sfxVolume(@sfxVolume)
-      # end
+      if @current == 2
+        $window.sfxVolume -= 0.1
+        $window.sfxVolume == 0 if $window.sfxVolume < 0
+        $window.options.sfx_volume($window.sfxVolume)
+      end
     end
 
     def move_right
@@ -77,12 +77,11 @@ module PlanetDefense
         $window.options.music_volume($window.musicVolume)        
       end
 
-      # if @current == 2
-      #   @sfxVolume += 0.1
-      #   @sfxVolume = 1 if @sfxVolume > 1
-      #   $window.options.sfxVolume(@sfxVolume)        
-
-      # end
+      if @current == 2
+        $window.sfxVolume += 0.1
+        $window.sfxVolume = 1 if $window.sfxVolume > 1
+        $window.options.sfx_volume($window.sfxVolume)        
+      end
     end
 
     def go
@@ -128,13 +127,13 @@ module PlanetDefense
         end
       end
 
-      # j = 0
-      # if @current == 2
-      #   while j <= (@sfxVolume * 10) do
-      #     $window.draw_quad(x_volume + 30*j, (y+10)+(3*(10-j)), @selected, x_volume + 30*j + 30, (y+10)+(3*(10-j)), @selected, x_volume + 30*j, y+40, @selected, x_volume + 30*j + 30, y+40, @selected, z = 0, mode = :default)
-      #     j += 1
-      #   end
-      # end      
+      j = 0
+      if @current == 2
+        while j <= ($window.sfxVolume * 10) do
+          $window.draw_quad(x_volume + 30*j, (y+10)+(3*(10-j)), @selected, x_volume + 30*j + 30, (y+10)+(3*(10-j)), @selected, x_volume + 30*j, y+40, @selected, x_volume + 30*j + 30, y+40, @selected, z = 0, mode = :default)
+          j += 1
+        end
+      end      
 
       #Highlight selected difficulty.
       case @currentDifficulty
