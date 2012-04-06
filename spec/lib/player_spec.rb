@@ -118,19 +118,19 @@ module PlanetDefense
         1000.times do
             @player.move_left
         end
-        @player.vel_x.should >= -8
+        @player.vel_x.should >= -10
         1000.times do
           @player.move_right
         end
-        @player.vel_x.should <= 8
+        @player.vel_x.should <= 10
         1000.times do
           @player.move_forward
         end
-        @player.vel_y.should >= -8
+        @player.vel_y.should >= -10
         1000.times do
           @player.move_backward
         end
-        @player.vel_y.should <= 8  
+        @player.vel_y.should <= 10  
       end
     
 

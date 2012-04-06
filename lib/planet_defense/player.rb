@@ -94,7 +94,7 @@ module PlanetDefense
       move_backward if $window.button_down?(Gosu::KbDown) or $window.button_down?(Gosu::GpDown)
 
       @weapon.shoot if $window.button_down?(Gosu::KbSpace) or $window.button_down?(Gosu::GpButton0)
-
+      @weapon.alt_shoot if $window.button_down?(Gosu::KbB) or $window.button_down?(Gosu::GpButton1)
      
       # Particle.each do |p|
       #   puts "#{p.x} - #{p.y}"

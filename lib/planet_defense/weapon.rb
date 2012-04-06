@@ -2,7 +2,7 @@ module PlanetDefense
   attr_reader :weapon
   class Weapon
 
-    attr_accessor :cooldown_rate, :heatup_amount, :fire_rate, :overheat_penalty
+    attr_accessor :cooldown_rate, :heatup_amount, :fire_rate, :overheat_penalty, :last_alt_shot
     attr_accessor :last_shot, :last_cooldown, :last_overheat, :heat, :overheated, :gauge_color 
 
     def initialize(player)
@@ -17,6 +17,9 @@ module PlanetDefense
       @overheat_penalty = 800
       #Time of last shot
       @last_shot = 0
+      @last_alt_shot = 0
+      #-1 is not shooting, 4 is end of steps
+      @alt_shot_step = -1
       #Time of last cooldown
       @last_cooldown = milliseconds()
       #Time of last overheat
@@ -103,6 +106,7 @@ module PlanetDefense
       cooldown?
       overheated?
       gauge_color?
+      check_alt_shoot
     end
 
     #Checks if everything is ready to fire, and fires
@@ -112,9 +116,54 @@ module PlanetDefense
         heatup
         PlanetDefense::Laser.create( :x => @player.x-20, :y => @player.y-15)
         PlanetDefense::Laser.create( :x => @player.x+20, :y => @player.y-15)
-        
       end
       update
+    end
+
+    #Fires 3 rounds of twenty lasers spread out over the width of the screen
+    def check_alt_shoot
+      if (@alt_shot_step > -1 && @alt_shot_step < 3)
+        if (@last_alt_shot + 100 < milliseconds())
+          @alt_shot_step += 1
+          @last_alt_shot = milliseconds()
+          x_coeff = 1
+          y_coeff = 3
+          10.times do
+            PlanetDefense::AltProjectile.create(
+              :x => @player.x+20, 
+              :y => @player.y-15, 
+              :x_coeff => x_coeff, 
+              :y_coeff => y_coeff)
+            x_coeff += 1.5
+            y_coeff -= 0.25
+          end
+          x_coeff = -1
+          y_coeff = 3
+          10.times do
+            PlanetDefense::AltProjectile.create(
+              :x => @player.x+20, 
+              :y => @player.y-15, 
+              :x_coeff => x_coeff, 
+              :y_coeff => y_coeff)
+            x_coeff -= 1.5
+            y_coeff -= 0.25
+          end
+        end
+      end
+      #If step is over 2, then done firing, so set to -1
+      if @alt_shot_step > 2
+        @alt_shot_step = -1
+      end
+    end
+
+    def alt_shoot
+      #Check if the cooldown is up before allowing alt fire
+      if (@last_alt_shot + $window.options.alt_shot_cooldown < milliseconds())
+        @alt_shot_step = 0
+        Sound["media/sounds/alt_fire.wav"].play(0.5)
+        return true
+      end
+      return false
     end
 
   end

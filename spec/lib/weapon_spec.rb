@@ -109,6 +109,17 @@ module PlanetDefense
         @weapon.fireable?.should == false
       end
 
+      it 'should have an alternate firing mode on a cooldown' do
+        3.times do
+          #10000 is default (medium difficulty)
+          if @weapon.last_alt_shot + 10000 < milliseconds()
+            @weapon.alt_shoot.should == true
+          else
+            @weapon.alt_shoot.should == false
+          end
+        end
+      end
+
     end
   end
 end
