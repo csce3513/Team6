@@ -7,7 +7,7 @@ require_all  File.join("lib")
 
 module PlanetDefense
   class GameWindow < Chingu::Window
-    attr_accessor :music, :screenWith, :screenHeight, :window, :object_factor, :musicVolume, :sfxVolume
+    attr_accessor :music, :screenWith, :screenHeight, :window, :object_factor, :currentDifficulty, :musicVolume, :sfxVolume
 
     def initialize(width = 1024, height = 768, fullscreen = false, update_interval = 16.666666)
       super
@@ -17,7 +17,8 @@ module PlanetDefense
       retrofy
       @screenWidth = 1024  
       @screenHeight = 768 
-      @object_factor = 2.5 
+      @object_factor = 2.5
+      @currentDifficulty = 0 
       @musicVolume = 0.9
       @sfxVolume = 0.9
       self.input = { :f1 => :debug, :q => :exit}

@@ -34,11 +34,12 @@ module PlanetDefense
         self.alt_shot_cooldown = 15000
     end
 
-    def music_volume(music = 0.5)
+    def music_volume(music = 0.9)
         @musicVolume = music
+        puts @musicVolume
     end
 
-    def sfx_volume(sfx = 0.5)
+    def sfx_volume(sfx = 0.9)
         @sfxVolume = sfx
     end
     

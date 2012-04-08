@@ -10,9 +10,9 @@ module PlanetDefense
       @options = [:difficulty, :music, :sfx, :back]
       @difficulties = [:easy, :medium, :hard]
       @current = 0
-      @currentDifficulty = 0
-      # @musicVolume = 0.9
-      # @sfxVolume = 0.9
+      @currentDifficulty = $window.currentDifficulty
+      @musicVolume = $window.musicVolume
+      @sfxVolume = $window.sfxVolume
       @selected = Color.new(150,220,69,82)
       @diffSelect = Color.new(150,220,69,82)
       @font = Gosu::Font.new($window, "media/fonts/MuseoSans_300.otf", 43)
@@ -53,15 +53,17 @@ module PlanetDefense
       end
 
       if @current == 1
-        $window.musicVolume -= 0.1
-        $window.musicVolume == 0 if $window.musicVolume < 0
-        $window.options.music_volume($window.musicVolume)        
+        @musicVolume -= 0.1
+        @musicVolume == 0 if @musicVolume < 0
+        $window.musicVolume = @musicVolume
+        $window.options.music_volume(@musicVolume) 
+        puts @musicVolume       
       end
 
       if @current == 2
-        $window.sfxVolume -= 0.1
-        $window.sfxVolume == 0 if $window.sfxVolume < 0
-        $window.options.sfx_volume($window.sfxVolume)
+        @sfxVolume -= 0.1
+        @sfxVolume == 0 if @sfxVolume < 0
+        $window.options.sfx_volume(@sfxVolume)
       end
     end
 
@@ -72,15 +74,16 @@ module PlanetDefense
       end
 
       if @current == 1
-        $window.musicVolume += 0.1
-        $window.musicVolume = 1 if $window.musicVolume > 1
-        $window.options.music_volume($window.musicVolume)        
+        @musicVolume += 0.1
+        @musicVolume = 1 if @musicVolume > 1
+        $window.musicVolume = @musicVolume
+        $window.options.music_volume(@musicVolume)        
       end
 
       if @current == 2
-        $window.sfxVolume += 0.1
-        $window.sfxVolume = 1 if $window.sfxVolume > 1
-        $window.options.sfx_volume($window.sfxVolume)        
+        @sfxVolume += 0.1
+        @sfxVolume = 1 if @sfxVolume > 1
+        $window.options.sfx_volume(@sfxVolume)        
       end
     end
 
@@ -116,20 +119,21 @@ module PlanetDefense
       @font.draw("Medium", x, y, 2) if @current == 0
       @font.draw("Hard", x + 200 , y, 2) if @current == 0
 
-      #Draw Volume bar when "Volume" is selected
+      #Draw Music Volume bar when "Music" is selected
       j = 0
       x_volume = $window.width/2 - 180
 
       if @current == 1
-        while j <= ($window.musicVolume * 10) do
+        while j <= (@musicVolume * 10) do
           $window.draw_quad(x_volume + 30*j, (y+10)+(3*(10-j)), @selected, x_volume + 30*j + 30, (y+10)+(3*(10-j)), @selected, x_volume + 30*j, y+40, @selected, x_volume + 30*j + 30, y+40, @selected, z = 0, mode = :default)
           j += 1
         end
       end
 
+      #Draw SFX Volume bar when "Sfx" is selected
       j = 0
       if @current == 2
-        while j <= ($window.sfxVolume * 10) do
+        while j <= (@sfxVolume * 10) do
           $window.draw_quad(x_volume + 30*j, (y+10)+(3*(10-j)), @selected, x_volume + 30*j + 30, (y+10)+(3*(10-j)), @selected, x_volume + 30*j, y+40, @selected, x_volume + 30*j + 30, y+40, @selected, z = 0, mode = :default)
           j += 1
         end
