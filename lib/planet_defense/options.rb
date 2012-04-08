@@ -9,6 +9,7 @@ module PlanetDefense
     end
 
     def easy
+        $window.currentDifficulty = 0
     	@lives = 5
     	@asteroid_number = 5
     	@asteroid_max_velocity = 5
@@ -18,6 +19,7 @@ module PlanetDefense
     end
 
     def medium
+        $window.currentDifficulty = 1
     	@lives = 3
     	@asteroid_number = 10
     	@asteroid_max_velocity = 8
@@ -25,17 +27,19 @@ module PlanetDefense
     end
 
     def hard
+        $window.currentDifficulty = 2
     	@lives = 1
     	@asteroid_number = 15
     	@asteroid_max_velocity = 10
     	@weapon_heatup_amount = 9
     end
 
-    def music_volume(music = 0.5)
+    def music_volume(music = 0.9)
         @musicVolume = music
+        puts @musicVolume
     end
 
-    def sfx_volume(sfx = 0.5)
+    def sfx_volume(sfx = 0.9)
         @sfxVolume = sfx
     end
     
