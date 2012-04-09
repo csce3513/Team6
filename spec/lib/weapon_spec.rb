@@ -118,6 +118,8 @@ module PlanetDefense
           else
             @weapon.alt_shoot.should == false
           end
+          @weapon.last_alt_shot = milliseconds();
+          @weapon.alt_shoot.should == false
         end
       end
 
