@@ -92,7 +92,7 @@ module PlanetDefense
 			
 			#this is super ghetto. It takes the game_objects of the current state, finds any explosions, converts that to a string,
 			#	and then checks that string for "PlanetDefense::Explosion"
-			$window.current_game_state.game_objects.of_class( PlanetDefense::Explosion ).to_s.should == "PlanetDefense::Explosion"
+			$window.current_game_state.game_objects.of_class( PlanetDefense::Explosion ).to_s.should include("PlanetDefense::Explosion" )
 		end
 		
 		end
