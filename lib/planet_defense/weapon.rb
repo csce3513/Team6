@@ -4,6 +4,7 @@ module PlanetDefense
 
     attr_accessor :cooldown_rate, :heatup_amount, :fire_rate, :overheat_penalty, :last_alt_shot
     attr_accessor :last_shot, :last_cooldown, :last_overheat, :heat, :overheated, :gauge_color 
+    attr_accessor :alt_shot_step
 
     def initialize(player)
       @player = player

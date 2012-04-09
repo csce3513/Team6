@@ -109,6 +109,7 @@ module PlanetDefense
         @weapon.fireable?.should == false
       end
 
+
       it 'should have an alternate firing mode on a cooldown' do
         3.times do
           #10000 is default (medium difficulty)
@@ -117,6 +118,30 @@ module PlanetDefense
           else
             @weapon.alt_shoot.should == false
           end
+        end
+      end
+
+      it 'should fire 3 waves of lasers when alt_firing' do
+        @weapon.alt_shot_step.should == -1
+        @weapon.alt_shoot
+        @weapon.alt_shot_step.should == 0
+        @weapon.last_alt_shot = 0
+        @weapon.check_alt_shoot
+        @weapon.alt_shot_step.should == 1
+        @weapon.last_alt_shot = 0
+        @weapon.check_alt_shoot
+        @weapon.alt_shot_step.should == 2
+        @weapon.last_alt_shot = 0
+        @weapon.check_alt_shoot
+        @weapon.alt_shot_step.should == -1
+      end
+
+      it 'should only fire when ready' do
+        if @weapon.fireable?
+          @weapon.shoot
+          #Weird way to check, but if the weapon is fireable and shoot is called,
+          #last shot should be within 5 milliseconds of when shoot is called
+          @weapon.last_shot.should < milliseconds() + 5
         end
       end
 
