@@ -1,38 +1,37 @@
+require 'spec_helper'
+
 module PlanetDefense
-  attr_reader :media_loader
-  class MediaLoader
+    describe MediaLoader do
+  
+        before :all do
+          @g = PlanetDefense::GameWindow.new
+          @media_loader = PlanetDefense::MediaLoader.new(@g) 
+        end
+        
+        after :all do
+          @g.close
+        end
 
-    attr_accessor :lives, :asteroid_number, :asteroid_max_velocity, :weapon_heatup_amount, :alt_shot_cooldown
+        it { @media_loader.should respond_to :load_asteroid }
+        it { @media_loader.should respond_to :load_weapon }
 
-    def initialize
-    	medium
+        context "when playing" do
+
+            it 'should load files into animations and images' do
+                @media_loader.asteroid["asteroid1_1"].should be_kind_of(Gosu::Image)
+                @media_loader.asteroid["asteroid1_2"].should be_kind_of(Gosu::Image)
+                @media_loader.asteroid["asteroid1_3"].should be_kind_of(Gosu::Image)
+                @media_loader.asteroid["asteroid2_1"].should be_kind_of(Gosu::Image)
+                @media_loader.asteroid["asteroid2_2"].should be_kind_of(Gosu::Image)
+                @media_loader.asteroid["asteroid2_3"].should be_kind_of(Gosu::Image)
+                @media_loader.asteroid["asteroid3_1"].should be_kind_of(Gosu::Image)
+                @media_loader.asteroid["asteroid3_2"].should be_kind_of(Gosu::Image)
+                @media_loader.asteroid["asteroid3_3"].should be_kind_of(Gosu::Image)
+                @media_loader.asteroid[:explosion_anim].should be_kind_of(Chingu::Animation)
+
+                @media_loader.weapon[:laser_anim].should be_kind_of(Chingu::Animation)
+                @media_loader.weapon[:alt_laser_anim].should be_kind_of(Chingu::Animation)
+            end
+        end
     end
-
-    def easy
-    	self.lives = 5
-    	self.asteroid_number = 5
-    	self.asteroid_max_velocity = 5
-    	self.weapon_heatup_amount = 5
-        self.alt_shot_cooldown = 5000
-    	#@weapon_cooldown_rate
-    	#@weapon_fire_rate
-    end
-
-    def medium
-    	self.lives = 3
-    	self.asteroid_number = 10
-    	self.asteroid_max_velocity = 8
-    	self.weapon_heatup_amount = 7
-        self.alt_shot_cooldown = 10000
-    end
-
-    def hard
-    	self.lives = 1
-    	self.asteroid_number = 15
-    	self.asteroid_max_velocity = 10
-    	self.weapon_heatup_amount = 9
-        self.alt_shot_cooldown = 15000
-    end
-
-  end
 end
