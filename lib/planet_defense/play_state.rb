@@ -22,7 +22,7 @@ module PlanetDefense
       # Option Settings
       @@asteroids = $window.options.asteroid_number.times.map { Asteroid.new(self) } #change back to 8.times.map
       @planet_health = 1000
-      @music.volume = $window.options.musicVolume
+      @music.volume = 0.7 #$window.options.musicVolume
       @lives = $window.options.lives
 
       # View Items
