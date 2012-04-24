@@ -97,6 +97,13 @@ module PlanetDefense
         close
       end
       if $window.button_down? Gosu::Button::KbR
+        @game_start = milliseconds()
+        @pause_start = 0
+        @pause_end = 0
+        @pause_time_elapsed = 0
+        @time_elapsed = 0
+        @remaining_time = @level[:time]
+        @time_allowed = @level[:time]        
         refresh_game
       end
       if id == Gosu::Button::KbEscape
@@ -111,7 +118,7 @@ module PlanetDefense
       $window.caption = "Planet Defense #{PlanetDefense::VERSION} - Framerate: #{$window.framerate}"
       # - Time Left: #{(@remaining_time / 1000)+1} secs
 
-      puts @pause_time_elapsed
+      puts @remaining_time
 
       camera_up if @level[:scroll]
       @player.make_stream if @level[:scroll]
