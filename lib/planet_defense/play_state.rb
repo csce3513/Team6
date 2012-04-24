@@ -49,10 +49,12 @@ module PlanetDefense
 		  @hit = false
       @game_start = milliseconds()
       @pause_start = 0
-      @last_time_paused = 0
+      @pause_end = 0
+      @pause_time_elapsed = 0
+      @time_elapsed = 0
+      @remaining_time = @level[:time]
       @time_allowed = @level[:time]
       @music.play(looping = true) unless @pause == true || defined? RSpec
-      @time_pause_elapsed = 0
       end
 
     end
@@ -60,11 +62,14 @@ module PlanetDefense
     def return_to_game
       PlanetDefense::RingMenu::Icon.destroy_all
       @pause = false
+      @pause_end = milliseconds()
+      @pause_time_elapsed = @pause_time_elapsed + (@pause_end - @pause_start)
       pop_game_state()
     end
    
     def confirm_exit
       @pause = true
+      @pause_start = milliseconds()
       push_game_state @menu
     end
 
@@ -81,6 +86,8 @@ module PlanetDefense
           @pause = true
           @music.pause()
         else
+          @pause_end = milliseconds()
+          @pause_time_elapsed = @pause_time_elapsed + (@pause_end - @pause_start)
           @pause = false
           @music.play()
         end
@@ -99,22 +106,21 @@ module PlanetDefense
   
     def update
       super
-      @remaining_time = (@game_start + @time_allowed) - milliseconds()
+      @time_elapsed = milliseconds() - @game_start - @pause_time_elapsed
+      @remaining_time = @time_allowed - @time_elapsed
       $window.caption = "Planet Defense #{PlanetDefense::VERSION} - Framerate: #{$window.framerate}"
       # - Time Left: #{(@remaining_time / 1000)+1} secs
-      
+
+      puts @pause_time_elapsed
+
       camera_up if @level[:scroll]
       @player.make_stream if @level[:scroll]
 
-      if @pause == true
-        @last_time_paused = milliseconds()
-      end
 
       if @running == true and @pause == false
 
-        @time_pause_elapsed = @last_time_paused - @pause_start
         # Win at 45 seconds
-        if milliseconds() >= @game_start + @time_allowed + @time_pause_elapsed
+        if @remaining_time <= 0
           @running = false
           @music.pause()
           stop_game
