@@ -21,6 +21,7 @@ module PlanetDefense
 
       # Option Settings
       @@asteroids = $window.options.asteroid_number.times.map { Asteroid.new(self) } #change back to 8.times.map
+      @@powerups = $window.options.powerup_number.times.map{PowerUp.new(self, @player)}
       @planet_health = 1000
       @music.volume = 0.7 #$window.options.musicVolume
       @lives = $window.options.lives
@@ -130,6 +131,7 @@ module PlanetDefense
 
         #Asteroid Movement
         @@asteroids.each{ |asteroid| asteroid.move unless asteroid == nil }
+        @@powerups.each{ |powerup| powerup.move unless powerup == nil }
 
         if @player.hit_by? @@asteroids
           @lives -= 1
@@ -203,7 +205,7 @@ module PlanetDefense
       #Gosu::Color.new(0xFF1D4DB5)
       #Asteroid Draw
       @@asteroids.each{|asteroid| asteroid.draw unless asteroid == nil }
-
+      @@powerups.each{|powerup| powerup.draw unless powerup == nil }
       #Planet Health Bar BG
       $window.draw_quad(
         14, $window.height - 45, Gosu::Color::RED,

@@ -7,7 +7,7 @@ module PlanetDefense
   attr_reader :media_loader
   class MediaLoader
 
-    attr_accessor :asteroid, :weapon
+    attr_accessor :asteroid, :weapon, :powerup
 
     def initialize(window)
     	@window = window
@@ -15,6 +15,7 @@ module PlanetDefense
       load_weapon
       load_ship
       load_game
+      load_powerup
     end
 
     def load_asteroid
@@ -51,6 +52,13 @@ module PlanetDefense
             :alt_laser_anim => 
                 (Chingu::Animation.new( :file => "media/gfx/alt_laser.bmp", :size=>[2,8], :delay => 10).retrofy)    
     	}
+    end
+
+    def load_powerup
+        @powerup = {
+            "powerup_1" => Chingu::Animation.new(:file => "media/gfx/powerup_1.bmp", :size=>[35,38], :delay => 100),
+            "powerup_2" => Chingu::Animation.new(:file => "media/gfx/powerup_2.bmp", :size=>[35,38], :delay => 100)
+        }
     end
 
     def load_ship

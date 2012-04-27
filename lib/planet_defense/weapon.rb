@@ -4,7 +4,7 @@ module PlanetDefense
 
     attr_accessor :cooldown_rate, :heatup_amount, :fire_rate, :overheat_penalty, :last_alt_shot
     attr_accessor :last_shot, :last_cooldown, :last_overheat, :heat, :overheated, :gauge_color 
-    attr_accessor :alt_shot_step
+    attr_accessor :alt_shot_step, :alt_shot_count
 
     def initialize(player)
       @player = player
@@ -19,6 +19,7 @@ module PlanetDefense
       #Time of last shot
       @last_shot = 0
       @last_alt_shot = 0
+      @alt_shot_count = 1
       #-1 is not shooting, 4 is end of steps
       @alt_shot_step = -1
       #Time of last cooldown
@@ -159,7 +160,8 @@ module PlanetDefense
 
     def alt_shoot
       #Check if the cooldown is up before allowing alt fire
-      if (@last_alt_shot + $window.options.alt_shot_cooldown < milliseconds())
+      if (@alt_shot_count > 0 and @last_alt_shot + 200 < milliseconds())
+        @alt_shot_count = @alt_shot_count - 1
         @alt_shot_step = 0
         Sound["media/sounds/alt_fire.wav"].play(0.5)
         return true
