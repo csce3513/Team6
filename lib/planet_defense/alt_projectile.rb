@@ -62,11 +62,12 @@ module PlanetDefense
     
       #PlayState.asteroids.each{|asteroid| puts asteroid.class unless asteroid == nil }
     
-      if self.hit? PlayState.asteroids
-        PlayState.up_score
-        self.destroy
+      if ($window.current_game_state.to_s == "PlanetDefense::PlayState")
+        if self.hit? PlayState.asteroids
+          PlayState.up_score
+          self.destroy
+        end
       end
-    
       #destroy if outside_window?
       if @y < 50
         destroy

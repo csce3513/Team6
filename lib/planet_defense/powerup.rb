@@ -9,7 +9,6 @@ module PlanetDefense
       @player = player
       #Give asteroid random image
       @type = rand(2) + 1
-      puts "made type #{@type}"
       @anim = $window.media_loader.powerup["powerup_" + @type.to_s].new_from_frames(0..3)
       @image = @anim.next
 

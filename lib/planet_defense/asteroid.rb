@@ -1,6 +1,6 @@
 module PlanetDefense
   class Asteroid < Chingu::GameObject
-	 attr_accessor :vel_x, :vel_y, :frags
+	 attr_accessor :vel_x, :vel_y, :frags, :x, :y
 	 
     def initialize(window)    
     
@@ -49,14 +49,6 @@ module PlanetDefense
   
     def draw
       @image.draw_rot(@x, @y, 1, @angle)
-    end
-  
-    def x
-      @x  
-    end
-  
-    def y
-      @y
     end
   
     def reset

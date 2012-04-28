@@ -50,10 +50,11 @@ module PlanetDefense
       @image = @anim.next
     
       #PlayState.asteroids.each{|asteroid| puts asteroid.class unless asteroid == nil }
-    
-      if self.hit? PlayState.asteroids
-        PlayState.up_score
-        self.destroy
+      if ($window.current_game_state.to_s == "PlanetDefense::PlayState")
+        if self.hit? PlayState.asteroids
+          PlayState.up_score
+          self.destroy
+        end
       end
     
       #Wasn't sure what this did.  I commented it out and the game seems to be working the same
