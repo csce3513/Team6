@@ -17,7 +17,7 @@ module PlanetDefense
           @level[:number] = 0
           @level[:background_image] = Gosu::Image.new($window, "media/gfx/saturn.jpg", true)
           @level[:background_music] = Gosu::Song.new($window, "media/sounds/background.wav")
-          @level[:time] = 5000
+          @level[:time] = 15000
         ##########
         # LEVEL 1 - Travel to Jupiter
         ##########

@@ -115,10 +115,7 @@ module PlanetDefense
       super
       @time_elapsed = milliseconds() - @game_start - @pause_time_elapsed
       @remaining_time = @time_allowed - @time_elapsed
-      $window.caption = "Planet Defense #{PlanetDefense::VERSION} - Framerate: #{$window.framerate}"
-      # - Time Left: #{(@remaining_time / 1000)+1} secs
-
-      puts @remaining_time
+      $window.caption = "Planet Defense #{PlanetDefense::VERSION} - Framerate: #{$window.framerate} - Time Left: #{(@remaining_time / 1000)+1} secs"
 
       camera_up if @level[:scroll]
       @player.make_stream if @level[:scroll]
