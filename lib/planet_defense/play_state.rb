@@ -166,7 +166,7 @@ module PlanetDefense
               if (@@asteroids[i].y > $window.height) #and below the bottom of the screen
                 #Damage the planet, reset the asteroid
                 @@asteroids[i].reset
-                @planet_health -= 25 unless @level[:scroll]
+                @planet_health -= $window.options.asteroid_damage unless @level[:scroll]
                 @@score -= 1 unless (@level[:scroll] || @@score == 0)
               end
             else
