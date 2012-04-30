@@ -161,13 +161,17 @@ module PlanetDefense
         
           #Clean up asteroids off the screen
           @@asteroids.length.times{|i|
-          if (@@asteroids[i] != nil)
-            if (@@asteroids[i].x > $window.width || @@asteroids[i].x < 0)
-              if (@@asteroids[i].y > $window.height)
+          if (@@asteroids[i] != nil)  #If the spot in the array is an asteroid
+            if (@@asteroids[i].x > 0 && @@asteroids[i].x < $window.width) #and between 0 and the screen width
+              if (@@asteroids[i].y > $window.height) #and below the bottom of the screen
+                #Damage the planet, reset the asteroid
                 @@asteroids[i].reset
                 @planet_health -= 25 unless @level[:scroll]
                 @@score -= 1 unless (@level[:scroll] || @@score == 0)
               end
+            else
+              #If it's to the side of the screen, just reset it, don't damage planet
+              @@asteroids[i].reset
             end
           end
         }

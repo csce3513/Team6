@@ -6,6 +6,8 @@ module PlanetDefense
 
     def initialize
     	medium
+        @musicVolume = 0.9
+        @sfxVolume = 0.9
     end
 
     def easy
