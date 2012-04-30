@@ -39,7 +39,6 @@ module PlanetDefense
 
     def music_volume(music = 0.9)
         @musicVolume = music
-        puts @musicVolume
     end
 
     def sfx_volume(sfx = 0.9)
