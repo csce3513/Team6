@@ -19,7 +19,7 @@ module PlanetDefense
       #Time of last shot
       @last_shot = 0
       @last_alt_shot = 0
-      @alt_shot_count = 1
+      @alt_shot_count = 5
       #-1 is not shooting, 4 is end of steps
       @alt_shot_step = -1
       #Time of last cooldown
