@@ -2,7 +2,7 @@ module PlanetDefense
   class Player < Chingu::GameObject
     has_traits :collision_detection, :timer, :velocity
     attr_reader :player
-    attr_accessor :vel_x, :vel_y, :laser_heat, :cooldown_time, :last_cooldown, :lastShot
+    attr_accessor :vel_x, :vel_y, :laser_heat, :cooldown_time, :last_cooldown, :lastShot, :vel_max
     has_trait :bounding_box
   
     def initialize( options = {} )

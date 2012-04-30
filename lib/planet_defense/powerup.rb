@@ -41,11 +41,7 @@ module PlanetDefense
       # PlayState.asteroids.push( Asteroid.new($window) )
     end
   
-    def move
-      @image = @anim.next
-      @x += @vel_x  
-      @y += @vel_y
-
+    def collision?
       if ((@x - @player.x).abs < 40) and ((@y - @player.y).abs < 50)
         #Effect goes here
         if (@type == 1)
@@ -54,7 +50,16 @@ module PlanetDefense
           @player.weapon.alt_shot_count = @player.weapon.alt_shot_count + 1
         end
         initialize($window, @player)
+        true
       end
+    end
+
+    def move
+      @image = @anim.next
+      @x += @vel_x  
+      @y += @vel_y
+
+      collision?
 
       if (@x < 0) or (@x > 1024)
         @vel_x = @vel_x * -1

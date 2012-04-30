@@ -144,6 +144,33 @@ module PlanetDefense
         asteroids[0].y = @player.y
         @player.hit_by?(asteroids).should == true
       end
+
+      #----------
+      #Image
+      #----------
+
+      it 'should change image based on speed' do
+        #"Animation" for ship turning
+        @player.vel_x = @player.vel_max
+        @player.draw
+        @player.image.should == $window.media_loader.ship[:rightHard]
+
+        @player.vel_x = @player.vel_max * 0.50
+        @player.draw
+        @player.image.should == $window.media_loader.ship[:right]
+
+        @player.vel_x = 0
+        @player.draw
+        @player.image.should == $window.media_loader.ship[:normal]
+
+        @player.vel_x = @player.vel_max * -1.0
+        @player.draw
+        @player.image.should == $window.media_loader.ship[:leftHard]
+
+        @player.vel_x = @player.vel_max * -0.50
+        @player.draw
+        @player.image.should == $window.media_loader.ship[:left]
+      end
     end
 
 
