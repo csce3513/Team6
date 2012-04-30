@@ -226,14 +226,6 @@ module PlanetDefense
         12, $window.height - 13, Gosu::Color::BLACK,
       0) unless @level[:scroll]
 
-      #Weapon's heat gauge
-      #Filled color
-      $window.draw_quad(
-        $window.width - 230, $window.height - 45, @player.weapon.gauge_color,
-        $window.width - 230 + (@player.weapon.heat * 2), $window.height - 45, @player.weapon.gauge_color,
-        $window.width - 230, $window.height - 15, @player.weapon.gauge_color,
-        $window.width - 230 + (@player.weapon.heat * 2), $window.height - 15, @player.weapon.gauge_color,
-        1)
 
       #Black background for laser heat
       $window.draw_quad(
@@ -243,7 +235,16 @@ module PlanetDefense
         $window.width - 12, $window.height - 13, Gosu::Color::BLACK,
         1)
 
-      #Black background
+      #Weapon's heat gauge
+      #Filled color
+      $window.draw_quad(
+        $window.width - 230, $window.height - 45, @player.weapon.gauge_color,
+        $window.width - 230 + (@player.weapon.heat * 2), $window.height - 45, @player.weapon.gauge_color,
+        $window.width - 230, $window.height - 15, @player.weapon.gauge_color,
+        $window.width - 230 + (@player.weapon.heat * 2), $window.height - 15, @player.weapon.gauge_color,
+        1)
+
+      #Black background for alternate fire count
       $window.draw_quad(
         $window.width - 232, $window.height - 65, Gosu::Color::BLACK,
         $window.width - 12, $window.height - 65, Gosu::Color::BLACK,
@@ -251,6 +252,7 @@ module PlanetDefense
         $window.width - 12, $window.height - 50, Gosu::Color::BLACK,
         1)
 
+      #Filled color for alternate fire count
       @player.weapon.alt_shot_count.times{|i|
         $window.draw_quad(
           ($window.width - 232) + i * 25 + 2, $window.height - 63, Gosu::Color::BLUE,
