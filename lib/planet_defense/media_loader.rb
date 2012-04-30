@@ -7,7 +7,7 @@ module PlanetDefense
   attr_reader :media_loader
   class MediaLoader
 
-    attr_accessor :asteroid, :weapon, :powerup
+    attr_accessor :asteroid, :weapon, :powerup, :ship
 
     def initialize(window)
     	@window = window
@@ -62,6 +62,13 @@ module PlanetDefense
     end
 
     def load_ship
+        @ship = {
+            :normal => Gosu::Image.new(@window, "media/gfx/shipNormal.bmp"),
+            :left => Gosu::Image.new(@window, "media/gfx/shipLeft.bmp"),
+            :leftHard => Gosu::Image.new(@window, "media/gfx/shipLeftHard.bmp"),
+            :right => Gosu::Image.new(@window, "media/gfx/shipRight.bmp"),
+            :rightHard => Gosu::Image.new(@window, "media/gfx/shipRightHard.bmp"),
+        }
     end
 
     def load_game

@@ -14,7 +14,7 @@ module PlanetDefense
       @vel_x = @vel_y = 0.0  
       @x = $window.width / 2  
       @y = $window.height - 50
-      @image = Gosu::Image.new($window, "media/gfx/shipNormal.bmp")
+      @image = $window.media_loader.ship[:normal]
       #@image = Gosu::Image.new($window, "media/gfx/enterprise.png")  
       @font = Gosu::Font.new($window, "media/fonts/MuseoSans_300.otf", 43)
       @particles = Chingu::Animation.new(:file => "media/gfx/fireball.png", :size => [32,32])
@@ -127,6 +127,21 @@ module PlanetDefense
 
     def draw
       @weapon.update
+
+      #"Animation" for ship turning
+      if (@vel_x > @vel_max * 0.33 && @vel_x <= @vel_max * 0.66) then
+        @image = $window.media_loader.ship[:right]
+      elsif (@vel_x > @vel_max * 0.66) then
+        @image = $window.media_loader.ship[:rightHard]
+      elsif (@vel_x < @vel_max * -0.33 && @vel_x >= @vel_max * -0.66) then
+        @image = $window.media_loader.ship[:left]
+      elsif (@vel_x < @vel_max * -0.66) then
+        @image = $window.media_loader.ship[:leftHard]
+      else
+        @image = $window.media_loader.ship[:normal]
+      end
+
+
       @image.draw_rot(@x, @y, 5, 0)  
 
       @font.draw_rel("LASERS OVERHEATING!", 500, 50, 10, 0.5, 0.5, 1, 1, Gosu::Color::RED) if (@weapon.heat >= 85)
