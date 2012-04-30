@@ -12,7 +12,7 @@ module PlanetDefense
 
       if @level[:scroll] 
         @parallax = Chingu::Parallax.create(:x => 0, :y => 0, :rotation_center => :top_left)
-        @parallax << { :image => "media/gfx/stars.jpg", :repeat_x => false, :zorder => 0, :repeat_y => true}
+        @parallax << { :image => "media/gfx/stars.jpg", :repeat_x => false, :zorder => 1, :repeat_y => true}
       end
 
       # Level Settings
@@ -241,7 +241,7 @@ module PlanetDefense
         $window.width - 12, $window.height - 47, Gosu::Color::BLACK,
         $window.width - 232, $window.height - 13, Gosu::Color::BLACK,
         $window.width - 12, $window.height - 13, Gosu::Color::BLACK,
-        0)
+        1)
 
       #Black background
       $window.draw_quad(
@@ -249,7 +249,7 @@ module PlanetDefense
         $window.width - 12, $window.height - 65, Gosu::Color::BLACK,
         $window.width - 232, $window.height - 50, Gosu::Color::BLACK,
         $window.width - 12, $window.height - 50, Gosu::Color::BLACK,
-        0)
+        1)
 
       @player.weapon.alt_shot_count.times{|i|
         $window.draw_quad(
@@ -257,7 +257,7 @@ module PlanetDefense
           ($window.width - 232) + (i + 1) * 25, $window.height - 63, Gosu::Color::BLUE,
           ($window.width - 232) + i * 25 + 2, $window.height - 53, Gosu::Color::BLUE,
           ($window.width - 232) + (i + 1) * 25, $window.height - 53, Gosu::Color::BLUE,
-        0)
+        1)
       }
 
       $window.game_objects.destroy_if { |object| object.outside_window? || object.color.alpha == 0 }
