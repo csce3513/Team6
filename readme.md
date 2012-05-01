@@ -9,16 +9,23 @@
 
 Installation Instructions
 --------------
-  * Install Ruby **1.9.2**
-    * Mac: install via RVM
-    * Windows: RubyInstaller http://rubyinstaller.org/
-  * Install RubyGems - http://rubygems.org/pages/download
-  * Install Bundler
-    * ```gem install bundler```
-  * Install the game's gems 
-    * ```bundle install```
-  * Run the game
-    * ```ruby bin/planet_defense.rbw```
+
+  * **Simple Installation**
+    * Download the master branch as a .zip (https://github.com/csce3513/Team6/zipball/master) and run PlanetDefense.exe
+   
+  OR
+
+  * **Advanced Installation**
+    * Install Ruby **1.9.2**
+      * Mac: install via RVM
+      * Windows: RubyInstaller http://rubyinstaller.org/
+    * Install RubyGems - http://rubygems.org/pages/download
+    * Install Bundler
+      * ```gem install bundler```
+    * Install the game's gems 
+      * ```bundle install```
+    * Run the game
+      * ```ruby bin/planet_defense.rbw```
     
 Running Tests
 --------
