@@ -42,11 +42,11 @@ module PlanetDefense
         self.asteroid_damage = 40
     end
 
-    def music_volume(music = 0.9)
+    def music_volume(music)
         @musicVolume = music
     end
 
-    def sfx_volume(sfx = 0.9)
+    def sfx_volume(sfx)
         @sfxVolume = sfx
     end
     
